@@ -1,0 +1,170 @@
+<?php
+/*
+Sistema: Nazep
+Nombre archivo: len_es.php
+Función archivo: Textos para el módulo de Artículos
+Fecha creación: noviembre 2008
+Fecha última Modificación: Diciembre 2009
+Versión: 0.1.5
+Autor: Claudio Morales Godinez
+Correo electrónico: claudio@nazep.com.mx
+*/
+define('btn_1_crear_art', 'Crear un nuevo Art&iacute;culo');
+define('btn_2_mod_art', 'Modificar un Art&iacute;culo');
+define('btn_3_conf_art', 'Configurar el tipo de Art&iacute;culo');
+define('btn_4_conf_com_art', 'Configuraci&oacute;n de comentarios de los Art&iacute;culos');
+define('btn_5_crear_tema', 'Crear un nuevo Tema');
+define('btn_6_mod_tema', 'Modificar un Tema');
+define('btn_7_conf_tipo', 'Configurar el tipo de Art&iacute;culos');
+define('mens_mod_no_act_modi', 'El m&oacute;dulo no se encuentra Activo <br />por lo que no se puede modificar o generar Art&iacute;culos<br /><br />');
+define('btn_8_nue_art_pen', 'Nuevos Art&iacute;culos pendientes');
+define('btn_9_cam_pen', 'Cambios pendientes a autorizar');
+define('btn_10_pag_pen', 'P&aacute;ginas pendientes a autorizar');
+define('btn_agre_pag', 'Agregar una nueva p&aacute;gina a este art&iacute;culo');
+define('mens_mod_no_act_camb', 'El m&oacute;dulo no se encuentra Activo <br />por lo que no se puede ver los cambios');
+define('ap_txt_tit_nue_tema', 'Crear nuevo tema para los art&iacute;culos');
+define('ap_txt_nom_tema', 'Nombre del tema');
+define('ap_txt_des_tema', 'Descripci&oacute;n del tema de art&iacute;culo');
+define('ap_txt_tit_mod_tema', 'Modificar un tema para los art&iacute;culos');
+define('ap_txt_reg_bus_tem', 'Regresar a los resultados de la b&uacute;squeda de temas');
+define('ap_txt_tit_bus_tem', 'Listado de temas de los art&iacute;culos');
+define('ap_txt_tit_conf_tipo', 'Configurar el nuevo sistema de art&iacute;culos');
+define('ap_txt_pos_titulo_lis', 'Posici&oacute;n del T&iacute;tulo en el listado');
+define('ap_txt_pos_titulo_cuer', 'Posici&oacute;n del T&iacute;tulo en el art&iacute;culo completo');
+define('ap_txt_pos_tema_lis', 'Posici&oacute;n del Tema en el listado');
+define('ap_txt_pos_tema_cuer', 'Posici&oacute;n del Tema en el art&iacute;culo completo');
+define('ap_txt_pos_num_lis', 'Posici&oacute;n del N&uacute;mero en el listado');
+define('ap_txt_pos_num_cuer', 'Posici&oacute;n del N&uacute;mero en el art&iacute;culo completo');
+define('ap_txt_pos_res_lis', 'Posici&oacute;n del Resumen en el listado');
+define('ap_txt_pos_res_cuer', 'Posici&oacute;n del Resumen en el art&iacute;culo completo');
+define('ap_txt_pos_cuer_cuer', 'Posici&oacute;n del Cuerpo en el art&iacute;culo completo');
+define('ap_txt_pos_vis_lis', 'Posici&oacute;n del Visitas en el listado');
+define('ap_txt_pos_vis_cuer', 'Posici&oacute;n del Visitas en el art&iacute;culo completo');
+define('ap_txt_pos_fe_act_lis', 'Posici&oacute;n del Fecha de actualizaci&oacute;n en el listado');
+define('ap_txt_pos_fe_act_cuer', 'Posici&oacute;n del Fecha de actualizaci&oacute;n en el art&iacute;culo completo');
+define('ap_txt_pos_lugfechor_lis', 'Posici&oacute;n del Lugar, Fecha y/o Hora en el listado');
+define('ap_txt_pos_lugfechor_cuer', 'Posici&oacute;n del Lugar, Fecha y/o Hora en el art&iacute;culo completo');
+define('ap_txt_nom_tipo', 'Nombre del tipo de art&iacute;culo');
+define('ap_txt_can_list', 'Cantidad de art&iacute;culos a mostrar en el listado');
+define('ap_txt_des_tipo', 'Descripci&oacute;n del tipo de art&iacute;culo');
+define('ap_txt_per_vis', 'Permitir visualizar las Visitas en el art&iacute;culo completo');
+define('ap_txt_per_vis_list', 'Permitir visualizar las Visitas en el listado');
+define('ap_txt_per_cal', 'Permitir que se califique el art&iacute;culo');
+define('ap_txt_per_com_list', 'Permitir visualizar la cantidad de comentarios en el listado');
+define('ap_txt_per_com', 'Permitir hacer comentarios al art&iacute;culo');
+define('ap_txt_per_mod_com', 'Permitir publicar comentarios sin moderarlos');
+define('ap_txt_per_cuerpo', 'Permitir visualizar el art&iacute;culo completo');
+define('ap_txt_per_enl_cuerpo', 'Elementos del listado para enlazar al art&iacute;culo completo');
+define('ap_txt_per_caducidad', 'Permitir usar caducidad del art&iacute;culo');
+define('ap_txt_per_num_list', 'Permitir visualizar el N&uacute;mero en el listado');
+define('ap_txt_per_num', 'Permitir visualizar el N&uacute;mero en el art&iacute;culo completo');
+define('ap_txt_per_fe_act_list', 'Permitir visualizar la Fecha de actualizaci&oacute;n en listado');
+define('ap_txt_per_fe_act', 'Permitir visualizar la Fecha de actualizaci&oacute;n en art&iacute;culo completo');
+define('ap_txt_tip_res', 'Tipo de Resumen a mostrar');
+define('ap_txt_for_fec_l', 'Formato de Fecha en el listado');
+define('ap_txt_for_fec_c', 'Formato de Fecha en el art&iacute;culo completo');
+define('ap_txt_ver_bus', 'Permitir visualizar el Buscador');
+define('ap_txt_pos_bus', 'Posici&oacute;n del Buscador');
+
+define('ap_txt_usa_tem', 'Permitir usar Tema en los art&iacute;culos');
+define('ap_txt_usa_res_cue', 'Permitir visualizar el Resumen en el art&iacute;culo completo');
+define('ap_txt_usa_tem_lis', 'Permitir visualizar el Tema en el listado');
+define('ap_txt_usa_tem_cue', 'Permitir visualizar el Tema en el art&iacute;culo completo');
+define('ap_txt_ver_fec_cue', 'Permitir visualizar la Fecha en el art&iacute;culo completo');
+define('ap_txt_ver_fec_lis', 'Permitir visualizar la Fecha en el listado');
+define('ap_txt_ver_hor_cue', 'Permitir visualizar la Hora en el art&iacute;culo completo');
+define('ap_txt_ver_hor_lis', 'Permitir visualizar la Hora en el listado');
+define('ap_txt_ver_lug_cue', 'Permitir visualizar el Lugar en el art&iacute;culo completo');
+define('ap_txt_ver_lug_lis', 'Permitir visualizar el Lugar en el listado');
+define('ap_txt_tip_separa', 'Tipo separaci&oacute;n de articulos del listado');
+define('ap_txt_tit_mod_tipo', 'Modificar el Tipo de Art&iacute;culo');
+define('ap_txt_tit_nue_art', 'Crear un nuevo Art&iacute;culo');
+define('ap_txt_tip_art', 'Tipo de art&iacute;culo');
+define('ap_txt_pers_pro', 'Persona que propone el art&iacute;culo');
+define('ap_txt_cor_pro', 'Correo electr&oacute;nico de quien propone el art&iacute;culo');
+define('ap_txt_tem_art', 'Tema del art&iacute;culo');
+define('ap_txt_fec_art', 'Fecha de la art&iacute;culo');
+define('ap_txt_lug_art', 'Lugar del art&iacute;culo');
+define('ap_txt_num_art', 'N&uacute;mero del art&iacute;culo');
+define('ap_txt_tit_art', 'T&iacute;tulo del art&iacute;culo');
+define('ap_txt_resc_art', 'Resumen Chico del art&iacute;culo');
+define('ap_txt_resg_art', 'Resumen Grande del art&iacute;culo');
+define('ap_txt_cuer_art', 'Cuerpo del art&iacute;culo');
+define('ap_txt_resumen', 'Resumen');
+define('ap_txt_tiene_cambio_pen', 'No se puede realizar un cambio al art&iacute;culo, hasta que se Decida la situaci&oacute;n del cambio anterior');
+define('ap_txt_tiene_pag_pen', 'No se puede ingresar una nueva p&aacute;gina, hasta que se Decida la situaci&oacute;n acerca del cambio anterior');
+define('ap_txt_con_pag', 'Contenido de la p&aacute;gina # ');
+define('ap_txt_num_pag', 'N&uacute;mero de p&aacute;gina: ');
+define('ap_txt_sit_pag', 'Situaci&oacute;n de la p&aacute;gina # ');
+define('ap_txt_tit_art_enc', 'Art&iacute;culos encontrados ');
+define('ap_txt_reg_bus_art', 'Regresar al buscador de art&iacute;culos');
+define('ap_txt_reg_art', 'Regresar al art&iacute;culo');
+define('ap_txt_tit_bus_art', 'Buscador de Art&iacute;culos');
+define('ap_txt_tit_agr_pag', 'Crear una nueva p&aacute;gina para un art&iacute;culo');
+define('ap_txt_cuer_new_pag', 'Cuerpo de la nueva p&aacute;gina');
+define('ap_txt_tit_comen', 'Comentarios del Art&iacute;culo');
+define('ap_txt_comentario', 'Comentario');
+define('ap_txt_ver_come', 'Ver Comentarios');
+//------------------------------- Inicio de Mensajes de JavaScript
+define('ap_js_1', 'El campo del Nombre del Tema no puede quedar vac\u00EDo');
+define('ap_js_2', 'El campo de la Descripci\u00F3n del Tema a listar no puede quedar vac\u00EDo');
+define('ap_js_3', 'El campo del Nombre del Tipo no puede quedar vac\u00EDo');
+define('ap_js_4', 'El campo del Cantidad de art\u00EDculos a listar no puede quedar vac\u00EDo');
+define('ap_js_5', 'El campo de la Descripci\u00F3n del Tipo no puede quedar vac\u00EDo');
+define('ap_js_6', 'La longitud del campo de Persona que propone el art\u00EDculo no debe ser mayor a 240 caracteres');
+define('ap_js_7', 'La longitud del campo de Correo electr\u00F3nico de quien propone el art\u00EDculo  no debe ser mayor a 240 caracteres');
+define('ap_js_8', 'La fecha de el art\u00EDculo no es correcta');
+define('ap_js_9', 'Debe seleccionar un tema para el art\u00EDculo');
+define('ap_js_10', 'El campo del T\u00EDtulo de el art\u00EDculo no puede quedar vac\u00EDo');
+define('ap_js_11', 'El campo del Resumen Chico de el art\u00EDculo no puede quedar vac\u00EDo');
+//------------------------------- Fin de Mensajes de JavaScript
+define('art_txt_titu_buscador', 'Buscar en los art&iacute;culos del portal');
+define('art_txt_titu_res_bus', 'Resultado de la B&uacute;squeda');
+define('art_txt_titu_res_bus2', 'Tema de ');
+
+define('art_txt_titu_pag', 'P&aacute;ginas del contendio del art&iacute;culo');
+define('art_txt_titu_com', 'Comentarios realizados');
+define('art_txt_tex_buscar', 'Texto a buscar');
+define('art_txt_fra_exa', 'Frase exacta');
+define('art_txt_palabra', 'Palabras');
+define('art_btn_buscar', 'Buscar');
+//define('art_txt_titu_res_bus', 'Resultados de la b&uacute;squeda en los art&iacute;culos del portal');
+define('art_txt_res_frase', 'Frase a buscar');
+define('art_txt_titulo', 'T&iacute;tulo');
+define('art_txt_fecha', 'Fecha');
+define('art_txt_pagina', 'P&aacute;gina');
+define('art_txt_ir', 'Ir a ...');
+define('art_txt_numero', 'N&uacute;mero');
+define('art_txt_tema', 'Tema del art&iacute;culo');
+define('art_txt_tema_solo', 'Tema:&nbsp;');
+define('art_txt_numero_corto', '&nbsp;No.:&nbsp;');
+define('art_txt_visitas', 'Visitas');
+define('art_txt_calica', 'Calificaci&oacute;n, un promedio de ');
+define('art_txt_calica1', 'con');
+define('art_txt_calica2', 'votos');
+define('art_btn_env_voto', 'Enviar voto');
+define('art_txt_calificar', 'Calificar');
+define('art_txt_mensaje1', 'Ya registr&oacute; un voto anteriormente');
+define('art_txt_mensaje2', 'Su voto fue registrado con &eacute;xito');
+define('art_txt_mensaje3', 'Su voto no pudo ser registrado por problemas internos intentarlo despu&eacute;s');
+define('art_txt_mensaje4', 'Su comentario se registro con &eacute;xito');
+define('art_txt_mensaje5', 'Su Comentario no pudo ser registrado por problemas internos intentarlo despu&eacute;s');
+define('art_txt_java_1', 'Por favor colocar un nombre en el campo del autor del comentario');
+define('art_txt_java_2', 'Por favor colocar un comentario');
+define('art_txt_realice_comentario', 'Realice un comentario');
+define('art_txt_nombre', 'Nombre');
+define('art_txt_correo', 'Correo');
+define('art_txt_web', 'Sitio Web');
+define('art_txt_comentario', 'Comentario');
+define('art_btn_env_comentario', 'Enviar comentario');
+define('art_txt_leer', 'Leer m&aacute;s');
+define('art_txt_novisitas', 'Visita no registrada');
+define('art_txt_ultim_actu', '&Uacute;ltima actualizaci&oacute;n');
+define('art_txt_ultim_actu2', 'a las');
+define('art_txt_ultim_actu3', 'Hrs.');
+define('art_txt_ultim_actu4', 'Por');
+define('titulo_pag_list_articulos', 'P&aacute;ginas del listado de art&iacute;culos');
+define('art_txt_fec_bus_ini', 'Fecha inicial a buscar de');
+define('art_txt_fec_bus_fin', 'Fecha final a buscar de');
+define('art_txt_tema_bus', 'Tema de');
+?>

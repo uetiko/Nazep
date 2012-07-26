@@ -1,0 +1,65 @@
+/*
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * This is the default CSS file used by the editor area. It defines the
+ * initial font of the editor and background color.
+ *
+ * A user can configure the editor to use another CSS file. Just change
+ * the value of the FCKConfig.EditorAreaCSS key in the configuration
+ * file. 
+ */
+
+/*
+    The "body" styles should match your editor web site, mainly regarding
+    background color and font family and size.
+*/
+/*
+Sistema: Nazep
+Nombre archivo: fck_editorarea.css
+Función archivo: archivo que las hojas de estilos para el sitio usado en el administrador del sitio
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
+Autor: Claudio Morales Godinez
+Correo electrónico: claudio@nazep.com.mx
+*/
+body
+{
+	background-color: #ffffff;
+	padding: 5px 5px 5px 5px;
+	margin: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;	
+}
+td, tr
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+A:link {color: #000000; text-decoration: none; size: 12px;}
+A:visited {color: #000000; text-decoration: none; size: 12px;}
+a:visited {color: #000000; text-decoration: none;  size: 12px;}
+a:hover {color: #000000;  text-decoration: underline;  size: 12px;}
+A:hover {color: #000000;  text-decoration: underline; size: 12px;}

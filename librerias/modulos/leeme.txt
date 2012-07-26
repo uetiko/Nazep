@@ -1,0 +1,31 @@
+/*
+Sistema: Nazep
+Nombre archivo: leeme.txt
+Función archivo: archivo que muestrá las reglas para hacer un módulo nuevo
+Fecha creación: junio 2007
+Fecha última Modificación: Diciembre 2009
+Versión: 0.1.5
+Autor: Claudio Morales Godinez
+Correo electrónico: claudio@nazep.com.mx
+*/
+
+
+El módulo se almacena en una carpeta con el nombre corto del módulo
+
+El módulo esta compuesto por dos archivos que contiene el nombre corto del módulo
+
+Ejemplo para un módulo llamado "ejemplo_corto"
+
+carpeta: ejemplo_corto
+archivo1: ejemplo_corto_admon.php
+archivo2: ejemplo_corto_vista.php
+
+archivo1 (ejemplo_corto_admon.php)
+Descripción: Este archivo contendrá todas las instrucciones necesarias para adminsitrar la información especializada que pretenda manejar.
+
+archivo2 (ejemplo_corto_vista.php)
+Descripción: Este archivo contendrá todas las instrucciones necesarias para visualizar la información especializada en la vista final del portal.
+
+Para una explicación y ayuda más extensa de como realizar módulos nuevos para Nazep, visitar el portal web oficial.
+
+http://www.nazep.com.mx

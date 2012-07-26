@@ -1,0 +1,155 @@
+/*
+Sistema: Nazep
+Nombre archivo: leeme.txt
+Función archivo: archivo que muestra el listado de variables y funciones que se pueden usar dentro de los archivos de los temas
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
+Autor: Claudio Morales Godinez
+Correo electrónico: claudio@nazep.com.mx
+*/
+
+
+La carpeta de temas debe contener la siguiente carpeta para contener archivos de imagenes para el tema con los permisos de escritura, lectura y ejecución 777
+
+
+- image
+
+********************************************************************************************
+
+Guia de variables y funciones a usar para los temas de nazep
+
+
+*********************** Inicio de listado de variables ************************************
+
+Nombre de variable a usar: $sec
+Descripción de la variable: Almacena la clave de las sección que se esta desplegando en la vista final del portal
+
+Nombre de variable a usar: $nick_usuario
+Descripción de la variable: Almacena el nick del usuario para el portal por defecto su valor es "invitado", y cambia cuando registra
+
+Nombre de variable a usar: $titu_sitio
+Descripción de la variable: Almacena el título del portal almacenado en la base de datos del portal
+
+
+Nombre de variable a usar: $palabras_clave
+Descripción de la variable: Almacena todas las palabras claves para los buscadores almacenadas en la base de datos del portal
+
+
+Nombre de variable a usar: $ubicacion_tema
+Descripción de la variable: almacena la ruta para acceder a los archivos del tema usado en el portal
+
+*********************** Fin de listado de variables ************************************
+
+*************************************************************************************************************************
+
+*********************** Inicio de listado de funciones ************************************
+
+Nombre de la función usar: $this->enlace_imprimir($texto, $ventana);
+Descripción de la función: Muestra un texto que enlaza a la función de imprimir el contenido actual, en donde se mandan dos variables
+Parameto 1: $texto - almacena el texto que mostrara el enlace por ejemplo: "Imprimir contenido"
+Parameto 2: $ventana - almacena la forma que abrira el enlace con los siguietnes valores: "_blank", "_parent", "_self" o "_top"
+
+
+Nombre de la función usar: $this->enlace_recomendar($sec, $texto)
+Descripción de la función: Muestra un texto que enlaza a la sección que se tenga configurada en el sistema para realizar la función de enviar una recomendación del portal
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+Parameto 2: $texto - almacena el texto que mostrará el enlace por ejemplo: "Recomendar a un amigo"
+
+
+Nombre de la función usar: $this->enlace_buscador($texto)
+Descripción de la función: Muestra un texto que enlaza a la sección que se tenga configurada en el sistema para visualizar el buscador
+Parameto 1:  $texto - almacena el texto que mostrará el enlace por ejemplo: "Buscador" 
+
+Nombre de la función usar: $this->enlace_mapa_sitio($texto)
+Descripción de la función: Muestra un texto que enlaza a la sección que se tenga configurada en el sistema para visualizar el mapa del sitio
+Parameto 1:  $texto - almacena el texto que mostrará el enlace por ejemplo: "Mapa del sitio"
+
+Nombre de la función usar: $this->enlace_contacto($texto)
+Descripción de la función: Muestra un texto que enlaza a la sección que se tenga configurada en el sistema para visualizar el contacto
+Parameto 1:  $texto - almacena el texto que mostrará el enlace por ejemplo: "Contacto"
+
+Nombre de la función usar: $this->enlace_inicio($texto)
+Descripción de la función: Muestra un texto que enlaza al inicio del portal
+Parameto 1: $texto - almacena el texto que mostrará el enlace por ejemplo: "Inicio"
+
+Nombre de la función usar: $this->listar_mod_central($sec, $ubicacion_tema, $nick_usuario, $modo)
+Descripción de la función: Ejecuta la funcionalidad principal del listado de todos los módulos centrales activos, asiganodos a la sección que se visita
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+Parameto 2: $ubicacion_tema - es la ubicacion del tema usado actualmente, se coloca esta variable sin cambio
+Parameto 3: $nick_usuario - es el usuario que esta en el portal, se coloca esta variable sin cambio 
+Parameto 4: $modo - es la forma de mostrar el contenido con los siguientes valores validos: "html", "print" y "redireccion"
+
+
+Nombre de la función usar: $this->listar_mod_secundarios_vert_tabla($sec, $lado, $ancho_tabla)
+Descripción de la función: ejecuta la funcionalidad principal del listado de todos los módulos secundarios activos en forma vertical, asignados a la sección que se visita 
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+Parameto 2: $lado - es la ubicación del módulo con los siguientes valores posibles: "izquierda", "derecha"
+Parameto 3: $ancho_tabla -  es el ancho de la tabla para mostrar los módulos en pixeles
+
+
+Nombre de la función usar: $this->listar_mod_secundarios_hor_tabla($sec, $lado, $ancho_tabla)
+Descripción de la función: ejecuta la funcionalidad principal del listado de los módulos secundarios activos  en forma horizontal, asignados a la sección que se visita
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+Parameto 2: $lado - es la ubicación del módulo con los siguientes valores posibles: "arriba", "abajo"
+Parameto 3: $ancho_tabla -  es el ancho de la tabla para mostrar los módulos en pixeles
+
+Nombre de la función usar: $this->lis_subsecc_vert_tablas($sec, $ancho, $mostrar_titulo, $titulo, $mostrar_balazo, $ubicacion_tema)
+Descripción de la función: ejecuta la funcionalidad principal del listado de subsecciones pertencientes a la sección que se visita de fomr vertical.
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+Parameto 2: $ancho -  es el ancho de la tabla para mostrar las secciones en pixeles
+Parameto 3: $mostrar_titulo - es para habilitar el colocar un título al listado de subsecciones valores posibles: "si", "no"
+Parameto 4: $titulo - es el texto que se mostrará en el título ejemplo: "Listado de subsecciones"
+Parameto 5: $mostrar_balazo - es para habilitar el colocar una imagen antes de nombre de la sección valores posibles: "si", "no"
+Parameto 6: $ubicacion_tema - es la ubicación del tema usado actualmente, se coloca esta variable sin cambio
+
+
+Nombre de la función usar: $this->lis_secc_prin_ver_tablas($inicio, $cantidad, $ancho, $mostrar_titulo, $titulo, $mostrar_balazo, $ubicacion_tema)
+Descripción de la función: ejecuta la funcionalidad principal del listado de secciones que le pertenecen a la seccion inicio en forma vertical
+Parameto 1: $inicio - es el número del la sección que se empezara a listar y puede ser desde el valor "1" hasta el "999"
+Parameto 2: $cantidad - es el número de secciones a mostrar en el listado y sus valores pueden ser desde "1" hasta el "999"
+Parameto 3: $ancho - es el ancho de la tabla para mostrar las secciones en pixeles
+Parameto 4: $mostrar_titulo - es para habilitar el colocar un título al listado de secciones valores posibles: "si", "no"
+Parameto 5: $titulo - es el texto que se mostrará en el título ejemplo: "Secciones principales"
+Parameto 6: $mostrar_balazo - es para habilitar el colocar una imagen antes de nombre de la sección valores posibles: "si", "no"
+Parameto 7: $ubicacion_tema - es la ubicación del tema usado actualmente, se coloca esta variable sin cambio
+
+
+Nombre de la función usar: $this->lis_secc_prin_hor_tablas($inicio, $cantidad, $simbolo, $ancho)
+Descripción de la función: ejecuta la funcionalidad principal del listado de secciones que le pertenece al la sección inicio en forma horizontal
+Parameto 1: $inicio - es el número del la sección que se empezara a listar y puede ser desde el valor "1" hasta el "999"
+Parameto 2: $cantidad - es el número de secciones a mostrar en el listado y sus valores pueden ser desde "1" hasta el "999"
+Parameto 3: $simbolo - es el simbolo o caracter que aparece entre los nombres de las secciones ejemplo: "|", "/", "-"
+Parameto 3: $ancho - es el ancho de la tabla para mostrar las secciones en pixeles
+
+
+Nombre de la función usar: $this->seccion_protegida($sec)
+Descripción de la función: esta función verifica si la sección esta protegida y devuelve un valor con los valores posibles "si" y "no" 
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+
+Nombre de la función usar: $this->form_buscador($ancho_tabla, $ancho_input, $tex_btn)
+Descripción de la función: esta función forma una tabla con un formulario enlazado a la sección que se tenga declarada como buscador en la administración del sistema
+Parameto 1: $ancho_tabla - es el ancho de la tabla para mostrar las secciones en pixeles
+Parameto 2: $ancho_input - es el ancho del campo de tipo input del formulario en pixeles
+Parameto 3: $tex_btn - es el texto que aparece en el botón que ejecuta el formulario para buscar ejemplo "buscar"
+
+
+Nombre de la función usar: $this->historial_vista($sec,$simbolo)
+Descripción de la función: esta función forma en una tabla de forma horizontal el historial de navegación dependiendo de la sección en la que se encuentre
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+Parameto 2: $simbolo - es el simbolo o caracter que aparece entre los nombres de las secciones ejemplo: ">", "->", "-"
+
+Nombre de la función usar: $this->ver_visitas_sec($sec)
+Descripción de la función: función que muestra las visitas a la sección visitada actual
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+
+Nombre de la función usar: $this->visitas_simple($sec)
+Descripción de la función: función que registra la vista de la sección visitada actual
+Parameto 1: $sec - es la sección actual, se coloca esta variable sin cambio
+
+
+*********************** Fin de listado de funciones ************************************
+
+Para una explicación y ayuda más extensa de como realizar temas nuevos para Nazep, visitar el portal web oficial.
+
+http://www.nazep.com.mx

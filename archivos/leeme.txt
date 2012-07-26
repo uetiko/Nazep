@@ -1,0 +1,13 @@
+/*
+Sistema: Nazep
+Nombre archivo: leeme.txt
+Función archivo: explicar función de carpeta
+Fecha creación: junio 2007
+Fecha última Modificación: Diciembre 2009
+Versión: 0.1.6
+Autor: Claudio Morales Godinez
+Correo electrónico: claudio@nazep.com.mx
+*/
+
+Carpeta contendora de los archivos del portal por lo que es necesario
+dar permisos de escritura, lectura y ejecucion: 777

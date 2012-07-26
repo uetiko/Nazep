@@ -1,0 +1,15 @@
+﻿##
+# Sistema: Nazep
+# Nombre archivo: .htaccess
+# Función archivo: Permitir reescribir algunas configuraciones del servidor Apache
+# Fecha creación: mayo 2009
+# Fecha última Modificación: Marzo 2011
+# Versión: 0.2
+# Autor: Claudio Morales Godinez
+# Correo electrónico: claudio@nazep.com.mx
+##
+
+RewriteEngine On
+ErrorDocument 404: /index/index.php?error=404
+ErrorDocument 500: /index/index.php?error=500
+ErrorDocument 401: /index/index.php?error=401

@@ -1,0 +1,415 @@
+/* CSS Document */
+/*
+Sistema: Nazep
+Nombre archivo: estilos.css
+Función archivo: archivo que las hojas de estilos para el sitio
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
+Autor: Claudio Morales Godinez
+Correo electrónico: claudio@nazep.com.mx
+*/
+/* inicio de configuración general del tema */
+body 
+	{
+		background-color: #FFFFFF;
+		margin-left: 0px;
+		margin-top: 0px;
+		margin-right: 0px;
+		margin-bottom: 0px;
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+	}
+td, th 
+	{
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+	}
+a {	font-size: 12px; color: #FFFFFF; text-decoration: none;}
+A:link {color: #000000; text-decoration: none; font-size: 12px;}
+A:visited {color: #000000; text-decoration: none; font-size: 12px;}
+a:visited {color: #000000; text-decoration: none;  font-size: 12px;}
+a:hover {color: #000000;  text-decoration: underline;  font-size: 12px;}
+A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
+.margen_cero
+	{
+		margin:0px;
+		padding:0px;
+	}
+/* fin de configuración general del tema */
+.clas_marco_principal
+	{
+		width:100%;
+	}
+.clas_marco_ancho
+	{
+		width:777px;
+		position: absolute;
+		left: 50%;
+		margin-left: -388px; 
+	}
+#cabeza_prin
+	{}
+.clas_texto_menu{text-align:right;}
+.clas_cuerpo_central{}
+.clas_cuer_cen_izq{float:left; width:150px; background-image:url(image/lateral.jpg);}
+.clas_cuer_cen_der
+	{
+		float:left;
+		width:615px;	
+	}
+/* inicio de enlaces principales y menus principales*/
+/* Inicio clases especiales generales del tema */
+.clas_enlaces_sup
+	{
+		text-align:right;
+		height:20px;
+		padding-top:5px;
+	}
+.clas_historial_sec
+	{
+		height:20px;
+		padding-top:5px;
+		padding-left:2%;
+		padding-right:2%;	
+	}
+.clas_cuerpo_historial_seccion
+	{
+		text-align:left;
+	}
+.clas_nombre_sec
+	{
+		padding-top:5px;
+		padding-left:2%;
+		padding-right:2%;
+		text-align:center;
+		height:20px;
+	}
+.clas_sep_contenido
+	{
+		height:10px;
+	}
+.clas_contenido_central
+	{
+		padding-left:2%;
+		padding-right:2%;
+	}
+/* Inicio clases especiales generales del tema */
+.titulo_secc_principales
+	{
+		text-align:center;
+		padding-left:5px;
+		padding-right:5px;
+	}
+.titulo_subsecciones
+	{
+		text-align:center;
+		padding-left:5px;
+		padding-right:5px;	
+	}
+.menu_prin_horizontal{color: #000000 ; text-decoration: none; 	font-size: 12px; }
+.menu_prin_horizontal:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.menu_prin_horizontal:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.menu_prin_horizontal:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+.simb_sep_men_prin_hor{color: #000000;}
+.centro_contenido_gral{ padding-left:2%; padding-right:2%; border: }
+
+.menu_prin_vertical{color: #000000 ; text-decoration: none; 	font-size: 12px; }
+.menu_prin_vertical:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.menu_prin_vertical:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.menu_prin_vertical:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.lista_subsecc_vert_tabla{color: #000000 ; text-decoration: none; font-size: 12px;}
+.lista_subsecc_vert_tabla:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.lista_subsecc_vert_tabla:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.lista_subsecc_vert_tabla:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+
+.lista_subsecc_vert_ul{color: #000000 ; text-decoration: none; font-size: 12px;}
+.lista_subsecc_vert_ul:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.lista_subsecc_vert_ul:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.lista_subsecc_vert_ul:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_imprimir{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_imprimir:link {	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_imprimir:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_imprimir:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_recomendar{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_recomendar:link{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_recomendar:visited{	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_recomendar:hover {	color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_al_mapa_sitio{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_al_mapa_sitio:link{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_al_mapa_sitio:visited{	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_al_mapa_sitio:hover {	color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_inicio{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_inicio:link{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_inicio:visited{	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_inicio:hover {	color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_contacto{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_contacto:link{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_contacto:visited{	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_contacto:hover {	color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/	
+.enlace_historial{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_historial:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_historial:visited {	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_historial:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_buscador{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_buscador:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_buscador:visited {	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_buscador:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************/
+.enlace_del_mapa_sitio{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_del_mapa_sitio:link{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_del_mapa_sitio:visited{	color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_del_mapa_sitio:hover {	color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.enlace_rss{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_rss:link{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_rss:visited{color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_rss:hover {color: #000000; text-decoration: underline; font-size: 12px;}
+/******************************************************************************************************************/
+.flecha_historial{color: #000000; font-size: 12px;}
+.final_historia{color: #000033; font-size: 12px; font-weight: bold;}
+/******************************************/
+.clas_pie_creditos{ text-align:center;}
+.pie_creditos{font-size: 10px;}
+.pie_creditos:link{ font-size: 10px;}
+.pie_creditos:visited {font-size: 10px;}
+.pie_creditos:hover {font-size: 10px;}
+/******************************************************************************************************************/
+/*fin de enlaces principales y menus principales */
+
+.contendio_no_disponible{ text-align:center; padding-top:5px; padding-bottom:5px;}
+.error_usuario{color: #FF0000; font-size: 12px;}
+.texto_visitas{color: #000000; font-size: 12px;}
+.numero_visitas{color: #000000; font-size: 12px; font-weight: bold;}
+.titulo_seccion{font-weight: bold; font-size: 14px;}
+.texto_actualizacion{ padding-top:10px; color: #CCCCCC; font-size: 10px; }
+.pie_sitio
+	{
+		background-image:url(image/creditos.jpg);
+		background-repeat:no-repeat;	
+		font-weight: bold;
+		font-size: 10px;
+		height:25px;
+		text-align:center;	
+	}	
+.clas_visitas
+	{
+		height:25px;
+		text-align:center;
+	}
+/*******************************Inicio de las imagenes del tema **********************************/
+.imagen_cabeza{ background-image:url(image/cabeza.jpg); background-repeat:no-repeat; height:100px; }
+.imagen_fondo_menu { background-image:url(image/fondo_men_superior.jpg); background-repeat:no-repeat; }
+.imagen_fondo_menu_lateral_sup { height:25px; background-image:url(image/lateral_arriba.jpg); background-repeat:no-repeat; }
+.imagen_fondo_menu_lateral_inf { height:25px; background-image:url(image/lateral_abajo.jpg); background-repeat:no-repeat; }
+/*******************************Fin de las imagenes del tema **********************************/	
+/* inicio funciones para módulo baners laterales */
+.titulo_banner{ text-align:center; height:20px;}
+.clas_ren_sep_banner{height:10px;clear: both;}
+.clas_bal_baner
+{
+	width:10px;
+	text-align:left;
+	vertical-align:top;
+	float:left;
+}
+.clas_cue_baner{ width:115px; text-align:left; vertical-align:top; float:left; }
+.clas_sep_leer_baner { height:10px; }
+.clas_leer_mas_baner{}
+/* fin funciones para módulo baners laterales */
+
+/* inicio funciones para módulo Buscador */
+.clas_tit_bus{text-align:center;}
+/* fin funciones para módulo Buscador */
+
+/* inicio funciones para módulo contenido paginado */
+.div_contenido_principal_print{text-align:left; width:480px;padding-left:2%; padding-right:2%;}
+.titulo_paginacion_contenido{text-align:center;}
+.celda_paginacion_contenido{text-align:center;}
+.numero_pagina_seleccionado_contenido{font-size: 12px;font-weight: bold;}
+.enlace_paginado_contenido{	color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_paginado_contenido:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_paginado_contenido:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_paginado_contenido:hover {color: #000000; text-decoration: none; font-size: 12px;}
+.titulo_buscador_contenido{text-align:center; padding-top:10px; padding-bottom:10px;}
+.formulario_buscador_contenido{text-align:left;}
+.titulo_res_ava{ text-align:center; padding-top:10px; padding-bottom:10px;}
+.res_bus_con{text-align:left;}
+.pag_res_con{text-align:center; padding-top:10px; padding-bottom:10px;}
+.renglon_vacio_contenido{ height:10px;}
+/* fin funciones para módulo contenido paginado */
+
+/* inicio funciones para módulo articulos */
+.titulo_buscador_articulos{text-align:center; padding-top:10px; padding-bottom:10px;}
+.formulario_buscador_articulos{text-align:left;}
+.res_bus_art{text-align:left;}
+.pag_res_art{text-align:center; padding-top:10px; padding-bottom:10px;}
+.titulo_paginacion_lista_articulos{text-align:center}
+.titulo_paginacion_articulos{text-align:center}
+.celda_paginacion_articulos_lista{text-align:center;}
+.celda_paginacion_articulos{text-align:center;}
+.numero_pagina_seleccionado_articulo{font-size: 12px; font-weight: bold;}
+.numero_articulo{font-size: 12px;font-weight: bold;}
+.tema_articulo{font-size: 12px;font-weight: bold;}
+.enlace_paginado_articulo{color: #000000; text-decoration: none; font-size: 12px;}
+.enlace_paginado_articulo:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_paginado_articulo:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_paginado_articulo:hover {color: #000000; text-decoration: none; font-size: 12px;}
+.fecha_articulo_lista{color: #000000; font-size: 12px;text-align:left;}
+.titulo_articulo_lista{	color: #000000;	font-size: 12px;text-align:center;}
+.fecha_articulo_completo{color: #000000;font-size: 12px;text-align:left;}
+.titulo_articulo_completo{color: #000000;font-size: 12px;text-align:center;	}
+.leer_mas_articulo{color: #000000;text-decoration: underline;font-size: 12px;text-align:left;}
+.leer_mas_articulo:link {color: #000000;text-decoration: underline;	font-size: 12px;}
+.leer_mas_articulo:visited {color: #000000;	text-decoration: underline;	font-size: 12px;}
+.leer_mas_articulo:hover{color: #000000;text-decoration: underline;font-size: 12px;}
+.num_art_listado{background-color: #FFFFFF;}
+.num_art_listado_lado{background-color: #FFFFFF;}
+.ler_mas_art_listado{background-color: #FFFFFF;}
+.ler_mas_art_listado_lado{background-color: #FFFFFF;}
+.div_titulo_articulo_lista{font-size:12px; text-align:center;}
+.div_titulo_articulo_lista:link{font-size:12px; text-align:center; text-decoration: none;}
+.div_titulo_articulo_lista:visited{font-size:12px; text-align:center; text-decoration: none;}
+.div_titulo_articulo_lista:hover{font-size:12px; text-align:center; text-decoration: underline;}
+.div_resumen_articulo_lista{font-size:12px; text-align:left;}
+.div_resumen_articulo_lista:link{font-size:12px; text-align:left; text-decoration: none;}
+.div_resumen_articulo_lista:visited{font-size:12px; text-align:left; text-decoration: none;}
+.div_resumen_articulo_lista:hover{font-size:12px; text-align:left; text-decoration: underline;}
+.leer_mas_articulo{font-size:12px; text-align:left;}
+.leer_mas_articulo:link{font-size:12px; text-align:left; text-decoration: none;}
+.leer_mas_articulo:visited{font-size:12px; text-align:left; text-decoration: none;}
+.leer_mas_articulo:hover{font-size:12px; text-align:left; text-decoration: underline;}
+.div_numero_articulo_lista{font-size:12px; text-align:left;}
+.div_numero_articulo_lista:link{font-size:12px; text-align:left; text-decoration: none;}
+.div_numero_articulo_lista:visited{font-size:12px; text-align:left; text-decoration: none;}
+.div_numero_articulo_lista:hover{font-size:12px; text-align:left; text-decoration: underline;}
+.titulo_articulo_lista{font-size: 12px; text-align:center;}
+.div_tip_bus{text-align:center;}
+.div_btn_buscar_vista{text-align:center; padding-top:10px;}
+.renglon_vacio_articulo{height:10px;}
+/* fin funciones para módulo articulos */
+
+/* inicio funciones para módulo listar articulos */
+.configuracion_lista{ text-align:center;}
+.renglon_vacio_articulo_lista{ border: #00F solid 1px; height:10px;}
+.nombre_art_listado{text-align:center;  background-color: #FFFFFF;}
+.nombre_art_listado_lado{background-color: #FFFFFF;}
+.res_chi_art_listado_lado{background-color: #FFFFFF;}
+.res_gran_art_listado_lado{background-color: #FFFFFF; }
+.res_gran_art_listado{background-color:#FFFFFF;}
+.lug_fech_art_listado_lado{background-color: #FFFFFF;}
+.titulo_art_listado_lado{background-color: #FFFFFF;}
+.res_chi_art_listado{background-color: #FFFFFF;}
+.lug_fech_art_listado{background-color: #FFFFFF;}
+.titulo_art_listado{background-color: #FFFFFF;}
+.separacion_titulos{ clear: both; height:10px;  }
+.separacion_registros{clear: both; height:10px;  }
+.separacion_elementos{clear: both; height:5px;  }
+/* fin funciones para módulo listar articulos */
+
+/* inicio funciones para módulo noticias */
+.titulo_paginacion_noticias{text-align:center;}
+.celda_paginacion_noticia{text-align:center;}
+.numero_pagina_sele_noticia{font-weight: bold;}
+.enlace_paginado_noticia{color: #000000 ; text-decoration: none; font-size: 12px;}
+.enlace_paginado_noticia:link {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_paginado_noticia:visited {color: #000000; text-decoration: none; 	font-size: 12px;}
+.enlace_paginado_noticia:hover {color: #000000; text-decoration: none; font-size: 12px;}
+.fecha_noticia_lista{color: #000000;font-size: 12px;text-align:left;}
+.celda_esp_t_f_l{max-height:0;}
+.titulo_noticia_lista{color: #000000;	font-size: 12px;text-align:center;}
+.fecha_noticia_completo{color: #000000;	font-size: 12px; text-align:left;}
+.titulo_noticia_completo{color: #000000; font-size: 12px; text-align:center;}
+.leer_mas_noticia{color: #000000;text-decoration: underline;font-size: 12px;text-align:left;}
+.leer_mas_noticia:link {color: #000000;text-decoration: underline;font-size: 12px;}
+.leer_mas_noticia:visited {	color: #000000;	text-decoration: underline; font-size: 12px;}
+.leer_mas_noticia:hover{color: #000000;	text-decoration: underline;	font-size: 12px;}
+/* fin funciones para módulo noticias */
+
+/* inicio funciones para módulo recomendar */
+.recomendar_mensaje_uno{ text-align:center; font-weight:bold; padding-top:5px; padding-bottom:5px; }
+.recomendar_mensaje_dos{text-align:center; font-weight:bold; padding-top:5px; padding-bottom:5px;}
+.recomendar_texto_dir{ text-align:left;}
+.recomendar_enlace_dir{text-align:left; padding-bottom:20px;}
+.recomendar_col_texto_uno{ width:200px; float:left;}
+.recomendar_col_texto_dos{ float:left; }
+.recomendar_ren_vacio{clear: both; height:1px;}
+.recomendar_boton_enviar{ padding-top:10px; padding-bottom:10px; text-align:center;}
+/* fin funciones para módulo recomendar */
+
+/* inicio funciones para módulo contacto */
+.contacto_titulo{ text-align:center; padding-bottom:10px;}
+.contacto_mensaje{ text-align:center; padding-bottom:10px; padding-top:10px; }
+.contacto_ren_vacio{clear: both; height:1px;}
+.cotacto_uno{width:200px; float:left;}
+.cotacto_dos{float:left;}
+.inp_cont_nombre{ width:80px;}
+.inp_cont_ap_pat{ width:80px;}
+.inp_cont_ap_mat{ width:80px;}
+.inp_cont_nombre_completo{ width:80px;}
+.inp_cont_correo_electronico{width:80px;}
+.inp_cont_sitio_web{width:80px;}
+.inp_cont_telefono{width:80px;}
+.inp_cont_fax{ width:80px;}
+.inp_cont_direccion{ width:80px;}
+.txt_cont_mensaje{ width: 250px; height:80px;}
+.contacto_campos_obl{ text-align:center;}
+.contacto_btn{text-align:center;}
+/* fin funciones para módulo recomendar */
+
+/* inicio funciones para módulo listado baners */
+.listado_enlace_balazo{ float:left;}
+.separacion_listado_enlace{ height:10px;clear: both;}
+/* fin funciones para módulo listado baners */
+
+/* inicio funciones para módulo mapa del sitio */
+#dhtmlgoodies_tree li
+	{
+		list-style-type:none;	
+		font-size:11px;
+	}
+#dhtmlgoodies_topNodes
+	{
+		margin-left:0px;
+		padding-left:0px;
+	}
+#dhtmlgoodies_topNodes ul
+	{
+		margin-left:20px;
+		padding-left:0px;
+		display:none;
+	}
+#dhtmlgoodies_tree .tree_link
+	{
+		line-height:13px;
+		padding-left:2px;
+	}
+#dhtmlgoodies_tree img
+	{
+		padding-top:2px;
+	}
+#dhtmlgoodies_tree a
+	{
+		color: #000000;
+		text-decoration:none;
+	}
+.activeNodeLink
+	{
+		background-color: #316AC5;
+		color: #FFFFFF;
+		font-weight:bold;
+	}
+
+/* fin funciones para módulo mapa del sitio */
+
+/*Inicio para configuraciones especiales para el tema nuevo*/
+
+/*Fin para configuraciones especiales para el tema nuevo*/		
