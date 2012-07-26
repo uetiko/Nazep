@@ -1,0 +1,52 @@
+
+Nazep - leeme
+==============
+
+Adminsitrador de Contenidos Web
+
+Versión 0.2 beta
+----------------
+
+http://www.nazep.com.mx/
+
+
+Requerimientos para la instalación de Nazep
+
+php 4.1.0 o superior
+mysql 5.0.0 o superior
+servidor web que soporte php como módulo
+
+Bienvenido
+
+Nazep es un software web que esta bajo la licencia GNU versión 3
+
+los archivos de la licencia los puede ver en la carpeta licencia/
+
+La fecha de cierre de esta versión es mayo de 2009
+
+Nazep ©
+Todos los Derechos Reservados 2007
+Claudio Morales Godinez
+
+
+Nazep utiliza tres herramientas de libre distribución las cuales sigue respetando sus licencias de libre distribución las cuales son
+
+Fckeditor
+http://www.fckeditor.net/
+ubicado en la carpeta librerias/fckeditor/
+
+phpmailer
+http://phpmailer.codeworxtech.com/
+ubicado en la carpeta librerias/phpmailer/
+
+Jquery
+http://jquery.com/
+ubicado en la carpeta librerias/jquery/
+
+para mayores informes puede visitar el sitio
+
+http://www.nazep.com.mx/
+
+o mandar un correo electrónico
+
+informes@nazep.com.mx
