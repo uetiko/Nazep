@@ -8,6 +8,7 @@ Fecha última Modificación: Marzo 2011
 Versión: 0.2
 Autor: Claudio Morales Godinez
 Correo electrónico: claudio@nazep.com.mx
+Colaborador:Monserrat reyes
 */
 if(file_exists("instalar/instalar.php"))
 	{header("Location: instalar/instalar.php");}
