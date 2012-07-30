@@ -609,17 +609,18 @@ class clase_contenido extends conexion
 								$situacion_total = $ren["situacion"];
 								$ver_actualizacion = $ren["ver_actualizacion"];
 								$usar_caducidad  = $ren["usar_caducidad"];
-								$clave_contenido =  $ren["clave_contenido"];
-								echo '<script type="text/javascript">';
-								echo'$(document).ready(function()
+								$clave_contenido =  $ren["clave_contenido"];								
+								echo '
+								<script type="text/javascript">
+								';
+								echo'
+								$(document).ready(function()
 										{
 											$.frm_elem_color("#FACA70","");
 											$.guardar_valores("frm_modificar_contenido");
 										});
 									function validar_form(formulario, situacion_temporal, nombre_formulario)
 										{
-											valor_pag = FCKeditorAPI.__Instances[\'conte_texto\'].GetHTML();
-											formulario.conte_texto.value = valor_pag;
 											formulario.situacion_temporal.value = situacion_temporal;
 											if(formulario.motivo.value == "") 
 												{
@@ -636,20 +637,20 @@ class clase_contenido extends conexion
 													formulario.dia_i.focus(); 
 													return false;
 												}
-											
 											if(!verificar_fecha(fecha_ini, separador))
 												{
 													alert("'.verificar_fecha_ini.'");
 													formulario.dia_i.focus(); 
 													return false;
 												}
-											
 											if(!verificar_fecha(fecha_fin, separador))
 												{
 													alert("'.verificar_fecha_fin.'");
 													formulario.dia_t.focus(); 
 													return false;
 												}
+											valorTemporal = FCKeditorAPI.__Instances[\'conte_texto\'].GetHTML();
+											formulario.conte_texto.value = valorTemporal;
 											formulario.btn_guardar1.style.visibility="hidden";
 											formulario.btn_guardar1a.style.visibility="hidden";
 											document.crear_nueva_pagina.btn_nueva_pagina.style.visibility="hidden";
@@ -673,6 +674,7 @@ class clase_contenido extends conexion
 									echo '<input type="hidden" name="paginas_contenido" value = "'.$paginas_contenido.'" />';
 								echo '</form>';	
 								echo '<form name="recargar_pantalla" id= "recargar_pantalla" method="get" action="index.php" class="margen_cero"><input type="hidden" name="opc" value = "11" /><input type="hidden" name="clave_seccion" value = "'.$clave_seccion_enviada.'" /></form>';
+								
 								echo '<form name="frm_modificar_contenido" id="frm_modificar_contenido" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero"  >';
 									echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
 										echo '<tr><td width="400">'.persona_cambio.'</td><td><input type ="text" name = "nombre" size = "60" /></td></tr>';
@@ -756,16 +758,16 @@ class clase_contenido extends conexion
 											echo '</td>';
 										echo '</tr>';
 										echo '<tr><td><a name="texto_link" id="texto_link"></a>';
-												$oFCKeditor[$con] = new FCKeditor("conte_texto");
-												$oFCKeditor[$con]->BasePath = '../librerias/fckeditor/';		
-												$oFCKeditor[$con]->Value = $texto;
-												$oFCKeditor[$con]->Config['EditorAreaCSS'] = $ubi_tema.'fck_editorarea.css';
-												$oFCKeditor[$con]->Config['StylesXmlPath'] = $ubi_tema.'fckstyles.xml';
-												$oFCKeditor[$con]->Width = "100%";
-												$oFCKeditor[$con]->Height = "500";
-												$oFCKeditor[$con]->Create();
-											echo '</td>';
-										echo '</tr>';
+											$texto = ($texto!='')?$texto:'&nbsp;'; 
+											$oFCKeditor[$con] = new FCKeditor("conte_texto");
+											$oFCKeditor[$con]->BasePath = '../librerias/fckeditor/';		
+											$oFCKeditor[$con]->Value = $texto;
+											$oFCKeditor[$con]->Config['EditorAreaCSS'] = $ubi_tema.'fck_editorarea.css';
+											$oFCKeditor[$con]->Config['StylesXmlPath'] = $ubi_tema.'fckstyles.xml';
+											$oFCKeditor[$con]->Width = "100%";
+											$oFCKeditor[$con]->Height = "500";
+											$oFCKeditor[$con]->Create();
+										echo '</td></tr>';
 									echo '</table>';
 									echo '<input type="hidden" name="formulario_final" value = "" />';
 									echo '<input type="hidden" name="clave_contenido" value = "'.$clave_contenido.'" />';
@@ -962,7 +964,7 @@ class clase_contenido extends conexion
 												{
 													alert("'.jv_campo_motivo.'");
 													formulario.motivo.focus(); 	
-													return false
+													return false;
 												}
 											if(opcion=="regresar")
 												{
@@ -1602,7 +1604,7 @@ class clase_contenido extends conexion
 		function cambios_realizados($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
-				$nombre_sec = $_POST["nombre_sec"];
+				//$nombre_sec = $_POST["nombre_sec"];
 				if(isset($_POST["clave_contenido_cambios"]) && $_POST["clave_contenido_cambios"]!="")
 					{
 						$clave_contenido_cambios = $_POST["clave_contenido_cambios"]; 
@@ -1720,7 +1722,8 @@ class clase_contenido extends conexion
 						$res_cam_con = mysql_query($con_cam_con);
 						$cantidad_con = mysql_num_rows($res_cam_con);
 						$cantidad_mostrar = 10;
-						if($_POST["pag"]=='')
+						$pos_pag = (isset($_POST["pag"])) ?$_POST["pag"]:''; 
+						if($pos_pag =='')
 							{
 								$pag = 1;
 								$ini = 0;

@@ -352,6 +352,7 @@ class clase_articulos extends conexion
 								echo '<tr><td bgcolor="#999798" height="3"></td><td bgcolor="#999798" ></td><td bgcolor="#999798" ></td></tr>';
 								echo '<tr><td >&nbsp;</td><td>'.ap_txt_per_num_list.'</td><td>';
 									HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'permitir_ver_numero_lista','ValorSeleccionado'=>FunGral::_ValorArray($ren_art,"permitir_ver_numero_lista"), 'orden'=>'no-si'));
+								
 								echo '</td></tr>';
 								echo '<tr><td bgcolor="#F9D07B">&nbsp;</td><td bgcolor="#F9D07B">'.ap_txt_per_num.'</td><td bgcolor="#F9D07B">';
 									HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'permitir_ver_numero','ValorSeleccionado'=>FunGral::_ValorArray($ren_art,"permitir_ver_numero"), 'orden'=>'no-si'));
@@ -576,8 +577,11 @@ class clase_articulos extends conexion
 						$clave_tipo = $_POST["clave_tipo"];
 						$nombre_sec = HtmlAdmon::historial($clave_seccion_enviada);
 						HtmlAdmon::titulo_seccion(ap_txt_tit_nue_tema);
-						echo '<script type="text/javascript">';
-						echo ' $(document).ready(function()
+						echo '
+							<script type="text/javascript">
+							';
+						echo ' 
+							$(document).ready(function()
 								{
 									$.frm_elem_color("#FACA70","");
 									$.guardar_valores("frm_nuevo_tema");
@@ -924,7 +928,8 @@ class clase_articulos extends conexion
 						HtmlAdmon::titulo_seccion(ap_txt_tit_nue_art);						
 						$variable_archivos = directorio_archivos."$clave_seccion_enviada/";
 						$_SESSION["direccion_archivos"] = $variable_archivos;
-						echo '<script type="text/javascript">
+						echo '
+							<script type="text/javascript">
 						 	$(document).ready(function()
 								{
 									$.frm_elem_color("#FACA70","");
@@ -985,7 +990,9 @@ class clase_articulos extends conexion
 														   return false;
 														}';
 										}
-									echo ' valor_titulo = FCKeditorAPI.__Instances[\'titulo\'].GetHTML();
+									echo ' 
+									valor_titulo = FCKeditorAPI.__Instances[\'titulo\'].GetHTML();
+									alert("cc-"+valor_titulo+"-");
 									formulario.titulo.value = valor_titulo; 
 									if(formulario.titulo.value == "&nbsp;") 
 										{
@@ -1421,10 +1428,9 @@ class clase_articulos extends conexion
 													alert("'.ap_js_8.'");
 													formulario.dia.focus(); 
 													return false;
-												} 
-											
+												}
 											';	
-										if($permitir_caducar=="si")
+										if($permitir_caducar=='si')
 											{
 												echo ' fecha_ini = formulario.dia_i.value+"/"+formulario.mes_i.value+"/"+formulario.ano_i.value;
 													fecha_fin = formulario.dia_t.value+"/"+formulario.mes_t.value+"/"+formulario.ano_t.value;
@@ -1637,28 +1643,28 @@ class clase_articulos extends conexion
 										echo '</tr>';
 										echo '<tr><td align="center"><a name="resumen_chico_link" id="resumen_chico_link"></a><strong>'.ap_txt_resc_art.'</strong></td></tr>';
 										echo '<tr><td>';
-												$oFCKeditor22 = new FCKeditor("resumen_chico") ;
-												$oFCKeditor22->BasePath = "../librerias/fckeditor/";
-												$oFCKeditor22->ToolbarSet = "Default";
-												$oFCKeditor22->Config['EditorAreaCSS'] = $ubi_tema.'fck_editorarea.css';
-												$oFCKeditor22->Config['StylesXmlPath'] = $ubi_tema.'fckstyles.xml';
-												$oFCKeditor22->Width = "100%";
-												$oFCKeditor22->Height = "250";	
-												$oFCKeditor22->Value = $resumen_chico;
-												$oFCKeditor22->Create();
-										echo '</td></tr>';
-										echo '<tr><td align="center"><a name="resumen_grande_link" id="resumen_grande_link"></a><strong>'.ap_txt_resg_art.'</strong></td></tr>';
-										echo '<tr>';
-											echo '<td>';
-												$oFCKeditor2 = new FCKeditor("resumen_grande") ;
+												$oFCKeditor2 = new FCKeditor("resumen_chico") ;
 												$oFCKeditor2->BasePath = "../librerias/fckeditor/";
 												$oFCKeditor2->ToolbarSet = "Default";
 												$oFCKeditor2->Config['EditorAreaCSS'] = $ubi_tema.'fck_editorarea.css';
 												$oFCKeditor2->Config['StylesXmlPath'] = $ubi_tema.'fckstyles.xml';
 												$oFCKeditor2->Width = "100%";
-												$oFCKeditor2->Height = "250";
-												$oFCKeditor2->Value = $resumen_grande;	
-												$oFCKeditor2->Create();	
+												$oFCKeditor2->Height = "250";	
+												$oFCKeditor2->Value = $resumen_chico;
+												$oFCKeditor2s->Create();
+										echo '</td></tr>';
+										echo '<tr><td align="center"><a name="resumen_grande_link" id="resumen_grande_link"></a><strong>'.ap_txt_resg_art.'</strong></td></tr>';
+										echo '<tr>';
+											echo '<td>';
+												$oFCKeditor3 = new FCKeditor("resumen_grande") ;
+												$oFCKeditor3->BasePath = "../librerias/fckeditor/";
+												$oFCKeditor3->ToolbarSet = "Default";
+												$oFCKeditor3->Config['EditorAreaCSS'] = $ubi_tema.'fck_editorarea.css';
+												$oFCKeditor3->Config['StylesXmlPath'] = $ubi_tema.'fckstyles.xml';
+												$oFCKeditor3->Width = "100%";
+												$oFCKeditor3->Height = "250";
+												$oFCKeditor3->Value = $resumen_grande;	
+												$oFCKeditor3->Create();	
 											echo '</td>';
 										echo '</tr>';
 									echo '</table>';
@@ -1714,10 +1720,10 @@ class clase_articulos extends conexion
 									echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
 										echo '<tr>';
 											echo '<td align="center">';
-echo '<input type="submit" name="btn_guardar1" value="'.guardar_cambio.'" onclick= "return validar_form(this.form,\'pendiente\', \'regresar_pantalla\')" />';
+												echo '<input type="submit" name="btn_guardar1" value="'.guardar_cambio.'" onclick= "return validar_form(this.form,\'pendiente\', \'regresar_pantalla\')" />';
 											echo '</td>';
 											if($nivel == 1 or $nivel == 2)
-{echo '<td align="center"><input type="submit" name="btn_guardar2" value="'.guardar_cam_pub.'" onclick= "return validar_form(this.form,\'activo\', \'recargar_pantalla\')" /></td>';}
+												{echo '<td align="center"><input type="submit" name="btn_guardar2" value="'.guardar_cam_pub.'" onclick= "return validar_form(this.form,\'activo\', \'recargar_pantalla\')" /></td>';}
 										echo '</tr>';	
 									echo '</table>';
 								echo '</form>';	

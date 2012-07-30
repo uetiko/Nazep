@@ -15,35 +15,33 @@ class dhtmlgoodies_tree{
 	var $nameOfCookie = "dhtmlgoodies_expanded"; // Name of the cookie where the expanded nodes are stored.
 	
 	function dhtmlgoodies_tree()
-	{
-		
-		
-	}
+	{ }
 	
 	function writeJavascript()
 	{
-		echo'	
+		echo'
 <script type="text/javascript">
-		
-		
-				
-	
-		var plusNode = "../librerias/modulos/mapa_sitio/images/dhtmlgoodies_plus.gif";
-		var minusNode = "../librerias/modulos/mapa_sitio/images/dhtmlgoodies_minus.gif";
-
+		var plusNode = "librerias/modulos/mapa_sitio/images/dhtmlgoodies_plus.gif";
+		var minusNode = "librerias/modulos/mapa_sitio/images/dhtmlgoodies_minus.gif";
 ';
 
- 			?>
-		var nameOfCookie = '<? echo $this->nameOfCookie; ?>';
-		<?
+ 			
+ 		?>
+ 			
+		var nameOfCookie = '<?php echo $this->nameOfCookie; ?>';
+		
+		<?php 
+		
 		$cookieValue = "";
 		if(isset($_COOKIE[$this->nameOfCookie]))$cookieValue = $_COOKIE[$this->nameOfCookie];		
 		echo "var initExpandedNodes =\"".$cookieValue."\";\n";
-		?>		
+		?>	
+			
 		/*
 		These cookie functions are downloaded from 
 		http://www.mach5.com/support/analyzer/manual/html/General/CookiesJavaScript.htm
 		*/
+		
 		function Get_Cookie(name) { 
 		   var start = document.cookie.indexOf(name+"="); 
 		   var len = start+name.length+1; 
@@ -158,53 +156,58 @@ class dhtmlgoodies_tree{
 		/* ]]> */ 
 		window.onload = initTree;		
 		</script>	
-		<?
+		
+		<?php //------------------------------------- PHP
 		
 	}
-	
-	
-	
 	/*
 	This function adds elements to the array
 	*/
 	
-	function addToArray($id,$name,$parentID,$url="",$target="",$imageIcon="../librerias/modulos/mapa_sitio/images/dhtmlgoodies_folder.gif"){
+	function addToArray($id,$name,$parentID,$url="",$target="",$imageIcon="librerias/modulos/mapa_sitio/images/dhtmlgoodies_folder.gif"){
 		if(empty($parentID))$parentID=0;	
 		$this->elementArray[$parentID][] = array($id,$name,$url,$target,$imageIcon);
 	}
 	
 	function drawSubNode($parentID){
 		if(isset($this->elementArray[$parentID])){			
-			echo "<ul>";
+			echo '<ul>';
 			for($no=0;$no<count($this->elementArray[$parentID]);$no++){
-				$urlAdd = "";
+				$urlAdd = '';
 				if($this->elementArray[$parentID][$no][2]){
 					$urlAdd = " href=\"".$this->elementArray[$parentID][$no][2]."\"";
 					if($this->elementArray[$parentID][$no][3])$urlAdd.=" target=\"".$this->elementArray[$parentID][$no][3]."\"";	
 				}
-				echo "<li class=\"tree_node\"><img class=\"tree_plusminus\" id=\"plusMinus".$this->elementArray[$parentID][$no][0]."\" src=\"../librerias/modulos/mapa_sitio/images/dhtmlgoodies_plus.gif\" alt=\"imagen\" /><img src=\"".$this->elementArray[$parentID][$no][4]."\" alt=\"imagen\" /><a class=\"tree_link\"$urlAdd>".$this->elementArray[$parentID][$no][1]."</a>";	
+				echo '<li class="tree_node"><img class="tree_plusminus" id="plusMinus'
+				.$this->elementArray[$parentID][$no][0]
+				.'\" src="librerias/modulos/mapa_sitio/images/dhtmlgoodies_plus.gif" alt="*imagen*" /><img src="'
+				.$this->elementArray[$parentID][$no][4]
+				."\" alt=\"imagen\" /><a class=\"tree_link\"$urlAdd>"
+				.$this->elementArray[$parentID][$no][1]
+				.'</a>';
 				$this->drawSubNode($this->elementArray[$parentID][$no][0]);
-				echo "</li>";
+				echo '</li>';
 			}			
-			echo "</ul>";			
+			echo '</ul>';			
 		}		
 	}
 	
 	function drawTree(){
 		echo '<div id="dhtmlgoodies_tree">';
-		echo "<ul id=\"dhtmlgoodies_topNodes\">";
+		echo '<ul id="dhtmlgoodies_topNodes">';
 		for($no=0;$no<count($this->elementArray[0]);$no++){
 			$urlAdd = "";
 			if($this->elementArray[0][$no][2]){
 				$urlAdd = " href=\"".$this->elementArray[0][$no][2]."\"";
 				if($this->elementArray[0][$no][3])$urlAdd.=" target=\"".$this->elementArray[0][$no][3]."\"";	
 			}
-			echo "<li class=\"tree_node\" id=\"node_".$this->elementArray[0][$no][0]."\"><img id=\"plusMinus".$this->elementArray[0][$no][0]."\" class=\"tree_plusminus\" src=\"../librerias/modulos/mapa_sitio/images/dhtmlgoodies_plus.gif\" alt=\"imagen\" /><img src=\"".$this->elementArray[0][$no][4]."\" alt=\"imagen\" /><a class=\"tree_link\"$urlAdd>".$this->elementArray[0][$no][1]."</a>";		
+			echo "<li class=\"tree_node\" id=\"node_".$this->elementArray[0][$no][0]."\"><img id=\"plusMinus".$this->elementArray[0][$no][0]."\" class=\"tree_plusminus\" src=\"librerias/modulos/mapa_sitio/images/dhtmlgoodies_plus.gif\" alt=\"-imagen-\" /><img src=\"".$this->elementArray[0][$no][4]."\" alt=\"*imagen*\" /><a class=\"tree_link\"$urlAdd>".$this->elementArray[0][$no][1]."</a>";		
 			$this->drawSubNode($this->elementArray[0][$no][0]);
-			echo "</li>";	
+			echo '</li>';	
 		}	
-		echo "</ul>";	
-		echo "</div>";	
+		echo '</ul>';	
+		echo '</div>';	
 	}
 }
+
 ?>

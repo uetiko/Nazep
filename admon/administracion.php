@@ -2,12 +2,12 @@
 /*
 Sistema: Nazep
 Nombre archivo: administracion.php
-Función archivo: Generar toda la interfaz de administración del sistema
-Fecha creación: junio 2007
-Fecha última Modificación: Julio 2010
-Versión: 0.2
+Funciï¿½n archivo: Generar toda la interfaz de administraciï¿½n del sistema
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Julio 2010
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 include("../librerias/conexion.php");
 include("../librerias/fckeditor/fckeditor.php");
@@ -38,7 +38,7 @@ class administracion extends conexion
 									echo '<head><title>::-:: '.titulo_camb_contra.' ::-::</title>';	
 									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
 									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.js"></script>
+									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
 									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
 									<script type="text/javascript">
 									$(document).ready(function()
@@ -50,7 +50,7 @@ class administracion extends conexion
 									echo '</head> <body>';
 										echo '<form id="formulario_contras" name="formulario_contras" method="post" action="index.php" class="margen_cero">';
 											echo '<div id="div_centro_registro" >';
-												echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Cambiar Contraseña de un Usuario </div> </div>';
+												echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Cambiar Contraseï¿½a de un Usuario </div> </div>';
 												echo '<div id="registro_2" class="class_registro_2">';
 													echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se enviado a su email la nueva contrase&ntilde;a</div>';
 													echo '<div id="campos_form_bloqueo">';
@@ -63,7 +63,7 @@ class administracion extends conexion
 														if($_GET["mensaje"]=="")
 															$texto_mostrar='&nbsp;';
 														elseif($_GET["mensaje"]==0)
-															$texto_mostrar='El cambio de contraseña fue exitoso';
+															$texto_mostrar='El cambio de contraseï¿½a fue exitoso';
 														elseif($_GET["mensaje"]==1)
 															$texto_mostrar='No existe ese usuario solicitado';
 														elseif($_GET["mensaje"]==2)
@@ -93,7 +93,7 @@ class administracion extends conexion
 									echo '<head><title>::-:: '.titulo_camb_bloqueo.' ::-::</title>';	
 									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
 									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.js"></script>
+									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
 									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
 									<script type="text/javascript">
 									$(document).ready(function()
@@ -107,7 +107,7 @@ class administracion extends conexion
 											echo '<div id="div_centro_registro" >';
 												echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Desbloquer Cuenta de Usuario </div> </div>';
 												echo '<div id="registro_2" class="class_registro_2">';
-													echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se desbloque su cuenta, como que se genere una nueva contrase&ntilde;a que será enviada a su e-mail</div>';
+													echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se desbloque su cuenta, como que se genere una nueva contrase&ntilde;a que serï¿½ enviada a su e-mail</div>';
 													echo '<div id="campos_form_bloqueo">';
 														echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_bloqueo" id="nick_usuario_bloqueo" />
 														<input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "bloqueo" />
@@ -145,7 +145,7 @@ class administracion extends conexion
 									echo '<head><title>::-:: '.titulo_acceso_admon.' ::-::</title>';	
 									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
 									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.js"></script>
+									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
 									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
 									<script type="text/javascript">
 									$(document).ready(function()
@@ -274,13 +274,13 @@ class administracion extends conexion
 												$mail->Body =
 												"<strong>Hola $nombre</strong>
 												<br/><br/>
-												El Usuario ha sido desbloqueado y se le ha asiganado una nueva contraseña
+												El Usuario ha sido desbloqueado y se le ha asiganado una nueva contraseï¿½a
 												<br /><br />
 												Nick: $alias_usuario.
 												<br />
 												Pasword: $pass
 												<br /><br />
-												Dirección de administración:
+												Direcciï¿½n de administraciï¿½n:
 												<br /><br />
 												$url_sitio/admon/index.php
 												<br /><br /><br />
@@ -375,17 +375,17 @@ class administracion extends conexion
 												$mail->FromName = " ".$nombre_ad." ";
 												$mail->AddAddress ($email_usuario, $nombre_usuario);
 												$mail->IsHTML(true);
-												$mail->Subject = "Cambio de Contraseña de Usuario";
+												$mail->Subject = "Cambio de Contraseï¿½a de Usuario";
 												$mail->Body =
 												"<strong>Hola $nombre</strong>
 												<br/><br/>
-												El Usuario se le ha asiganado una nueva contraseña
+												El Usuario se le ha asiganado una nueva contraseï¿½a
 												<br /><br />
 												Nick: $alias_usuario.
 												<br />
 												Pasword: $pass
 												<br /><br />
-												Dirección de administración:
+												Direcciï¿½n de administraciï¿½n:
 												<br /><br />
 												$url_sitio/admon/index.php
 												<br /><br /><br />
@@ -533,7 +533,7 @@ class administracion extends conexion
 						echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
 							<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 							<link rel="STYLESHEET" type="text/css" href="estilos.css" />
-							<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.js"></script>
+							<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
 							<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
 						</head><body>';
 			}
@@ -2699,10 +2699,9 @@ class administracion extends conexion
 					
 		function cargar_modulos_modificacion()
 			{	
-				$archivo = $_POST["archivo"];
-				$clase = $_POST["clase"];
-				$funcion = $_POST["metodo"];
-				
+				$archivo = (isset($_POST["archivo"])) ?$_POST["archivo"]:'';
+				$clase = (isset($_POST["clase"])) ?$_POST["clase"]:'';
+				$funcion = (isset($_POST["metodo"])) ?$_POST["metodo"]:'';	
 				if($archivo=='' and $clase == '' and $funcion =='')
 					{
 						echo '<br /><br />';
@@ -2847,13 +2846,12 @@ class administracion extends conexion
 					{
 						$nombre = HtmlAdmon::historial($clave_seccion_tra);
 						$clave_seccion_tra = $_POST["clave_seccion"];
-						HtmlAdmon::titulo_seccion(txt_vis_de." \"$nombre\"");
-						if($_POST["buscar"]=='si')
+						HtmlAdmon::titulo_seccion(txt_vis_de." \"$nombre\" ");
+						if(isset($_POST["buscar"]) && $_POST["buscar"] == 'si')
 							{
 								$formato_contenido = $_POST["formato_contenido"];
 								$fecha_inicio = $_POST["ano_i"]."-".$_POST["mes_i"]."-".$_POST["dia_i"];
 								$fecha_termino = $_POST["ano_t"]."-".$_POST["mes_t"]."-".$_POST["dia_t"];
-								
 								$fecha_inicio_f = FunGral::fechaNormal($fecha_inicio);
 								$fecha_termino_f = FunGral::fechaNormal($fecha_termino);
 								$clave_seccion  = $_POST["clave_seccion"];
@@ -2896,8 +2894,6 @@ class administracion extends conexion
 						else
 							{
 								echo '<script type="text/javascript">';
-								$this->verificar_fecha_javascript();
-								$this->comparar_fechas_javascript();
 								echo 'function validar_form(formulario, formato)
 											{
 												if(formato == "excel")
@@ -2929,7 +2925,7 @@ class administracion extends conexion
 												formulario.submit();
 											}';		
 								echo '</script>';
-								echo '<form name="buscar_visitas" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_tra.'">';
+								echo '<form id="buscar_visitas" name="buscar_visitas" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_tra.'">';
 									echo '<table width="'.$this->ancho_pixeles.'" border="0" cellspacing="0" cellpadding="0" >';
 										echo '<tr>';
 											echo '<td>'.fecha_ini_bus.'</td><td>';
@@ -2938,8 +2934,8 @@ class administracion extends conexion
 												$ano=date('Y');
 												$areglo_meses = FunGral::MesesNumero();
 												echo dia.'&nbsp;<select name = "dia_i">';
-												for ($a = 1; $a<=31; $a++)
-													{ echo '<option value = "'.$a.'" '; if ($dia == $a) { echo 'selected="selected"'; } echo ' >'.$a.'</option>'; }
+													for ($a = 1; $a<=31; $a++)
+														{ echo '<option value = "'.$a.'" '; if ($dia == $a) { echo 'selected="selected"'; } echo ' >'.$a.'</option>'; }
 												echo '</select>&nbsp;';
 												echo mes.'&nbsp;<select name = "mes_i">';
 													for ($b=1; $b<=12; $b++)
@@ -2953,8 +2949,8 @@ class administracion extends conexion
 										echo '</tr>';
 										echo '<tr><td>'.fecha_fin_bus.'</td><td>';
 												echo dia.'&nbsp;<select name = "dia_t">';
-												for ($a = 1; $a<=31; $a++)
-													{echo '<option value = "'.$a.'" '; if ($dia == $a) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';}
+													for ($a = 1; $a<=31; $a++)
+														{echo '<option value = "'.$a.'" '; if ($dia == $a) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';}
 												echo '</select>&nbsp;';
 												echo mes.'&nbsp;<select name = "mes_t">';
 													for ($b=1; $b<=12; $b++)
@@ -2983,7 +2979,8 @@ class administracion extends conexion
 										echo '</tr>';
 									echo '</table>';
 								echo '</form>';
-								HtmlAdmon::boton_regreso(array('opc_regreso'=>'estadisticas', 'clave_usar'=>$clave_seccion_enviada,'texto'=>regresar_opc_mod));
+								HtmlAdmon::boton_regreso(array('opc_regreso'=>'estadisticas', 
+								'clave_usar'=>$clave_seccion_tra,'texto'=>regresar_opc_mod));
 							}
 					}
 				elseif(isset($_POST["estadisticas"]) && $_POST["estadisticas"]=="recomendar")
@@ -2991,7 +2988,7 @@ class administracion extends conexion
 						$nombre = HtmlAdmon::historial($clave_seccion_tra);
 						$clave_seccion_tra = $_POST["clave_seccion"];
 						HtmlAdmon::titulo_seccion(txt_rec_de." \"$nombre\"");	
-						if($_POST["clave_recomendar"]!='')
+						if(isset($_POST["clave_recomendar"]) && $_POST["clave_recomendar"]!='')
 							{
 								$ano_i = $_POST["ano_i"];
 								$mes_i = $_POST["mes_i"];
@@ -3105,42 +3102,43 @@ class administracion extends conexion
 											$contador++;
 										}
 								echo '</table>';
-								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>txt_rec_reg_bus,
-									'opciones_ocultas'=>array(
-										'archivo'=>'administracion.php',
+								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado',
+								'opc_regreso'=>'estadisticas',
+								'clave_usar'=>$clave_seccion_tra,'texto'=>txt_rec_reg_bus,
+									'OpcOcultas'=>array('archivo'=>'administracion.php',
 										'clase'=>'administracion',
 										'metodo'=>'estadisticas_seccion',
-										'clave_modulo'=>$clave_modulo,
+										'estadisticas'=>'recomendar',
 										'clave_seccion'=>$clave_seccion_tra)));
 							}
 						else
 							{
 								echo '<script type="text/javascript">';
 								echo 'function validar_form(formulario)
-											{
-												separador = "/";
-												fecha_ini = formulario.dia_i.value+"/"+formulario.mes_i.value+"/"+formulario.ano_i.value;
-												fecha_fin = formulario.dia_t.value+"/"+formulario.mes_t.value+"/"+formulario.ano_t.value;
-												if(!Comparar_Fecha(fecha_ini, fecha_fin))
-													{
-														alert("'.comparar_fecha_veri.'");
-														formulario.dia_i.focus(); 
-														return false;
-													}
-												if(!verificar_fecha(fecha_ini, separador))
-													{
-														alert("'.verificar_fecha_ini.'");
-														formulario.dia_i.focus(); 
-														return false;
-													}
-												if(!verificar_fecha(fecha_fin, separador))
-													{
-														alert("'.verificar_fecha_fin.'");
-														formulario.dia_t.focus(); 
-														return false;
-													}
-												formulario.submit();
-											}';
+										{
+											separador = "/";
+											fecha_ini = formulario.dia_i.value+"/"+formulario.mes_i.value+"/"+formulario.ano_i.value;
+											fecha_fin = formulario.dia_t.value+"/"+formulario.mes_t.value+"/"+formulario.ano_t.value;
+											if(!Comparar_Fecha(fecha_ini, fecha_fin))
+												{
+													alert("'.comparar_fecha_veri.'");
+													formulario.dia_i.focus(); 
+													return false;
+												}
+											if(!verificar_fecha(fecha_ini, separador))
+												{
+													alert("'.verificar_fecha_ini.'");
+													formulario.dia_i.focus(); 
+													return false;
+												}
+											if(!verificar_fecha(fecha_fin, separador))
+												{
+													alert("'.verificar_fecha_fin.'");
+													formulario.dia_t.focus(); 
+													return false;
+												}
+											formulario.submit();
+										}';
 								echo '</script>';
 								echo '<form name="buscar_recomendaciones" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_tra.'">';
 									echo '<table width="'.$this->ancho_pixeles.'" border="0" cellspacing="0" cellpadding="0" >';
@@ -3194,7 +3192,8 @@ class administracion extends conexion
 										echo '</tr>';
 									echo '</table>';
 								echo '</form>';
-								HtmlAdmon::boton_regreso(array('clave_usar'=>$clave_seccion_tra,'texto'=>txt_regresar_estadisticas));
+								HtmlAdmon::boton_regreso(array('clave_usar'=>$clave_seccion_tra,'opc_regreso'=>'estadisticas',
+								'texto'=>txt_regresar_estadisticas));
 							}
 					}
 				else

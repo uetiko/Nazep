@@ -36,9 +36,9 @@ class HtmlAdmon
 				else
 					{
 						$orden_array = explode('-',$orden);
-						if($ValorSeleccionado=='si')
+						if($ValorSeleccionado=='si' || $ValorSeleccionado== 'SI' )
 							{ $val_che = array('si'=>'checked="checked"','no'=>''); }							
-						else if($ValorSeleccionado=='no')
+						else if($ValorSeleccionado=='no' || $ValorSeleccionado=='NO')
 							{ $val_che = array('si'=>'','no'=>'checked="checked"'); }
 						else
 							{ echo 'Se mando en formato incorecto en el valor seleccionado solo se reciben valores "si" o "no"'; }		
@@ -134,12 +134,9 @@ class HtmlAdmon
 					'alt'=>img_regresar,
 					'title'=>$texto,
 					'presentacion'=>'return')).'<br /><strong>'.$texto.'</strong>';
-					
 				$contenido_div = '';
 				if($tipo =='sencillo')
-					{
-						$contenido_div = html::a(array('href'=>'index.php?opc='.$opc_regreso.$par_seccion, 'class'=>'regresar','presentacion'=>'return','tipo'=>'inifin', 'contenido' => $contenido_a));
-					}
+					{$contenido_div = html::a(array('href'=>'index.php?opc='.$opc_regreso.$par_seccion, 'class'=>'regresar','presentacion'=>'return','tipo'=>'inifin', 'contenido' => $contenido_a)); }
 				elseif($tipo=='avanzado')
 					{
 						$todas_opciones = '';
@@ -152,7 +149,7 @@ class HtmlAdmon
 												'tipo'=>'inifin', 'contenido' => $contenido_a));
 						$contenido_form = $todas_opciones.$enlace;						
 						$contenido_div = html::form(array('presentacion'=>'return',
-														'action'=>'index.php?opc=111'.$par_seccion,
+														'action'=>'index.php?opc='.$opc_regreso.$par_seccion,
 														'class'=>'margen_cero',
 														'name'=>'frm_regresar',
 														'ir'=>'frm_regresar',

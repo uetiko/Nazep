@@ -2,23 +2,23 @@
 /*
 Sistema: Nazep
 Nombre archivo: articulos_lista_admon.php
-Función archivo: archivo para controlar la administración del módulo de listado de artículos
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo para controlar la administraciï¿½n del mï¿½dulo de listado de artï¿½culos
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 class clase_articulos_lista extends conexion
 	{
-		//Propiedads privadas para la dirección del archivo y nombre de la clase
+		//Propiedads privadas para la direcciï¿½n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/articulos_lista/articulos_lista_admon.php';
 		private $NomClase = 'clase_articulos_lista';
 		function __construct()
 			{
 				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos_lista.php');
 			}	
-// ------------------------------ Inicio de funciones para controlar las funciones del módulo	
+// ------------------------------ Inicio de funciones para controlar las funciones del mï¿½dulo	
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
 				$situacion = FunGral::vigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
@@ -80,8 +80,8 @@ class clase_articulos_lista extends conexion
 				else
 					{echo '<br />'.lap_txt_avi_no_act_camb;}
 			}	
-// ------------------------------ Fin de funciones para controlar las funciones del módulo
-// ------------------------------ Inicio de funciones para controlar la modificación de la información del módulo	
+// ------------------------------ Fin de funciones para controlar las funciones del mï¿½dulo
+// ------------------------------ Inicio de funciones para controlar la modificaciï¿½n de la informaciï¿½n del mï¿½dulo	
 		function configurar($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
@@ -144,7 +144,7 @@ class clase_articulos_lista extends conexion
 								values
 								('$clave_modulo', '$clave_seccion_enviada', '$clave_seccion_enlazar', '$nombre_articulos', '$ver_nombre', '$orden_nombre', '$lado_nombre', '$enlace_nombre', 
 								'$nom_por_col1', '$nom_por_col2','$ver_enlace_ver',
-								'$lado_enalce_ver', '$cantidad_listar', '$enl_por_col1', '$enl_por_col12',
+								'$lado_enalce_ver', '$cantidad_listar', '$enl_por_col1', '$enl_por_col2',
 								'$ver_titulo', '$orden_titulo', '$lado_titulo',
 								'$tit_por_col1', '$tit_por_col2', '$ver_numero', '$orden_numero', '$lado_numero', 
 								'$num_por_col1', '$num_por_col2', '$ver_lugar',
@@ -183,13 +183,11 @@ class clase_articulos_lista extends conexion
 								echo "Error: Insertar en la base de datos, la consulta: <strong>$error</strong> <br/> con el siguiente mensaje: $men";
 							}
 						else
-							{
-								echo "termino-,*-$formulario_final";
-							}
+							{ echo "termino-,*-$formulario_final"; }
 					}
 				else
 					{
-						$estado = $_POST["estado"];
+						$estado = (isset($_POST["estado"])) ?$_POST["estado"] :'nuevo';
 						$clave_modulo =  $_POST["clave_modulo"];
 						$nombre = HtmlAdmon::historial($clave_seccion_enviada);	
 						HtmlAdmon::titulo_seccion(lap_txt_tit_conf);
@@ -222,428 +220,55 @@ class clase_articulos_lista extends conexion
 						echo '<form name="recargar_pantalla"  id="recargar_pantalla"  method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero">';
 							echo '<input type="hidden" name="archivo" value = "../librerias/modulos/articulos_lista/articulos_lista_admon.php" />';
 							echo '<input type="hidden" name="clase" value = "clase_articulos_lista"/>';
-							echo '<input type="hidden" name="metodo" value = "configurar" />';	
+							echo '<input type="hidden" name="metodo" value = "configurar" />';
+							echo '<input type="hidden" name="estado" value = "modificar" />';
 							echo '<input type="hidden" name="clave_modulo" value = "'.$clave_modulo.'" />';
 						echo '</form>';	
-						echo '<form name="frm_configuracion_articulos" id="frm_configuracion_articulos" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero" >';
 						if($estado == 'nuevo')
 							{
-								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-									$con_sec ="select clave_seccion, nombre from nazep_secciones where situacion = 'activo' or situacion = 'oculto' order by nombre";
-									$res_sec_b = mysql_query($con_sec);
-									echo '<tr>';
-										echo '<td>'.lap_txt_sec_art.'</td>';
-										echo '<td>';
-											echo '<select name = "clave_seccion_enlazar">';
-												while($ren = mysql_fetch_array($res_sec_b))
-													{
-														$clave_seccion_b = $ren["clave_seccion"];
-														$nombre  = $ren["nombre"];
-														echo '<option value = "'.$clave_seccion_b.'"  '; if ($clave_seccion_b == 1) {echo ' selected ';} echo ' >'.$nombre.'</option>';
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>'.lap_txt_ver_nom.'</td>';
-										echo '<td>';
-											echo '<select name = "ver_nombre">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_nom_lis.'</td>';
-										echo '<td><input type = "text" name = "nombre_articulos" size = "60" /></td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_ord_nom.'</td>';
-										echo '<td>';
-											echo '<select name = "orden_nombre">';
-												echo '<option value = "1" >1</option>';
-												echo '<option value = "2" >2</option>';
-												echo '<option value = "3" >3</option>';
-												echo '<option value = "4" >4</option>';
-												echo '<option value = "5" >5</option>';
-												echo '<option value = "6" >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_lad_nom.'</td>';
-										echo '<td>';
-											echo '<select name = "lado_nombre">';
-												echo '<option value = "left" >'.izquierda.'</option>';
-												echo '<option value = "center" >'.centro.'</option>';
-												echo '<option value = "right" >'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_gen_enl_nom.'</td>';
-										echo '<td>';
-											echo '<select name = "enlace_nombre">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_can_mos.'</td>';
-										echo '<td><input type = "text" name = "cantidad_listar" size = "5" onkeypress="return solo_num(event)" title ="'.tit_solo_numeros.'"/></td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_por_col1.'</td>';
-										echo '<td>';
-											echo '<select name = "nom_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{ echo '<option value = "'.$a.'" >'.$a.'</option>';}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_por_col2.'</td>';
-										echo '<td>';
-											echo '<select name = "nom_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{echo '<option value = "'.$a.'" >'.$a.'</option>';}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_ver_enl_ver.'</td>';
-										echo '<td>';
-											echo '<select name = "ver_enlace_ver">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_lad_enl_ver.'</td>';
-										echo '<td>';
-											echo '<select name = "lado_enalce_ver">';
-												echo '<option value = "left" >'.izquierda.'</option>';
-												echo '<option value = "center" >'.centro.'</option>';
-												echo '<option value = "right" >'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_por_col1.'</td>';
-										echo '<td>';
-											echo '<select name = "enl_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{echo '<option value = "'.$a.'" >'.$a.'</option>';}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_por_col2.'</td>';
-										echo '<td>';
-											echo '<select name = "enl_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{echo '<option value = "'.$a.'" >'.$a.'</option>';}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_ver_tit.'</td>';
-										echo '<td>';
-											echo '<select name = "ver_titulo">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_ord_tit.'</td>';
-										echo '<td>';
-											echo '<select name = "orden_titulo">';
-												echo '<option value = "1" >1</option>';
-												echo '<option value = "2" >2</option>';
-												echo '<option value = "3" >3</option>';
-												echo '<option value = "4" >4</option>';
-												echo '<option value = "5" >5</option>';
-												echo '<option value = "6" >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_lad_tit.'</td>';
-										echo '<td>';
-											echo '<select name = "lado_titulo">';
-												echo '<option value = "left" >'.izquierda.'</option>';
-												echo '<option value = "center" >'.centro.'</option>';
-												echo '<option value = "right" >'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_por_col1.'</td>';
-										echo '<td>';
-											echo '<select name = "tit_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{echo '<option value = "'.$a.'" >'.$a.'</option>';}												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_por_col2.'</td>';
-										echo '<td>';
-											echo '<select name = "tit_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{echo '<option value = "'.$a.'" >'.$a.'</option>';}												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_ver_num.'</td>';
-										echo '<td>';
-											echo '<select name = "ver_numero">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>'.lap_txt_ord_num.'</td>';
-										echo '<td>';
-											echo '<select name = "orden_numero">';
-												echo '<option value = "1" >1</option>';
-												echo '<option value = "2" >2</option>';
-												echo '<option value = "3" >3</option>';
-												echo '<option value = "4" >4</option>';
-												echo '<option value = "5" >5</option>';
-												echo '<option value = "6" >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_num;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_numero">';
-												echo '<option value = "left" >'.izquierda.'</option>';
-												echo '<option value = "center" >'.centro.'</option>';
-												echo '<option value = "right" >'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "num_por_col1">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';	
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "num_por_col2">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';	
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_lug;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_lugar">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_fec;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_fecha">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_lug_fec;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_lugar_fecha">';
-												echo '<option value = "1" >1</option>';
-												echo '<option value = "2" >2</option>';
-												echo '<option value = "3" >3</option>';
-												echo '<option value = "4" >4</option>';
-												echo '<option value = "5" >5</option>';
-												echo '<option value = "6" >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_lug_fec;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_lugar_fecha">';
-												echo '<option value = "left" >'.izquierda.'</option>';
-												echo '<option value = "center" >'.centro.'</option>';
-												echo '<option value = "right" >'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lug_por_col1">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';	
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lug_por_col2">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';	
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_resc;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_resumen_chico">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_resc;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_resumen_chico">';
-												echo '<option value = "1" >1</option>';
-												echo '<option value = "2" >2</option>';
-												echo '<option value = "3" >3</option>';
-												echo '<option value = "4" >4</option>';
-												echo '<option value = "5" >5</option>';
-												echo '<option value = "6" >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resc_por_col1">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resc_por_col2">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_resg;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_resumen_grande">';
-												echo '<option value = "SI" >'.si.'</option>';
-												echo '<option value = "NO" >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_resg;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_resumen_graden">';
-												echo '<option value = "1" >1</option>';
-												echo '<option value = "2" >2</option>';
-												echo '<option value = "3" >3</option>';
-												echo '<option value = "4" >4</option>';
-												echo '<option value = "5" >5</option>';
-												echo '<option value = "6" >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resg_por_col1">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resg_por_col2">';
-												for($a=0;$a<=100;$a++)
-													echo '<option value = "'.$a.'" >'.$a.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-								echo '</table>';
-								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-									echo '<tr>';
-										echo '<td align ="center">';
-											echo '<input type="hidden" name="archivo" value = "../librerias/modulos/articulos_lista/articulos_lista_admon.php" />';
-											echo '<input type="hidden" name="clase" value = "clase_articulos_lista" />';
-											echo '<input type="hidden" name="metodo" value = "configurar" />';	
-											echo '<input type="hidden" name="estado" value = "nuevo" />';
-											echo '<input type="hidden" name="guardar" value = "si" />';
-											echo '<input type="hidden" name="clave_modulo" value = "'.$clave_modulo.'" />';
-											echo '<input type="hidden" name="clave_seccion" value = "'.$clave_seccion_enviada.'" />';
-											echo '<input type="submit" name="btn_guardar" value="'.guardar.'" onclick= "return validar_form(this.form)" />';
-										echo '</td>';
-									 echo '</tr>';
-								echo '</table>';
+								$clave_seccion_enlazar = 1;
+								$ver_nombre = 'SI';
+								$nombre_articulos = '';
+								$orden_nombre = 1;
+								$lado_nombre = 'left';
+								$enlace_nombre = 'SI';
+								$nom_por_col1 = '0';
+								$nom_por_col2 = '0';
+								$cantidad_listar = '';
+								$ver_enlace_ver = 'SI';
+								$lado_enalce_ver = 'left';
+								$enl_por_col1 = '0';
+								$enl_por_col2 = '0';
+								$ver_titulo = 'SI';
+								$orden_titulo = 2;
+								$lado_titulo = 'left';
+								$tit_por_col1 = '0';
+								$tit_por_col2 = '0';
+								$ver_numero = 'SI';
+								$orden_numero = 3;
+								$lado_numero = 'left';
+								$num_por_col1 = '0';
+								$num_por_col2 = '0';
+								$ver_lugar = 'SI';
+								$ver_fecha = 'SI';
+								$orden_lugar_fecha = 4;
+								$lado_lugar_fecha = 'left';
+								$lug_por_col1 = '0';
+								$lug_por_col2 = '0';
+								$ver_resumen_chico = 'SI';
+								$orden_resumen_chico = 5;
+								$resc_por_col1 = '0';
+								$resc_por_col2 = '0';
+								$ver_resumen_grande = 'SI';
+								$orden_resumen_graden = 6;
+								$resg_por_col1 = '0';
+								$resg_por_col2 = '0';
+								
+								$clave_seccion = $clave_seccion_enviada;
+								$clave_modulo = $clave_modulo;
+								$clave_articulo_lista = '';								
 							}
-						else
+						elseif($estado == 'modificar')
 							{	
 								$con_con ="select * from nazep_zmod_articulos_lista where  clave_modulo = '$clave_modulo' and clave_seccion = '$clave_seccion_enviada'";
 								$conexion = $this->conectarse();
@@ -686,514 +311,377 @@ class clase_articulos_lista extends conexion
 								$orden_resumen_graden = $ren_con["orden_resumen_graden"];
 								$resg_por_col1 = $ren_con["resg_por_col1"];
 								$resg_por_col2 = $ren_con["resg_por_col2"];
-								$estado = $ren_con["estado"];
 								$clave_seccion = $ren_con["clave_seccion"];
 								$clave_modulo = $ren_con["clave_modulo"];
-								$clave_articulo_lista = $ren_con["clave_articulo_lista"];
-								
-								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-									$con_sec = "select clave_seccion, nombre
-									from nazep_secciones
-									where situacion = 'activo'
-									or situacion = 'oculto'
-									order by nombre";
-									$res_sec_b = mysql_query($con_sec);
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_sec_art;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "clave_seccion_enlazar">';
-												while($ren = mysql_fetch_array($res_sec_b))
-													{
-														$clave_seccion_b = $ren["clave_seccion"];
-														$nombre  = $ren["nombre"];
-														echo '<option value = "'.$clave_seccion_b.'"  '; if ($clave_seccion_b == $clave_seccion_enlazar) {echo ' selected="selected" ';} echo ' >'.$nombre.'</option>';
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_nom;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_nombre">';
-												echo '<option value = "SI" '; if ($ver_nombre == "SI") { echo 'selected="selected"'; } echo ' >'.si.'</option>';
-												echo '<option value = "NO" '; if ($ver_nombre == "NO") { echo 'selected="selected"'; } echo ' >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_nom_lis;
-										echo '</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "nombre_articulos" size = "60" value ="'.$nombre_articulos.'"/>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_nom;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_nombre">';
-												echo '<option value = "1"  '; if ($orden_nombre == "1") { echo 'selected="selected"'; } echo ' >1</option>';
-												echo '<option value = "2"  '; if ($orden_nombre == "2") { echo 'selected="selected"'; } echo ' >2</option>';
-												echo '<option value = "3"  '; if ($orden_nombre == "3") { echo 'selected="selected"'; } echo ' >3</option>';
-												echo '<option value = "4"  '; if ($orden_nombre == "4") { echo 'selected="selected"'; } echo ' >4</option>';
-												echo '<option value = "5"  '; if ($orden_nombre == "5") { echo 'selected="selected"'; } echo ' >5</option>';
-												echo '<option value = "6"  '; if ($orden_nombre == "6") { echo 'selected="selected"'; } echo ' >6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_nom;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_nombre">';
-												echo '<option value = "left"   '; if ($lado_nombre == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
-												echo '<option value = "center"  '; if ($lado_nombre == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
-												echo '<option value = "right"  '; if ($lado_nombre == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_gen_enl_nom;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "enlace_nombre">';
-												echo '<option value = "SI"  '; if ($enlace_nombre == "SI") { echo 'selected="selected"'; } echo ' >'.si.'</option>';
-												echo '<option value = "NO" '; if ($enlace_nombre == "NO") { echo 'selected="selected"'; } echo '  >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_can_mos;
-										echo '</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "cantidad_listar" size = "5" onkeypress="return solo_num(event)" value = "'.$cantidad_listar.'" title ="'.tit_solo_numeros.'" />';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "nom_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $nom_por_col1) { echo 'selected="selected"'; } echo '  >'.$a.'</option>';
-													}												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "nom_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $nom_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_enl_ver;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_enlace_ver">';
-												echo '<option value = "SI"  '; if ($ver_enlace_ver == "SI") { echo 'selected="selected"'; } echo '>'.si.'</option>';
-												echo '<option value = "NO"  '; if ($ver_enlace_ver == "NO") { echo 'selected="selected"'; } echo '>'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_enl_ver;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_enalce_ver">';
-												echo '<option value = "left"  '; if ($lado_enalce_ver == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
-												echo '<option value = "center"  '; if ($lado_enalce_ver == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
-												echo '<option value = "right"  '; if ($lado_enalce_ver == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "enl_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $enl_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "enl_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $enl_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_tit;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_titulo">';
-												echo '<option value = "SI"  '; if ($ver_titulo == "SI") { echo 'selected="selected"'; } echo '>'.si.'</option>';
-												echo '<option value = "NO"  '; if ($ver_titulo == "NO") { echo 'selected="selected"'; } echo '>'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_tit;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_titulo">';
-												echo '<option value = "1"  '; if ($orden_titulo == "1") { echo 'selected="selected"'; } echo '>1</option>';
-												echo '<option value = "2"  '; if ($orden_titulo == "2") { echo 'selected="selected"'; } echo '>2</option>';
-												echo '<option value = "3"  '; if ($orden_titulo == "3") { echo 'selected="selected"'; } echo '>3</option>';
-												echo '<option value = "4"  '; if ($orden_titulo == "4") { echo 'selected="selected"'; } echo '>4</option>';
-												echo '<option value = "5"  '; if ($orden_titulo == "5") { echo 'selected="selected"'; } echo '>5</option>';
-												echo '<option value = "6"  '; if ($orden_titulo == "6") { echo 'selected="selected"'; } echo '>6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_tit;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_titulo">';
-												echo '<option value = "left"  '; if ($lado_titulo == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
-												echo '<option value = "center"  '; if ($lado_titulo == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
-												echo '<option value = "right"  '; if ($lado_titulo == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "tit_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $tit_por_col1) { echo 'selected="selected"'; } echo '  >'.$a.'</option>';	
-													}
-												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "tit_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $tit_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-												
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_num;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_numero">';
-												echo '<option value = "SI"  '; if ($ver_numero == "SI") { echo 'selected="selected"'; } echo '>'.si.'</option>';
-												echo '<option value = "NO"  '; if ($ver_numero == "NO") { echo 'selected="selected"'; } echo '>'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_num;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_numero">';
-												echo '<option value = "1"  '; if ($orden_numero == "1") { echo 'selected="selected"'; } echo '>1</option>';
-												echo '<option value = "2"  '; if ($orden_numero == "2") { echo 'selected="selected"'; } echo '>2</option>';
-												echo '<option value = "3"  '; if ($orden_numero == "3") { echo 'selected="selected"'; } echo '>3</option>';
-												echo '<option value = "4"  '; if ($orden_numero == "4") { echo 'selected="selected"'; } echo '>4</option>';
-												echo '<option value = "5"  '; if ($orden_numero == "5") { echo 'selected="selected"'; } echo '>5</option>';
-												echo '<option value = "6"  '; if ($orden_numero == "6") { echo 'selected="selected"'; } echo '>6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_num;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_numero">';
-												echo '<option value = "left"  '; if ($lado_numero == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
-												echo '<option value = "center"  '; if ($lado_numero == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
-												echo '<option value = "right"  '; if ($lado_numero == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "num_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $num_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "num_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $num_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_lug;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_lugar">';
-												echo '<option value = "SI"  '; if ($ver_lugar == "SI") { echo 'selected="selected"'; } echo ' >'.si.'</option>';
-												echo '<option value = "NO"  '; if ($ver_lugar == "NO") { echo 'selected="selected"'; } echo ' >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_fec;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_fecha">';
-												echo '<option value = "SI" '; if ($ver_fecha == "SI") { echo 'selected="selected"'; } echo '  >'.si.'</option>';
-												echo '<option value = "NO" '; if ($ver_fecha == "NO") { echo 'selected="selected"'; } echo ' >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_lug_fec;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_lugar_fecha">';
-												echo '<option value = "1"  '; if ($orden_lugar_fecha == "1") { echo 'selected="selected"'; } echo '>1</option>';
-												echo '<option value = "2"  '; if ($orden_lugar_fecha == "2") { echo 'selected="selected"'; } echo '>2</option>';
-												echo '<option value = "3"  '; if ($orden_lugar_fecha == "3") { echo 'selected="selected"'; } echo '>3</option>';
-												echo '<option value = "4"  '; if ($orden_lugar_fecha == "4") { echo 'selected="selected"'; } echo '>4</option>';
-												echo '<option value = "5"  '; if ($orden_lugar_fecha == "5") { echo 'selected="selected"'; } echo '>5</option>';
-												echo '<option value = "6"  '; if ($orden_lugar_fecha == "6") { echo 'selected="selected"'; } echo '>6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_lad_lug_fec;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lado_lugar_fecha">';
-												echo '<option value = "left"  '; if ($lado_lugar_fecha == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
-												echo '<option value = "center"  '; if ($lado_lugar_fecha == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
-												echo '<option value = "right"  '; if ($lado_lugar_fecha == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lug_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $lug_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "lug_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $lug_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_resc;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_resumen_chico">';
-												echo '<option value = "SI"  '; if ($ver_resumen_chico == "SI") { echo 'selected="selected"'; } echo ' >'.si.'</option>';
-												echo '<option value = "NO"  '; if ($ver_resumen_chico == "NO") { echo 'selected="selected"'; } echo ' >'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_resc;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_resumen_chico">';
-												echo '<option value = "1"  '; if ($orden_resumen_chico == "1") { echo 'selected="selected"'; } echo '>1</option>';
-												echo '<option value = "2"  '; if ($orden_resumen_chico == "2") { echo 'selected="selected"'; } echo '>2</option>';
-												echo '<option value = "3"  '; if ($orden_resumen_chico == "3") { echo 'selected="selected"'; } echo '>3</option>';
-												echo '<option value = "4"  '; if ($orden_resumen_chico == "4") { echo 'selected="selected"'; } echo '>4</option>';
-												echo '<option value = "5"  '; if ($orden_resumen_chico == "5") { echo 'selected="selected"'; } echo '>5</option>';
-												echo '<option value = "6"  '; if ($orden_resumen_chico == "6") { echo 'selected="selected"'; } echo '>6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resc_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'"'; if ($a == $resc_por_col1) { echo 'selected="selected"'; } echo '  >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resc_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $resc_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ver_resg;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "ver_resumen_grande">';
-												echo '<option value = "SI"  '; if ($ver_resumen_grande == "SI") { echo 'selected="selected"'; } echo '>'.si.'</option>';
-												echo '<option value = "NO"  '; if ($ver_resumen_grande == "NO") { echo 'selected="selected"'; } echo '>'.no.'</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_ord_resg;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "orden_resumen_graden">';
-												echo '<option value = "1"  '; if ($orden_resumen_graden == "1") { echo 'selected="selected"'; } echo '>1</option>';
-												echo '<option value = "2"  '; if ($orden_resumen_graden == "2") { echo 'selected="selected"'; } echo '>2</option>';
-												echo '<option value = "3"  '; if ($orden_resumen_graden == "3") { echo 'selected="selected"'; } echo '>3</option>';
-												echo '<option value = "4"  '; if ($orden_resumen_graden == "4") { echo 'selected="selected"'; } echo '>4</option>';
-												echo '<option value = "5"  '; if ($orden_resumen_graden == "5") { echo 'selected="selected"'; } echo '>5</option>';
-												echo '<option value = "6"  '; if ($orden_resumen_graden == "6") { echo 'selected="selected"'; } echo '>6</option>';
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col1;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resg_por_col1">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $resg_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo lap_txt_por_col2;
-										echo '</td>';
-										echo '<td>';
-											echo '<select name = "resg_por_col2">';
-												for($a=0;$a<=100;$a++)
-													{
-														echo '<option value = "'.$a.'" '; if ($a == $resg_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	
-													}
-											echo '</select>';
-										echo '</td>';
-									echo '</tr>';
-								echo '</table>';
-								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-									echo '<tr>';
-										echo '<td align ="center">';
-											echo '<input type="hidden" name="archivo" value = "../librerias/modulos/articulos_lista/articulos_lista_admon.php" />';
-											echo '<input type="hidden" name="clase" value = "clase_articulos_lista" />';
-											echo '<input type="hidden" name="metodo" value = "configurar" />';	
-											echo '<input type="hidden" name="estado" value = "modificar" />';
-											echo '<input type="hidden" name="guardar" value = "si" />';
-											echo '<input type="hidden" name="clave_articulo_lista" value = "'.$clave_articulo_lista.'" />';		
-											echo '<input type="hidden" name="clave_seccion" value = "'.$clave_seccion_enviada.'" />';
-											echo '<input type="submit" name="btn_guardar" value="'.guardar.'" onclick= "return validar_form(this.form)" />';
-										echo '</td>';
-									 echo '</tr>';
-								echo '</table>';
+								$clave_articulo_lista = $ren_con["clave_articulo_lista"];	
 							}
+						echo '<form name="frm_configuracion_articulos" id="frm_configuracion_articulos" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero" >';
+							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
+								$con_sec = "select clave_seccion, nombre
+								from nazep_secciones where situacion = 'activo'
+								or situacion = 'oculto' order by nombre";
+								$res_sec_b = mysql_query($con_sec);
+								echo '<tr>';
+									echo '<td>'.lap_txt_sec_art.'</td>';
+									echo '<td>';
+										echo '<select name = "clave_seccion_enlazar">';
+											while($ren = mysql_fetch_array($res_sec_b))
+												{
+													$clave_seccion_b = $ren["clave_seccion"];
+													$nombre  = $ren["nombre"];
+													echo '<option value = "'.$clave_seccion_b.'"  '; if ($clave_seccion_b == $clave_seccion_enlazar) {echo ' selected="selected" ';} echo ' >'.$nombre.'</option>';
+												}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';	
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_nom.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_nombre','ValorSeleccionado'=>$ver_nombre, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_nom_lis. '</td>';
+									echo '<td><input type = "text" name = "nombre_articulos" size = "60" value ="'.$nombre_articulos.'"/></td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ord_nom.'</td>';
+									echo '<td>';
+										echo '<select name = "orden_nombre">';
+											echo '<option value = "1"  '; if ($orden_nombre == "1") { echo 'selected="selected"'; } echo ' >1</option>';
+											echo '<option value = "2"  '; if ($orden_nombre == "2") { echo 'selected="selected"'; } echo ' >2</option>';
+											echo '<option value = "3"  '; if ($orden_nombre == "3") { echo 'selected="selected"'; } echo ' >3</option>';
+											echo '<option value = "4"  '; if ($orden_nombre == "4") { echo 'selected="selected"'; } echo ' >4</option>';
+											echo '<option value = "5"  '; if ($orden_nombre == "5") { echo 'selected="selected"'; } echo ' >5</option>';
+											echo '<option value = "6"  '; if ($orden_nombre == "6") { echo 'selected="selected"'; } echo ' >6</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_lad_nom.'</td>';
+									echo '<td>';
+										echo '<select name = "lado_nombre">';
+											echo '<option value = "left"   '; if ($lado_nombre == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
+											echo '<option value = "center"  '; if ($lado_nombre == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
+											echo '<option value = "right"  '; if ($lado_nombre == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_gen_enl_nom.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'enlace_nombre','ValorSeleccionado'=>$enlace_nombre, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_can_mos.'</td>';
+									echo '<td>';
+										echo '<input type = "text" name = "cantidad_listar" size = "5" onkeypress="return solo_num(event)" value = "'.$cantidad_listar.'" title ="'.tit_solo_numeros.'" />';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "nom_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $nom_por_col1) { echo 'selected="selected"'; } echo '  >'.$a.'</option>';}												
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "nom_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $nom_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr><td colspan="2" ><hr /></td></tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_enl_ver.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_enlace_ver','ValorSeleccionado'=>$ver_enlace_ver, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_lad_enl_ver.'</td>';
+									echo '<td>';
+										echo '<select name = "lado_enalce_ver">';
+											echo '<option value = "left"  '; if ($lado_enalce_ver == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
+											echo '<option value = "center"  '; if ($lado_enalce_ver == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
+											echo '<option value = "right"  '; if ($lado_enalce_ver == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "enl_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $enl_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "enl_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $enl_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr><td colspan="2"><hr /></td></tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_tit.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_titulo','ValorSeleccionado'=>$ver_titulo, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ord_tit.'</td>';
+									echo '<td>';
+										echo '<select name = "orden_titulo">';
+											echo '<option value = "1"  '; if ($orden_titulo == "1") { echo 'selected="selected"'; } echo '>1</option>';
+											echo '<option value = "2"  '; if ($orden_titulo == "2") { echo 'selected="selected"'; } echo '>2</option>';
+											echo '<option value = "3"  '; if ($orden_titulo == "3") { echo 'selected="selected"'; } echo '>3</option>';
+											echo '<option value = "4"  '; if ($orden_titulo == "4") { echo 'selected="selected"'; } echo '>4</option>';
+											echo '<option value = "5"  '; if ($orden_titulo == "5") { echo 'selected="selected"'; } echo '>5</option>';
+											echo '<option value = "6"  '; if ($orden_titulo == "6") { echo 'selected="selected"'; } echo '>6</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_lad_tit.'</td>';
+									echo '<td>';
+										echo '<select name = "lado_titulo">';
+											echo '<option value = "left"  '; if ($lado_titulo == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
+											echo '<option value = "center"  '; if ($lado_titulo == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
+											echo '<option value = "right"  '; if ($lado_titulo == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "tit_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $tit_por_col1) { echo 'selected="selected"'; } echo '  >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "tit_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $tit_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr><td colspan="2" ><hr /></td></tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_num.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_numero','ValorSeleccionado'=>$ver_numero, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ord_num.'</td>';
+									echo '<td>';
+										echo '<select name = "orden_numero">';
+											echo '<option value = "1"  '; if ($orden_numero == "1") { echo 'selected="selected"'; } echo '>1</option>';
+											echo '<option value = "2"  '; if ($orden_numero == "2") { echo 'selected="selected"'; } echo '>2</option>';
+											echo '<option value = "3"  '; if ($orden_numero == "3") { echo 'selected="selected"'; } echo '>3</option>';
+											echo '<option value = "4"  '; if ($orden_numero == "4") { echo 'selected="selected"'; } echo '>4</option>';
+											echo '<option value = "5"  '; if ($orden_numero == "5") { echo 'selected="selected"'; } echo '>5</option>';
+											echo '<option value = "6"  '; if ($orden_numero == "6") { echo 'selected="selected"'; } echo '>6</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_lad_num.'</td>';
+									echo '<td>';
+										echo '<select name = "lado_numero">';
+											echo '<option value = "left"  '; if ($lado_numero == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
+											echo '<option value = "center"  '; if ($lado_numero == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
+											echo '<option value = "right"  '; if ($lado_numero == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "num_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{ echo '<option value = "'.$a.'" '; if ($a == $num_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "num_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{ echo '<option value = "'.$a.'" '; if ($a == $num_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr><td colspan="2"><hr /></td></tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_lug.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_lugar','ValorSeleccionado'=>$ver_lugar, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';	
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_fec.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_fecha','ValorSeleccionado'=>$ver_fecha, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ord_lug_fec.'</td>';
+									echo '<td>';
+										echo '<select name = "orden_lugar_fecha">';
+											echo '<option value = "1"  '; if ($orden_lugar_fecha == "1") { echo 'selected="selected"'; } echo '>1</option>';
+											echo '<option value = "2"  '; if ($orden_lugar_fecha == "2") { echo 'selected="selected"'; } echo '>2</option>';
+											echo '<option value = "3"  '; if ($orden_lugar_fecha == "3") { echo 'selected="selected"'; } echo '>3</option>';
+											echo '<option value = "4"  '; if ($orden_lugar_fecha == "4") { echo 'selected="selected"'; } echo '>4</option>';
+											echo '<option value = "5"  '; if ($orden_lugar_fecha == "5") { echo 'selected="selected"'; } echo '>5</option>';
+											echo '<option value = "6"  '; if ($orden_lugar_fecha == "6") { echo 'selected="selected"'; } echo '>6</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_lad_lug_fec.'</td>';
+									echo '<td>';
+										echo '<select name = "lado_lugar_fecha">';
+											echo '<option value = "left"  '; if ($lado_lugar_fecha == "left") { echo 'selected="selected"'; } echo '>'.izquierda.'</option>';
+											echo '<option value = "center"  '; if ($lado_lugar_fecha == "center") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
+											echo '<option value = "right"  '; if ($lado_lugar_fecha == "right") { echo 'selected="selected"'; } echo '>'.derecha.'</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "lug_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{ echo '<option value = "'.$a.'" '; if ($a == $lug_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "lug_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{ echo '<option value = "'.$a.'" '; if ($a == $lug_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	 }
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr><td colspan="2" ><hr /></td></tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_resc.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_resumen_chico','ValorSeleccionado'=>$ver_resumen_chico, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ord_resc.'</td>';
+									echo '<td>';
+										echo '<select name = "orden_resumen_chico">';
+											echo '<option value = "1"  '; if ($orden_resumen_chico == "1") { echo 'selected="selected"'; } echo '>1</option>';
+											echo '<option value = "2"  '; if ($orden_resumen_chico == "2") { echo 'selected="selected"'; } echo '>2</option>';
+											echo '<option value = "3"  '; if ($orden_resumen_chico == "3") { echo 'selected="selected"'; } echo '>3</option>';
+											echo '<option value = "4"  '; if ($orden_resumen_chico == "4") { echo 'selected="selected"'; } echo '>4</option>';
+											echo '<option value = "5"  '; if ($orden_resumen_chico == "5") { echo 'selected="selected"'; } echo '>5</option>';
+											echo '<option value = "6"  '; if ($orden_resumen_chico == "6") { echo 'selected="selected"'; } echo '>6</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "resc_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'"'; if ($a == $resc_por_col1) { echo 'selected="selected"'; } echo '  >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "resc_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $resc_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr><td colspan="2" ><hr /></td></tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ver_resg.'</td>';
+									echo '<td>';
+										HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'ver_resumen_grande','ValorSeleccionado'=>$ver_resumen_grande, 'orden'=>'si-no'));
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_ord_resg.'</td>';
+									echo '<td>';
+										echo '<select name = "orden_resumen_graden">';
+											echo '<option value = "1"  '; if ($orden_resumen_graden == "1") { echo 'selected="selected"'; } echo '>1</option>';
+											echo '<option value = "2"  '; if ($orden_resumen_graden == "2") { echo 'selected="selected"'; } echo '>2</option>';
+											echo '<option value = "3"  '; if ($orden_resumen_graden == "3") { echo 'selected="selected"'; } echo '>3</option>';
+											echo '<option value = "4"  '; if ($orden_resumen_graden == "4") { echo 'selected="selected"'; } echo '>4</option>';
+											echo '<option value = "5"  '; if ($orden_resumen_graden == "5") { echo 'selected="selected"'; } echo '>5</option>';
+											echo '<option value = "6"  '; if ($orden_resumen_graden == "6") { echo 'selected="selected"'; } echo '>6</option>';
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col1.'</td>';
+									echo '<td>';
+										echo '<select name = "resg_por_col1">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $resg_por_col1) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>'.lap_txt_por_col2.'</td>';
+									echo '<td>';
+										echo '<select name = "resg_por_col2">';
+											for($a=0;$a<=100;$a++)
+												{echo '<option value = "'.$a.'" '; if ($a == $resg_por_col2) { echo 'selected="selected"'; } echo ' >'.$a.'</option>';	}
+										echo '</select>';
+									echo '</td>';
+								echo '</tr>';
+							echo '</table>';
+							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
+								echo '<tr>';
+									echo '<td align ="center">';
+										echo '<input type="hidden" name="archivo" value = "../librerias/modulos/articulos_lista/articulos_lista_admon.php" />';
+										echo '<input type="hidden" name="clase" value = "clase_articulos_lista" />';
+										echo '<input type="hidden" name="metodo" value = "configurar" />';	
+										echo '<input type="hidden" name="estado" value = "'.$estado.'" />';
+										echo '<input type="hidden" name="guardar" value = "si" />';
+										echo '<input type="hidden" name="clave_modulo" value = "'.$clave_modulo.'" />';
+										echo '<input type="hidden" name="clave_articulo_lista" value = "'.$clave_articulo_lista.'" />';		
+										echo '<input type="hidden" name="clave_seccion" value = "'.$clave_seccion_enviada.'" />';
+										echo '<input type="submit" name="btn_guardar" value="'.guardar.'" onclick= "return validar_form(this.form)" />';
+									echo '</td>';
+								 echo '</tr>';
+							echo '</table>';
 							echo '<input type="hidden" name="formulario_final" value = "recargar_pantalla" />';	
 						echo '</form>';
 						HtmlAdmon::div_res_oper(array());
 						HtmlAdmon::boton_regreso(array('clave_usar'=>$clave_seccion_enviada,'texto'=>regresar_opc_mod));
 					}
 			}	
-// ------------------------------ Fin de funciones para controlar la modificación de la información del módulo
-// ------------------------------ Inicio de funciones para controlar los cambios de la información del módulo
-// ------------------------------ Fin de funciones para controlar los cambios de la información del módulo			
+// ------------------------------ Fin de funciones para controlar la modificaciï¿½n de la informaciï¿½n del mï¿½dulo
+// ------------------------------ Inicio de funciones para controlar los cambios de la informaciï¿½n del mï¿½dulo
+// ------------------------------ Fin de funciones para controlar los cambios de la informaciï¿½n del mï¿½dulo			
 	}
 ?>

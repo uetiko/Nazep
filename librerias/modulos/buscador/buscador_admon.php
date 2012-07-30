@@ -51,7 +51,7 @@ class clase_buscador extends conexion
 					{	
 						if($nivel==1 or $nivel==2)
 							{
-								$con_sit_1 = "select clave_buscador from nazep_zmod_buscadorwhere situacion = 'nuevo'";
+								$con_sit_1 = "select clave_buscador from nazep_zmod_buscador where situacion = 'nuevo'";
 								$conexion = $this->conectarse();
 								$res_sit_1 = mysql_query($con_sit_1);
 								$cantidad = mysql_num_rows($res_sit_1);
@@ -86,7 +86,7 @@ class clase_buscador extends conexion
 						$res_sit_3 = mysql_query($con_sit_3);
 						$cantidad_3 = mysql_num_rows($res_sit_3);
 						$this->desconectarse($conexion);
-						if($cantidad2 !=0)
+						if($cantidad_3 !=0)
 							{
 								HtmlAdmon::AccesoMetodo(array(
 									'ClaveSeccion'=>$clave_seccion_enviada,
@@ -1239,7 +1239,7 @@ class clase_buscador extends conexion
 		function cambios_realizados($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
-				if($_POST["clave_buscador_cambios"]!="")
+				if(isset($_POST["clave_buscador_cambios"]) && $_POST["clave_buscador_cambios"] !="")
 					{
 						$clave_buscador_cambios = $_POST["clave_buscador_cambios"];
 						$clave_buscador = $_POST["clave_buscador"];
@@ -1290,83 +1290,45 @@ class clase_buscador extends conexion
 							echo '<tr><td>Situaci&oacute;n del cambio</td><td>'.$situacion.'</td></tr>';
 							echo '<tr><td>Usuario que propone</td><td>'.$nick_user_propone.'</td></tr>';	
 							echo '<tr><td>Nombre de persona que propone</td><td>'.$nombre_propone.'</td></tr>';
+							echo '<tr><td>Correo electr&oacute;nico del que propone</td><td>'.$correo_propone.'</td></tr>';													
+							echo '<tr><td>Fecha que se propone el cambio</td><td>'.$fecha_propone.' a las'.$hora_propone.'hrs.</td></tr>';
 							echo '<tr>';
-								echo '<td>Correo electr&oacute;nico del que propone</td>';
-								echo '<td>'.$correo_propone.'</td>';
-							echo '</tr>';														
-							echo '<tr>';
-								echo '<td>Fecha que se propone el cambio</td>';
-								echo '<td>';
-									echo "$fecha_propone a las $hora_propone hrs.";
-								echo '</td>';										
+								echo '<td>Motivo del cambio</td><td>'.$motivo_propone.'</td>';
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Motivo del cambio</td>';
-								echo '<td>';
-									echo "$motivo_propone";
-								echo '</td>';										
+								echo '<td>Usuario que decide</td><td>'.$nick_user_decide.'</td>';
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Usuario que decide</td>';
-								echo '<td>';
-									echo "$nick_user_decide";
-								echo '</td>';										
+								echo '<td>Nombre de persona que decide</td><td>'.$nombre_decide.'</td>';
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Nombre de persona que decide</td>';
-								echo '<td>';
-									echo "$nombre_decide";
-								echo '</td>';								
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>Correo electr&oacute;nico del que decide</td>';
-								echo '<td>';
-									echo "$correo_decide";
-								echo '</td>';								
+								echo '<td>Correo electr&oacute;nico del que decide</td><td>'.$correo_decide.'</td>';							
 							echo '</tr>';							
 							echo '<tr>';
-								echo '<td>Fecha de decisi&oacute;n</td>';
-								echo '<td>';
-									echo "$fecha_decide a las $hora_decide hrs.";
-								echo '</td>';										
+								echo '<td>Fecha de decisi&oacute;n</td><td>'.$fecha_decide.' a las '.$hora_decide.' hrs.</td>';										
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Motivo de la decisi&oacute;n</td>';
-								echo '<td>';
-									echo "$motivo_decide";
-								echo '</td>';										
+								echo '<td>Motivo de la decisi&oacute;n</td><td>'.$motivo_decide.'</td>';										
 							echo '</tr>';	
 							echo '<tr><td><hr /></td><td><hr /></td></tr>';										
 							echo '<tr>';
-								echo '<td>Nueva Situaci&oacute;n</td>';
-								echo '<td>';
-									echo "$nuevo_situacion";
-								echo '</td>';										
+								echo '<td>Nueva Situaci&oacute;n</td><td>'.$nuevo_situacion.'</td>';									
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Nueva Fecha inicia vigencia</td>';
-								echo '<td>';
-									echo "$nuevo_fecha_inicio";
-								echo '</td>';										
+								echo '<td>Nueva Fecha inicia vigencia</td><td>'.$nuevo_fecha_inicio.'</td>';									
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Nueva Fecha termina vigencia</td>';
-								echo '<td>';
-									echo "$nuevo_fecha_fin";
-								echo '</td>';										
+								echo '<td>Nueva Fecha termina vigencia</td><td>'.$nuevo_fecha_fin.'</td>';
 							echo '</tr>';	
 							echo '<tr><td><hr /></td><td><hr /></td></tr>';									
 							echo '<tr>';
-								echo '<td>Anterior Situaci&oacute;n</td>';
-								echo '<td>'.$anterior_situacion.'</td>';									
+								echo '<td>Anterior Situaci&oacute;n</td><td>'.$anterior_situacion.'</td>';								
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Anterior Fecha inicia vigencia</td>';
-								echo '<td>'.$anterior_fecha_inicio.'</td>';									
+								echo '<td>Anterior Fecha inicia vigencia</td><td>'.$anterior_fecha_inicio.'</td>';								
 							echo '</tr>';
 							echo '<tr>';
-								echo '<td>Anterior Fecha termina vigencia</td>';
-								echo '<td>'.$anterior_fecha_fin.'</td>';									
+								echo '<td>Anterior Fecha termina vigencia</td><td>'.$anterior_fecha_fin.'</td>';									
 							echo '</tr>';									
 						echo '</table>';
 						echo '<form name="reg_listado" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'">';						
@@ -1402,7 +1364,8 @@ class clase_buscador extends conexion
 								$res_con = mysql_query($con_doc);
 								$cantidad_doc = mysql_num_rows($res_con);
 								$cantidad_mostrar = 10;
-								if($_POST["pag"]=='')
+								$pag_post = (isset($_POST["pag"])) ?$_POST["pag"]:'';
+								if($pag_post=='')
 									{
 										$pag = 1;
 										$ini = 0;
@@ -1512,7 +1475,7 @@ class clase_buscador extends conexion
 											echo '<td align="center">';																		
 												echo '<input type="hidden" name="archivo" value = "../librerias/modulos/buscador/buscador_admon.php" />';
 												echo '<input type="hidden" name="clase" value = "clase_buscador" />';
-												echo "<input type=\"hidden\" name=\"funcion\" value = \"cambios_realizados\" />";									
+												echo '<input type="hidden" name="metodo" value = "cambios_realizados" />';									
 												echo '<input type="hidden" name="clave_seccion" value ="'.$clave_seccion_enviada.'" />';	
 												echo '<a href="javascript:document.reg_listado.submit()" class="regresar">';
 												echo '<img src="imagenes/atras.gif" align="middle" border="0"  alt ="atras" /><br />';
@@ -1532,7 +1495,8 @@ class clase_buscador extends conexion
 								$res_con = mysql_query($con_doc_total);
 								$cantidad_doc = mysql_num_rows($res_con);
 								$cantidad_mostrar = 10;
-								if($_POST["pag"]=='')
+								$pag_post = (isset($_POST["pag"])) ?$_POST["pag"]:'';
+								if( $pag_post =='')
 									{
 										$pag = 1;
 										$ini = 0;
@@ -1608,13 +1572,9 @@ class clase_buscador extends conexion
 													for($a=1;$a<=$total_paginas;$a++)
 														{
 															if($pag == $a)
-																{
-																	echo "<b>$a</b>";
-																}
+																{ echo '<b>'.$a.'</b>'; }
 															else
-																{
-																	echo '<a href="javascript:document.pag_ban_'.$a.'.submit()">'.$a.'</a>';															
-																}
+																{ echo '<a href="javascript:document.pag_ban_'.$a.'.submit()">'.$a.'</a>';}
 														}													
 												}																	
 										echo '</td>';

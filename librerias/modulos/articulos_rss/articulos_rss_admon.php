@@ -2,23 +2,23 @@
 /*
 Sistema: Nazep
 Nombre archivo: articulos_rss_admon.php
-Función archivo: archivo para controlar la vista final del módulo de rss de los articulos
-Fecha creación: mayo 2009
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo para controlar la vista final del mï¿½dulo de rss de los articulos
+Fecha creaciï¿½n: mayo 2009
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 class clase_articulos_rss extends conexion
 	{
-		//Propiedads privadas para la dirección del archivo y nombre de la clase
+		//Propiedads privadas para la direcciï¿½n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/articulos_rss/articulos_rss_admon.php';
 		private $NomClase = 'clase_articulos_rss';
 		function __construct()
 			{
 				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos_rss.php');
 			}	
-// ------------------------------ Inicio de funciones para controlar las funciones del módulo
+// ------------------------------ Inicio de funciones para controlar las funciones del mï¿½dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
 				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
@@ -63,8 +63,8 @@ class clase_articulos_rss extends conexion
 				else
 					{echo '<br />'.rssart_txt_avi_no_act;}
 			}		
-// ------------------------------ Fin de funciones para controlar las funciones del módulo
-// ------------------------------ Inicio de funciones para controlar la modificación de la información del módulo
+// ------------------------------ Fin de funciones para controlar las funciones del mï¿½dulo
+// ------------------------------ Inicio de funciones para controlar la modificaciï¿½n de la informaciï¿½n del mï¿½dulo
 		function configurar($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
@@ -72,11 +72,11 @@ class clase_articulos_rss extends conexion
 					{
 						$formulario_final = $_POST["formulario_final"];
 						$arreglo_datos["user_creacion"] = $nick_user;
-						$arreglo_datos["ip_creacion"] = $_SERVER[REMOTE_ADDR];
+						$arreglo_datos["ip_creacion"] = $_SERVER['REMOTE_ADDR'];
 						$arreglo_datos["fecha_creacion"] = date("Y-m-d");
 						$arreglo_datos["hora_creacion"] = date ("H:i:s");
 						$arreglo_datos["user_actualizacion"] = $nick_user;
-						$arreglo_datos["ip_actualizacion"] = $_SERVER[REMOTE_ADDR];
+						$arreglo_datos["ip_actualizacion"] = $_SERVER['REMOTE_ADDR'];
 						$arreglo_datos["fecha_actualizacion"] = date("Y-m-d");
 						$arreglo_datos["hora_actualizacion"] = date("H:i:s");
 						foreach($_POST as $indice=>$valor)

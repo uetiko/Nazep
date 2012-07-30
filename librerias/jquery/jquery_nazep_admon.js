@@ -10,14 +10,6 @@ Autor: Claudio Morales Godinez
 Correo electrónico: claudio@nazep.com.mx
 */
 //----------- funciones extendidas de qjquery
-(function($) 
-	{
-	jQuery.fn.frm_css = function()
-		{
-			
-		}
-	})(jQuery);
-
 jQuery.frm_elem_color = function(color_focus, color_blur)
 	{		
 		$("input,textarea").each(function()
