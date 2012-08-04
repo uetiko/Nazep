@@ -740,7 +740,7 @@ class clase_articulos extends conexion
 							echo '</table>';
 						echo '</form>';
 						HtmlAdmon::div_res_oper(array());
-						HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_bus_tem,
+						HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','opc_regreso'=>'metodo','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_bus_tem,
 							'OpcOcultas'=>array('archivo'=>$this->DirArchivo,
 							'clase'=>$this->NomClase,'metodo'=>'modificar_temas_art','clave_tipo'=>$clave_tipo)));
 					}
@@ -1651,7 +1651,7 @@ class clase_articulos extends conexion
 												$oFCKeditor2->Width = "100%";
 												$oFCKeditor2->Height = "250";	
 												$oFCKeditor2->Value = $resumen_chico;
-												$oFCKeditor2s->Create();
+												$oFCKeditor2->Create();
 										echo '</td></tr>';
 										echo '<tr><td align="center"><a name="resumen_grande_link" id="resumen_grande_link"></a><strong>'.ap_txt_resg_art.'</strong></td></tr>';
 										echo '<tr>';
@@ -1751,7 +1751,7 @@ class clase_articulos extends conexion
 								echo '</form>';
 								echo '<hr />';
 								HtmlAdmon::div_res_oper(array());
-								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>reg_res_bus,
+								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','opc_regreso'=>'metodo','clave_usar'=>$clave_seccion_enviada,'texto'=>reg_res_bus,
 									'OpcOcultas'=>array( 'archivo'=>$this->DirArchivo,
 									'clase'=>$this->NomClase, 'metodo'=>'modificar_articulo',
 									'buscar'=>'si','ano_i'=>$ano_i_b, 'mes_i'=>$mes_i_b,'dia_i'=>$dia_i_b,
@@ -1813,7 +1813,7 @@ class clase_articulos extends conexion
 									$contador++;
 								}
 						echo '</table><br />';
-						HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_bus_art,
+						HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','opc_regreso'=>'metodo','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_bus_art,
 							'OpcOcultas'=>array( 'archivo'=>$this->DirArchivo,
 							'clase'=>$this->NomClase, 'metodo'=>'modificar_articulo',
 							'clave_seccion_enviada'=>$clave_seccion_enviada, 'clave_tipo'=>$clave_tipo)));
@@ -2125,6 +2125,7 @@ class clase_articulos extends conexion
 								echo '</form>';
 								HtmlAdmon::div_res_oper(array());								
 								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_art,
+									'opc_regreso'=>'metodo',
 									'OpcOcultas'=>array( 
 									'archivo'=>$this->DirArchivo,
 									'clase'=>$this->NomClase, 'metodo'=>'modificar_articulo',
@@ -2163,7 +2164,7 @@ class clase_articulos extends conexion
 					}				
 				elseif(isset($_POST["buscar"]) &&  $_POST["buscar"]=="si")
 					{													
-						$tipo_busqueda = $_POST["tipo_busqueda"];
+						$tipo_busqueda = (isset($_POST["tipo_busqueda"]))?$_POST["tipo_busqueda"]:'';
 						$leido = $_POST["leido"];
 						$clave_tipo = $_POST["clave_tipo"];
 						$nombre_sec = HtmlAdmon::historial($clave_seccion_enviada);
@@ -2330,7 +2331,7 @@ class clase_articulos extends conexion
 									echo '</td>';
 								echo '</tr>';
 							echo '</table>';
-						HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_bus_art,
+						HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','opc_regreso'=>'metodo','clave_usar'=>$clave_seccion_enviada,'texto'=>ap_txt_reg_bus_art,
 							'OpcOcultas'=>array( 'archivo'=>$this->DirArchivo,'clase'=>$this->NomClase, 
 							'metodo'=>'admon_comentarios', 'clave_seccion'=>$clave_seccion_enviada )));
 					}

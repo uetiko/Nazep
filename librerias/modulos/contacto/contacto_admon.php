@@ -21,6 +21,7 @@ class clase_contacto extends conexion
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
 				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
+				echo "--$situacion--****$clave_seccion_enviada****$clave_modulo";
 				if($situacion == "activo")
 					{
 						HtmlAdmon::AccesoMetodo(array(
@@ -74,7 +75,7 @@ class clase_contacto extends conexion
 				else
 					{ echo '<br />'.con_txt_avi_no_act; }
 			}
-		function op_cambios_central($clave_seccion_enviada, $nivel, $clave_modulo)
+		function op_cambios_central($clave_seccion_enviada, $nivel, $nombre_seccion, $clave_modulo)
 			{
 				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
 				if($situacion == "activo")

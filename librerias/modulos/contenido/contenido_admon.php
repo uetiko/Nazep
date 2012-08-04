@@ -820,7 +820,9 @@ class clase_contenido extends conexion
 						$clave_modulo = $_POST["clave_modulo"];
 						//$situacion = $_POST["situacion"];
 						$texto = $this->escapar_caracteres($_POST["texto"]);
-						$situacion_temporal = $_POST["situacion_temporal"];
+						$situacion_pagina = $_POST["situacion_pagina"];
+						//echo "*******$situacion_pagina";
+						
 						$situacion_contenido = $_POST["situacion_contenido"];
 						$fecha_incio = $_POST["fecha_incio"];
 						$fecha_fin = $_POST["fecha_fin"];
@@ -837,8 +839,8 @@ class clase_contenido extends conexion
 							{$nombre = $nom_user;}
 						$nombre = strip_tags($nombre);
 						$sql_adicional = "null, '0000-00-00','00:00:00', '', '', '','',";	
-						$situacion_detalle = "pendiente";
-						if($situacion_temporal=="activo")
+						//$situacion_detalle = "pendiente";
+						if($situacion_pagina=="activo")
 							{
 								$sql_adicional = "'$nick_user', '$fecha_hoy', '$hora_hoy', '$ip', '$motivo', '$nombre', '$correo',";
 								$situacion_detalle = "activo";
@@ -851,7 +853,7 @@ class clase_contenido extends conexion
 						nuevo_situacion, nuevo_fecha_incio, nuevo_fecha_fin, anterior_situacion, anterior_fecha_incio, 
 						anterior_fecha_fin)
 						values
-						('$clave_contenido', '$situacion_temporal', '$nick_user','$fecha_hoy', '$hora_hoy', '$ip',
+						('$clave_contenido', '$situacion_pagina', '$nick_user','$fecha_hoy', '$hora_hoy', '$ip',
 						'Creaci&oacute;n de nueva p&aacute;gina: $motivo', '$nombre', '$correo',
 						".$sql_adicional."
 						'$situacion_contenido', '$fecha_incio', '$fecha_fin', '$situacion_contenido', '$fecha_incio',
@@ -875,7 +877,9 @@ class clase_contenido extends conexion
 								
 								$paso = true;
 								$clave_contenido_cambios_db = mysql_insert_id();
-								$insert_con_de = "insert into nazep_zmod_contenido_detalle (clave_contenido, pagina, texto, situacion) values ('$clave_contenido', '$can_pag', '$texto', '$situacion_detalle')";	
+								$insert_con_de = "insert into nazep_zmod_contenido_detalle 
+								(clave_contenido, pagina, texto, situacion) 
+								values ('$clave_contenido', '$can_pag', '$texto', '$situacion_pagina')";	
 								if (!@mysql_query($insert_con_de))
 									{
 										$men = mysql_error();
@@ -888,11 +892,13 @@ class clase_contenido extends conexion
 										$paso = true;
 										$clave_contenido_detalle_db = mysql_insert_id();
 										$insert_con_de_ca = "insert into nazep_zmod_contenido_detalle_cambios
-										(clave_contenido_cambios, clave_contenido_detalle, nuevo_pagina, nuevo_texto, 
-										nuevo_situacion, anterior_pagina, anterior_texto, anterior_situacion)
+										(clave_contenido_cambios, clave_contenido_detalle,
+										 nuevo_pagina, nuevo_texto,nuevo_situacion,
+										 anterior_pagina, anterior_texto, anterior_situacion)
 										values
-										('$clave_contenido_detalle_db', '$clave_contenido_detalle_db','$can_pag','$texto',
-										'$situacion_temporal','$can_pag','$texto','$situacion')";
+										('$clave_contenido_detalle_db', '$clave_contenido_detalle_db',
+										'$can_pag','$texto','$situacion_pagina',
+										'$can_pag','$texto','$situacion_pagina')";
 										if (!@mysql_query($insert_con_de_ca))
 											{
 												$men = mysql_error();
@@ -911,6 +917,8 @@ class clase_contenido extends conexion
 							}
 						else
 							{echo "Error: Insertar en la base de datos, la consulta: <strong>$error</strong> <br/> con el siguiente mensaje: $men";}
+						  
+						 
 					}
 				else
 					{
@@ -940,7 +948,8 @@ class clase_contenido extends conexion
 							}
 						else
 							{
-								$consulta_clave = "select clave_contenido, situacion, fecha_incio, fecha_fin  from nazep_zmod_contenido where clave_seccion = '$clave_seccion_enviada' and clave_modulo = '$clave_modulo'";
+								$consulta_clave = "select clave_contenido, situacion, fecha_incio, fecha_fin  
+								from nazep_zmod_contenido where clave_seccion = '$clave_seccion_enviada' and clave_modulo = '$clave_modulo'";
 								$res_con_dos = mysql_query($consulta_clave);
 								$ren_clave = mysql_fetch_array($res_con_dos);
 								$clave_contenido = $ren_clave["clave_contenido"];	
@@ -955,7 +964,7 @@ class clase_contenido extends conexion
 										});								
 									function validar_form(formulario, situacion_temporal, opcion, nombre_formulario)
 										{
-											formulario.situacion_temporal.value = situacion_temporal;
+											formulario.situacion_pagina.value = situacion_temporal;
 											
 											valor_pag = FCKeditorAPI.__Instances[\'texto\'].GetHTML();
 											formulario.texto.value = valor_pag;
@@ -968,7 +977,7 @@ class clase_contenido extends conexion
 												}
 											if(opcion=="regresar")
 												{
-													document.regresar_pantalla.funcion.value="nueva_pagina";
+													document.regresar_pantalla.metodo.value="nueva_pagina";
 												}
 											formulario.btn_guardar1.style.visibility="hidden";
 								';
@@ -1022,7 +1031,7 @@ class clase_contenido extends conexion
 									echo '<input type="hidden" name="guardar" value = "si" />';
 									echo '<input type="hidden" name="clave_seccion" value = "'.$clave_seccion_enviada.'" />';
 									echo '<input type="hidden" name="clave_modulo" value = "'.$clave_modulo.'" />';
-									echo '<input type="hidden" name="situacion_temporal" value = "nueva_pagina" />';
+									echo '<input type="hidden" name="situacion_pagina" value = "nueva_pagina" />';
 									echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
 										echo '<tr>';
 											echo '<td align="center"><input type="submit" name="btn_guardar1" value="'.guardar.'" onclick= "return validar_form(this.form,\'nueva_pagina\',\'salir\', \'recargar_pantalla\')" /></td>';
@@ -1038,7 +1047,7 @@ class clase_contenido extends conexion
 									echo '</table>';
 								echo '</form>';
 								HtmlAdmon::div_res_oper(array());
-								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','clave_usar'=>$clave_seccion_enviada,'texto'=>cont_txt_reg_cont,
+								HtmlAdmon::boton_regreso(array('tipo'=>'avanzado','opc_regreso'=>'metodo','clave_usar'=>$clave_seccion_enviada,'texto'=>cont_txt_reg_cont,
 																'OpcOcultas'=>array(
 																					'archivo'=>'../librerias/modulos/contenido/contenido_admon.php',
 																					'clase'=>'clase_contenido',
@@ -1514,22 +1523,42 @@ class clase_contenido extends conexion
 						$clave_modulo= $_POST["clave_modulo"];
 						$nombre_sec = HtmlAdmon::historial($clave_seccion_enviada);	
 						HtmlAdmon::titulo_seccion("P&aacute;gina nueva propuesta al contenido de la secci&oacute;n \"$nombre_sec\"");
-						$con_pag = "select cdc.nuevo_pagina, cdc.nuevo_texto, cdc.nuevo_situacion,
-						cc.clave_contenido_cambios, cd.clave_contenido_detalle, cdc.clave_contenido_detalle_cambios,
-						cc.nick_user_propone, cc.nombre_propone, cc.correo_propone, cc.fecha_propone, cc.hora_propone,
-						cc.motivo_propone from
-						nazep_zmod_contenido c,  nazep_zmod_contenido_cambios cc,  nazep_zmod_contenido_detalle cd, nazep_zmod_contenido_detalle_cambios cdc
-						where cc.situacion = 'nueva_pagina' and cc.clave_contenido_cambios = cdc.clave_contenido_cambios
-						and cd.clave_contenido_detalle = cdc.clave_contenido_detalle and c.clave_contenido = cc.clave_contenido
-						and c.clave_modulo = '$clave_modulo' and c.clave_seccion = '$clave_seccion_enviada'";
+						$con_pag = "select c.clave_contenido, 
+						ccam.clave_contenido_cambios,  cdet.clave_contenido_detalle,
+						cdcam.clave_contenido_detalle_cambios,
+						cdcam.nuevo_pagina,
+						cdcam.nuevo_texto,
+						cdcam.nuevo_situacion,
+						ccam.nick_user_propone,
+						ccam.nombre_propone,
+						ccam.correo_propone,
+						ccam.fecha_propone,
+						ccam.hora_propone,
+						ccam.motivo_propone
+						from
+						nazep_zmod_contenido c,  
+						nazep_zmod_contenido_cambios ccam,
+						nazep_zmod_contenido_detalle cdet, 
+						nazep_zmod_contenido_detalle_cambios cdcam
+						where 
+							c.clave_contenido = ccam.clave_contenido
+						and c.clave_contenido = cdet.clave_contenido
+						and cdet.clave_contenido_detalle = cdcam.clave_contenido_detalle 
+						and cdet.situacion = 'nueva_pagina' 
+						and ccam.situacion = 'nueva_pagina' 
+						and c.clave_modulo = '$clave_modulo' 
+						and c.clave_seccion = '$clave_seccion_enviada'";
+						
 						$conexion = $this->conectarse();
 						$res = mysql_query($con_pag);
 						$ren = mysql_fetch_array($res);
+						
 						$nuevo_pagina = $ren["nuevo_pagina"];
 						$nuevo_texto = stripslashes($ren["nuevo_texto"]);
 						$nuevo_situacion = $ren["nuevo_situacion"];
 						$clave_contenido_cambios = $ren["clave_contenido_cambios"];
 						$clave_contenido_detalle = $ren["clave_contenido_detalle"];
+						$clave_contenido_detalle_cambios  = $ren["clave_contenido_detalle"];
 						$nick_user_propone = $ren["nick_user_propone"];
 						$nombre_propone = $ren["nombre_propone"];
 						$correo_propone = $ren["correo_propone"];
@@ -1604,7 +1633,6 @@ class clase_contenido extends conexion
 		function cambios_realizados($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
-				//$nombre_sec = $_POST["nombre_sec"];
 				if(isset($_POST["clave_contenido_cambios"]) && $_POST["clave_contenido_cambios"]!="")
 					{
 						$clave_contenido_cambios = $_POST["clave_contenido_cambios"]; 
