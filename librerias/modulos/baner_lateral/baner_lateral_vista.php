@@ -2,15 +2,19 @@
 /*
 Sistema: Nazep
 Nombre archivo: baner_lateral_vista.php
-Función archivo: archivo para controlar la vista final del módulo de banner laterales
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo para controlar la vista final del mï¿½dulo de banner laterales
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 class clase_baner_lateral extends conexion
 	{
+		function __construct()
+			{
+				include('librerias/idiomas/'.FunGral::SaberIdioma().'/baner_lateral.php');
+			}	
 		function vista($sec, $ubicacion_tema, $nick_usuario, $clave_modulo)
 			{
 				$hoy = date('Y-m-d');

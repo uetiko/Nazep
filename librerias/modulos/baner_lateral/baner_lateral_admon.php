@@ -2,23 +2,23 @@
 /*
 Sistema: Nazep
 Nombre archivo: baner_lateral_admon.php
-Función archivo: archivo para controlar la administración del módulo de banner laterales
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo para controlar la administraciï¿½n del mï¿½dulo de banner laterales
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 class clase_baner_lateral extends conexion
 	{
-		//Propiedads privadas para la dirección del archivo y nombre de la clase
+		//Propiedads privadas para la direcciï¿½n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/baner_lateral/baner_lateral_admon.php';
 		private $NomClase = 'clase_baner_lateral';
 		function __construct()
 			{
 				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/baner_lateral.php');
 			} 
-// ------------------------------ Inicio de funciones para controlar las funciones del módulo	
+// ------------------------------ Inicio de funciones para controlar las funciones del mï¿½dulo	
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
 				$situacion = FunGral::vigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
@@ -174,8 +174,8 @@ class clase_baner_lateral extends conexion
 				else
 					{ echo '<br />'.bl_txt_avi_no_act_cam; }
 			}	
-// ------------------------------ Fin de funciones para controlar las funciones del módulo
-// ------------------------------ Inicio de funciones para controlar la modificación de la información del módulo	
+// ------------------------------ Fin de funciones para controlar las funciones del mï¿½dulo
+// ------------------------------ Inicio de funciones para controlar la modificaciï¿½n de la informaciï¿½n del mï¿½dulo	
 		function configurar($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
@@ -422,46 +422,20 @@ class clase_baner_lateral extends conexion
 										echo '</td>';
 									echo '</tr>';
 									echo '<tr><td><hr /></td><td><hr /></td></tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ver_bal_tex;
-										echo '</td>';
-										echo '<td>';
+									echo '<tr><td>'.bl_txt_ver_bal_tex.'</td><td>';
 											echo '<input                   type="radio" name="ver_texto_balazo" id ="ver_texto_balazo_no" value="NO"  /> '.no.'&nbsp;';
 											echo '<input checked="checked" type="radio" name="ver_texto_balazo" id ="ver_texto_balazo_si" value="SI"  /> '.si.'&nbsp;';
 										echo '</td>';
 									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_bal_text;
-										echo '</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "texto_balazo" size = "60" />';
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ver_bal_img;
-										echo '</td>';
-										echo '<td>';
+									echo '<tr><td>'.bl_txt_bal_text.'</td><td><input type = "text" name = "texto_balazo" size = "60" /></td></tr>';
+									echo '<tr><td>'.bl_txt_ver_bal_img.'</td><td>';
 											echo '<input                   type="radio" name="ver_imagen_balazo" id ="ver_imagen_balazo_no" value="NO"  /> '.no.'&nbsp;';
 											echo '<input checked="checked" type="radio" name="ver_imagen_balazo" id ="ver_imagen_balazo_si" value="SI"  /> '.si.'&nbsp;';										
 										echo '</td>';
 									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ubi_bal_img;
-										echo '</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "ubicacion_imagen_balazo" size = "60" />';
-										echo '</td>';
-									echo '</tr>';
+									echo '<tr><td>'.bl_txt_ubi_bal_img.'</td><td><input type = "text" name = "ubicacion_imagen_balazo" size = "60" /></td></tr>';
 									echo '<tr><td><hr /></td><td><hr /></td></tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ali_hor;
-										echo '</td>';
-										echo '<td>';
+									echo '<tr><td>'.bl_txt_ali_hor.'</td><td>';
 											echo '<select name = "alin_balazo">';
 												echo '<option value = "top" >'.arriba.'</option>';
 												echo '<option value = "middle" >'.centro.'</option>';
@@ -469,11 +443,7 @@ class clase_baner_lateral extends conexion
 											echo '</select>';
 										echo '</td>';
 									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_col_tab;
-										echo '</td>';
-										echo '<td>';
+									echo '<tr><td>'.bl_txt_col_tab.'</td><td>';
 											echo '#<input type = "text" name = "color_fondo_lateral" size = "20" /> RGB Hexadecimal ejemplo: <strong>FFFFFF</strong>';
 										echo '</td>';
 									echo '</tr>';
@@ -569,9 +539,7 @@ class clase_baner_lateral extends conexion
 									echo '</tr>';
 									echo '<tr>';
 										echo '<td>'.bl_txt_ubi_enl_img.'</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "imagen_ver_mas" size = "60" value = "'.$imagen_ver_mas.'" />';
-										echo '</td>';
+										echo '<td><input type = "text" name = "imagen_ver_mas" size = "60" value = "'.$imagen_ver_mas.'" /></td>';
 									echo '</tr>';
 									$con_sec = "select clave_seccion, nombre from nazep_secciones where situacion = 'activo' order by nombre";
 									$res_sec_b = mysql_query($con_sec);
@@ -596,37 +564,20 @@ class clase_baner_lateral extends conexion
 											echo '<input '; if ($ver_texto_balazo == "SI") { echo 'checked="checked"'; } echo 'type="radio" name="ver_texto_balazo" id ="ver_texto_balazo_si" value="SI"  /> '.si.'&nbsp;';
 										echo '</td>';
 									echo '</tr>';	
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_bal_text;
-										echo '</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "texto_balazo" size = "60" value = "'.$texto_balazo.'"/>';
-										echo '</td>';
+									echo '<tr><td>'.bl_txt_bal_text.'</td>';
+										echo '<td><input type = "text" name = "texto_balazo" size = "60" value = "'.$texto_balazo.'"/></td>';
 									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ver_bal_img;
-										echo '</td>';
+									echo '<tr><td>'.bl_txt_ver_bal_img.'</td>';
 										echo '<td>';
 											echo '<input '; if ($ver_imagen_balazo == "NO") { echo 'checked="checked"'; } echo 'type="radio" name="ver_imagen_balazo" id ="ver_imagen_balazo_no" value="NO"  /> '.no.'&nbsp;';
 											echo '<input '; if ($ver_imagen_balazo == "SI") { echo 'checked="checked"'; } echo 'type="radio" name="ver_imagen_balazo" id ="ver_imagen_balazo_si" value="SI"  /> '.si.'&nbsp;';
 										echo '</td>';
 									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ubi_bal_img;
-										echo '</td>';
-										echo '<td>';
-											echo '<input type = "text" name = "ubicacion_imagen_balazo" size = "60" value = "'.$ubicacion_imagen_balazo.'" />';
-										echo '</td>';
+									echo '<tr><td>'.bl_txt_ubi_bal_img.'</td>';
+										echo '<td><input type = "text" name = "ubicacion_imagen_balazo" size = "60" value = "'.$ubicacion_imagen_balazo.'" /></td>';
 									echo '</tr>';
 									echo '<tr><td colspan="2"><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_ali_hor;
-										echo '</td>';
-										echo '<td>';
+									echo '<tr><td>'.bl_txt_ali_hor.'</td><td>';
 											echo '<select name = "alin_balazo">';
 												echo '<option value = "top" '; if ($alin_balazo == "top") { echo 'selected="selected"'; } echo ' >'.arriba.'</option>';
 												echo '<option value = "middle" '; if ($alin_balazo == "middle") { echo 'selected="selected"'; } echo '>'.centro.'</option>';
@@ -634,13 +585,8 @@ class clase_baner_lateral extends conexion
 											echo '</select>';
 										echo '</td>';
 									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo bl_txt_col_tab;
-										echo '</td>';
-										echo '<td>';
-											echo '#<input type = "text" name = "color_fondo_lateral" size = "20" value = "'.$color_fondo_lateral.'" /> RGB Hexadecimal ejemplo: <strong>FFFFFF</strong>';
-										echo '</td>';
+									echo '<tr><td>'.bl_txt_col_tab.'</td>';
+										echo '<td>#<input type = "text" name = "color_fondo_lateral" size = "20" value = "'.$color_fondo_lateral.'" /> RGB Hexadecimal ejemplo: <strong>FFFFFF</strong></td>';
 									echo '</tr>';
 								echo '</table>';
 								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
@@ -1212,11 +1158,7 @@ class clase_baner_lateral extends conexion
 													echo '<td><input type = "text" name = "correo" size = "60" /></td>';
 												echo '</tr>';
 												echo '<tr><td width="500">'.motivo_cambio.'</td><td><textarea name="motivo" cols="50" rows="5"></textarea></td></tr>';
-												echo '<tr>';
-													echo '<td>';
-														echo fecha_ini_vig;
-													echo '</td>';
-													echo '<td>';
+												echo '<tr><td>'.fecha_ini_vig.'</td><td>';
 														$areglo_meses = FunGral::MesesNumero();
 														echo dia.'&nbsp;<select name ="dia_i">';
 														for ($a = 1; $a<=31; $a++)
@@ -1238,11 +1180,7 @@ class clase_baner_lateral extends conexion
 														echo '</select>';
 													echo '</td>';
 												echo '</tr>';
-												echo '<tr>';
-													echo '<td>';
-														echo fecha_fin_vig;
-													echo '</td>';
-													echo '<td>';
+												echo '<tr><td>'.fecha_fin_vig.'</td><td>';
 														echo dia.'&nbsp;<select name = "dia_t">';
 														for ($a = 1; $a<=31; $a++)
 															{
@@ -1263,48 +1201,28 @@ class clase_baner_lateral extends conexion
 														echo '</select>';
 													echo '</td>';
 												echo '</tr>';
-												echo '<tr>';
-													echo '<td>';
-														echo bl_txt_nom_bann;
-													echo '</td>';
-													echo '<td>';
+												echo '<tr><td>'.bl_txt_nom_bann.'</td><td>';
 														echo '<input type = "text" name = "nombre_baner" size = "50" value ="'.$nombre.'" />';
 													echo '</td>';
 												echo '</tr>';
-												echo '<tr>';
-													echo '<td>';
-														echo bl_txt_ord_apa;
-													echo '</td>';
-													echo '<td>';
+												echo '<tr><td>'.bl_txt_ord_apa.'</td><td>';
 														echo '<input type = "text" name = "orden" size ="5" value ="'.$orden.'" OnKeyPress="return solo_num(event)" title ="'.tit_solo_numeros.'"/>';
 													echo '</td>';
 												echo '</tr>';
-												echo '<tr>';
-													echo '<td>';
-														echo situacion;
-													echo '</td>';
-													echo '<td>';
+												echo '<tr><td>'.situacion.'</td><td>';
 														echo '<select name = "situacion">';
 															echo '<option value = "activo"  '; if ($situacion == "activo") { echo 'selected'; } echo ' >'.activo.'</option>';
 															echo '<option value = "cancelado"  '; if ($situacion == "cancelado") { echo 'selected'; } echo '  >'.cancelado.'</option>';
 														echo '</select>';
 													echo '</td>';
 												echo '</tr>';
-												echo '<tr>';
-													echo '<td>';
-														echo bl_txt_des_ban;
-													echo '</td>';
-													echo '<td>';
+												echo '<tr><td>'.bl_txt_des_ban.'</td><td>';
 														echo '<textarea name="descripcion" cols="50" rows="5">'.$descripcion.'</textarea>';
 													echo '</td>';
 												echo '</tr>';
 											echo '</table>';
 											echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-												echo '<tr>';
-													echo '<td>';
-														echo bl_txt_cue_ban;
-													echo '</td>';
-												echo '</tr>';
+												echo '<tr><td>'.bl_txt_cue_ban.'</td></tr>';
 												echo '<tr>';
 													echo '<td>';
 														echo '<a name="enlace_link" id="enlace_link"></a>';
@@ -1374,7 +1292,8 @@ class clase_baner_lateral extends conexion
 								$res_con_total = mysql_query($consu_baner_total);
 								$cantidad_baners = mysql_num_rows($res_con_total);
 								$cantidad_mostrar = 10;
-								if($_POST["pag"]=='')
+								$pag_post = (isset($_POST["pag"]))?$_POST["pag"]:'';
+								if($pag_post=='')
 									{
 										$pag = 1;
 										$ini = 0;
@@ -1451,13 +1370,9 @@ class clase_baner_lateral extends conexion
 													for($a=1;$a<=$total_paginas;$a++)
 														{
 															if($pag == $a)
-																{
-																	echo '<b>'.$a.'</b>';
-																}
+																{ echo '<b>'.$a.'</b>'; }
 															else
-																{
-																	echo '<a href="javascript:document.pag_ban_'.$a.'.submit()">'.$a.'</a>';
-																}
+																{ echo '<a href="javascript:document.pag_ban_'.$a.'.submit()">'.$a.'</a>';}
 														}
 												}
 										echo '</td>';
@@ -1467,8 +1382,8 @@ class clase_baner_lateral extends conexion
 							}
 					}
 			}
-// ------------------------------ Fin de funciones para controlar la modificación de la información del módulo
-// ------------------------------ Inicio de funciones para controlar los cambios de la información del módulo
+// ------------------------------ Fin de funciones para controlar la modificaciï¿½n de la informaciï¿½n del mï¿½dulo
+// ------------------------------ Inicio de funciones para controlar los cambios de la informaciï¿½n del mï¿½dulo
 		function nuevo_pendiente($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
@@ -1563,80 +1478,17 @@ class clase_baner_lateral extends conexion
 								$correo_propone = $ren_con_elemento["correo_propone"];
 								HtmlAdmon::titulo_seccion("Banner nuevo por autorizar");	
 								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-									echo '<tr>';
-										echo '<td>Usuario que propone el banner</td>';
-										echo '<td width="480">'.$nick_user_propone.'</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>Nombre de persona que propone</td>';
-										echo '<td>'.$nombre_propone.'</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>Correo electr&oacute;nico del que propone</td>';
-										echo '<td>'.$correo_propone.'</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>Fecha realizado</td>';
-										echo '<td>';
-											echo "$fecha_propone a las $hora_propone hrs.";
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nombre del banner';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_nombre;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Orden de aparici&oacute;n del banner';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_orden;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Situaci&oacute;n propuesta';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_situacion;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Descripci&oacute;n';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_descripcion;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Banner propuesto';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_enlace;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Fecha inicia vigencia';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_fecha_inicio;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Fecha termina vigencia';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_fecha_fin;
-										echo '</td>';
-									echo '</tr>';
+									echo '<tr><td>Usuario que propone el banner</td><td width="480">'.$nick_user_propone.'</td></tr>';
+									echo '<tr><td>Nombre de persona que propone</td><td>'.$nombre_propone.'</td></tr>';
+									echo '<tr><td>Correo electr&oacute;nico del que propone</td><td>'.$correo_propone.'</td></tr>';
+									echo '<tr><td>Fecha realizado</td><td>'.$fecha_propone.' a las '.$hora_propone.' hrs.</td></tr>';
+									echo '<tr><td>Nombre del banner</td><td>'.$nuevo_nombre.'</td></tr>';
+									echo '<tr><td>Orden de aparici&oacute;n del banner</td><td>'.$nuevo_orden.'</td></tr>';
+									echo '<tr><td>Situaci&oacute;n propuesta</td><td>'.$nuevo_situacion.'</td></tr>';
+									echo '<tr><td>Descripci&oacute;n</td><td>'.$nuevo_descripcion.'</td></tr>';
+									echo '<tr><td>Banner propuesto</td><td>'.$nuevo_enlace.'</td></tr>';
+									echo '<tr><td>Fecha inicia vigencia</td><td>'.$nuevo_fecha_inicio.'</td></tr>';
+									echo '<tr><td>Fecha termina vigencia</td><td>'.$nuevo_fecha_fin.'</td></tr>';
 								echo '</table>';	
 								echo '<script type="text/javascript">';
 								echo '$(document).ready(function()
@@ -1648,7 +1500,7 @@ class clase_baner_lateral extends conexion
 											{
 												if(formulario.motivo.value == "") 
 													{
-														alert("El campo del motivo no puede quedar vacío");
+														alert("El campo del motivo no puede quedar vac\u00EDo");
 														formulario.motivo.focus();	
 														return false
 													}
@@ -1663,16 +1515,10 @@ class clase_baner_lateral extends conexion
 								echo '</form>';	
 								echo '<form name="frm_guardar_desicion" id="frm_guardar_desicion" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero" >';
 									echo '<table width="100%" border="1" cellspacing="0" cellpadding="0" >';
+										echo '<tr><td>Persona que toma la decisi&oacute;n</td><td><input type = "text" name = "nombre" size = "60" /></td></tr>';
+										echo '<tr><td>Correo electr&oacute;nico del que decide</td><td><input type = "text" name = "correo" size = "60" /></td></tr>';
 										echo '<tr>';
-											echo '<td>Persona que toma la decisi&oacute;n</td>';
-											echo '<td><input type = "text" name = "nombre" size = "60" /></td>';
-										echo '</tr>';
-										echo '<tr>';
-											echo '<td>Correo electr&oacute;nico del que decide</td>';
-											echo '<td><input type = "text" name = "correo" size = "60" /></td>';
-										echo '</tr>';
-										echo '<tr>';
-											echo '<td>¿Publicar el banner?</td>';
+											echo '<td>&iquest;Publicar el banner?</td>';
 											echo '<td>';
 												echo '<select name = "publicar">';
 													echo '<option value = "activo">'.si.'</option>';
@@ -1684,9 +1530,7 @@ class clase_baner_lateral extends conexion
 											echo '<td width="600">Motivo de la decisi&oacute;n</td>';
 											echo '<td><textarea name="motivo" cols="50" rows="5"></textarea></td>';
 										echo '</tr>';
-										echo '<tr>';
-											echo '<td>&nbsp;</td>';
-											echo '<td>';
+										echo '<tr><td>&nbsp;</td><td>';
 												echo '<input type="hidden" name="formulario_final" value = "recargar_pantalla" />';
 												echo '<input type="hidden" name="archivo" value = "../librerias/modulos/baner_lateral/baner_lateral_admon.php" />';
 												echo '<input type="hidden" name="clase" value = "clase_baner_lateral" />';
@@ -1894,158 +1738,27 @@ class clase_baner_lateral extends conexion
 								$nombre_propone = $ren_con_baner["nombre_propone"];
 								$correo_propone = $ren_con_baner["correo_propone"];
 								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-									echo '<tr>';
-										echo '<td>Usuario que propone</td>';
-										echo '<td>';
-											echo $nick_user_propone;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nombre de persona que propone';
-										echo '</td>';
-										echo '<td>';
-											echo $nombre_propone;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Correo electr&oacute;nico del que propone';
-										echo '</td>';
-										echo '<td>';
-											echo $correo_propone;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Fecha realizado';
-										echo '</td>';
-										echo '<td>';
-											echo "$fecha_propone a las $hora_propone hrs.";
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Motivo del cambio';
-										echo '</td>';
-										echo '<td>';
-											echo $motivo_propone;
-										echo '</td>';
-									echo '</tr>';	
+									echo '<tr><td>Usuario que propone</td><td>'.$nick_user_propone.'</td></tr>';
+									echo '<tr><td>Nombre de persona que propone</td><td>'.$nombre_propone.'</td></tr>';
+									echo '<tr><td>Correo electr&oacute;nico del que propone</td><td>'.$correo_propone.'</td></tr>';
+									echo '<tr><td>Fecha realizado</td><td>'.$fecha_propone.' a las '.$hora_propone.' hrs.</td></tr>';
+									echo '<tr><td>Motivo del cambio</td><td>'.$motivo_propone.'</td></tr>';	
 									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nuevo Nombre';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_nombre;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nuevo Orden';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_orden;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nueva Situaci&oacute;n';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_situacion;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nueva Descripci&oacute;n';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_descripcion;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nuevo Banner';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_enlace;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nueva Fecha inicia vigencia';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_fecha_inicio;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Nueva Fecha termina vigencia';
-										echo '</td>';
-										echo '<td>';
-											echo $nuevo_fecha_fin;
-										echo '</td>';
-									echo '</tr>';
+									echo '<tr><td>Nuevo Nombre</td><td>'.$nuevo_nombre.'</td></tr>';
+									echo '<tr><td>Nuevo Orden</td><td>'.$nuevo_orden.'</td></tr>';
+									echo '<tr><td>Nueva Situaci&oacute;n</td><td>'.$nuevo_situacion.'</td></tr>';
+									echo '<tr><td>Nueva Descripci&oacute;n</td><td>'.$nuevo_descripcion.'</td></tr>';
+									echo '<tr><td>Nuevo Banner</td><td>'.$nuevo_enlace.'</td></tr>';
+									echo '<tr><td>Nueva Fecha inicia vigencia</td><td>'.$nuevo_fecha_inicio.'</td></tr>';
+									echo '<tr><td>Nueva Fecha termina vigencia</td><td>'.$nuevo_fecha_fin.'</td></tr>';
 									echo '<tr><td><hr /></td><td><hr /></td></tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Nombre';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_nombre;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Orden';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_orden;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Situaci&oacute;n';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_situacion;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Descripci&oacute;n';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_descripcion;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Banner';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_enlace;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Fecha inicia vigencia';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_fecha_inicio;
-										echo '</td>';
-									echo '</tr>';
-									echo '<tr>';
-										echo '<td>';
-											echo 'Anterior Fecha termina vigencia';
-										echo '</td>';
-										echo '<td>';
-											echo $anterior_fecha_fin;
-										echo '</td>';
-									echo '</tr>';
+									echo '<tr><td>Anterior Nombre</td><td>'.$anterior_nombre.'</td></tr>';
+									echo '<tr><td>Anterior Orden</td><td>'.$anterior_orden.'</td></tr>';
+									echo '<tr><td>Anterior Situaci&oacute;n</td><td>'.$anterior_situacion.'</td></tr>';
+									echo '<tr><td>Anterior Descripci&oacute;n</td><td>'.$anterior_descripcion.'</td></tr>';
+									echo '<tr><td>Anterior Banner</td><td>'.$anterior_enlace.'</td></tr>';
+									echo '<tr><td>Anterior Fecha inicia vigencia</td><td>'.$anterior_fecha_inicio.'</td></tr>';
+									echo '<tr><td>Anterior Fecha termina vigencia</td><td>'.$anterior_fecha_fin.'</td></tr>';
 								echo '</table>';
 								echo '<script type="text/javascript">';
 								echo '$(document).ready(function()
@@ -2057,7 +1770,7 @@ class clase_baner_lateral extends conexion
 											{
 												if(formulario.motivo.value == "") 
 													{
-														alert("El campo del motivo no puede quedar vacío");
+														alert("El campo del motivo no puede quedar vac\u00EDo");
 														formulario.motivo.focus(); 	
 														return false;
 													}	
@@ -2073,10 +1786,7 @@ class clase_baner_lateral extends conexion
 									echo '<table width="100%" border="1" cellspacing="0" cellpadding="0" >';
 										echo '<tr><td>Persona que toma la decisi&oacute;n</td><td><input type = "text" name = "nombre" size="60" /></td></tr>';
 										echo '<tr><td>Correo electr&oacute;nico del que decide</td><td><input type = "text" name = "correo" size = "60" /></td></tr>';
-										echo '<tr>';
-											echo '<td>';
-												echo '¿Aplicar el cambio?';
-											echo '</td>';	
+										echo '<tr><td>&iquest;Aplicar el cambio?</td>';
 											echo '<td>';
 												echo '<select name = "publicar">';
 													echo '<option value = "activo">'.si.'</option>';
@@ -2085,12 +1795,8 @@ class clase_baner_lateral extends conexion
 											echo '</td>';
 										echo '</tr>';
 										echo '<tr>';
-											echo '<td width="600">';
-												echo 'Motivo de la decisi&oacute;n';
-											echo '</td>';
-											echo '<td>';
-												echo '<textarea name="motivo" cols="50" rows="5"></textarea>';
-											echo '</td>';
+											echo '<td width="600">Motivo de la decisi&oacute;n</td>';
+											echo '<td><textarea name="motivo" cols="50" rows="5"></textarea></td>';
 										echo '</tr>';
 										echo '<tr><td>&nbsp;</td>';
 											echo '<td>';
@@ -2178,16 +1884,9 @@ class clase_baner_lateral extends conexion
 											$fecha_propone = $ren["fecha_propone"];
 											$fecha_propone = FunGral::FechaNormal($fecha_propone);
 											$clave_baners_cambios = $ren["clave_baners_cambios"];
-											echo '<tr>';
-												echo '<td '.$color.'>';
-													echo $nombre;
-												echo '</td>';
-												echo '<td '.$color.'>';
-													echo $fecha_creacion;
-												echo '</td>';
-												echo '<td '.$color.'>';
-													echo $fecha_propone;
-												echo '</td>';
+											echo '<tr><td '.$color.'>'.$nombre.'</td>';
+												echo '<td '.$color.'>'.$fecha_creacion.'</td>';
+												echo '<td '.$color.'>'.$fecha_propone.'</td>';
 												echo '<td align = "center" '.$color.'>';
 													echo '<form name="mod_baner_lateral_'.$clave_baner.'" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" method="post" class="margen_cero">';
 														echo '<input type="hidden" name="archivo" value = "../librerias/modulos/baner_lateral/baner_lateral_admon.php" />';
@@ -2292,112 +1991,21 @@ class clase_baner_lateral extends conexion
 						$anterior_fecha_fin  = FunGral::FechaNormal($anterior_fecha_fin);
 						HtmlAdmon::titulo_seccion("Cambio al baner: $nombre");
 						echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Situaci&oacute;n del cambio';
-								echo '</td>';
-								echo '<td>';
-									echo $situacion;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Usuario que propone';
-								echo '</td>';
-								echo '<td>';
-									echo $nick_user_propone;
-								echo '</td>';
-							echo '</tr>';	
-							echo '<tr>';
-								echo '<td>';
-									echo 'Nombre de persona que propone';
-								echo '</td>';
-								echo '<td>';
-									echo $nombre_propone;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Correo electr&oacute;nico del que propone';
-								echo '</td>';
-								echo '<td>';
-									echo $correo_propone;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Fecha que se propone el cambio';
-								echo '</td>';
-								echo '<td>';
-									echo "$fecha_propone a las $hora_propone hrs.";
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Motivo del cambio';
-								echo '</td>';
-								echo '<td>';
-									echo $motivo_propone;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Usuario que decide';
-								echo '</td>';
-								echo '<td>';
-									echo $nick_user_decide;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Nombre de persona que decide';
-								echo '</td>';
-								echo '<td>';
-									echo $nombre_decide;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Correo electr&oacute;nico del que decide';
-								echo '</td>';
-								echo '<td>';
-									echo $correo_decide;
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Fecha de decisi&oacute;n';
-								echo '</td>';
-								echo '<td>';
-									echo "$fecha_decide a las $hora_decide hrs.";
-								echo '</td>';
-							echo '</tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Motivo de la decisi&oacute;n';
-								echo '</td>';
-								echo '<td>';
-									echo $motivo_decide;
-								echo '</td>';
-							echo '</tr>';
+							echo '<tr><td>Situaci&oacute;n del cambio</td><td>'.$situacion.'</td></tr>';
+							echo '<tr><td>Usuario que propone</td><td>'.$nick_user_propone.'</td></tr>';	
+							echo '<tr><td>Nombre de persona que propone</td><td>'.$nombre_propone.'</td></tr>';
+							echo '<tr><td>Correo electr&oacute;nico del que propone</td><td>'.$correo_propone.'</td></tr>';
+							echo '<tr><td>Fecha que se propone el cambio</td><td>'.$fecha_propone.' a las '.$hora_propone.' hrs.</td></tr>';
+							echo '<tr><td>Motivo del cambio</td><td>'.$motivo_propone.'</td></tr>';
+							echo '<tr><td>Usuario que decide</td><td>'.$nick_user_decide.'</td></tr>';
+							echo '<tr><td>Nombre de persona que decide</td><td>'.$nombre_decide.'</td></tr>';
+							echo '<tr><td>Correo electr&oacute;nico del que decide</td><td>'.$correo_decide.'</td></tr>';
+							echo '<tr><td>Fecha de decisi&oacute;n</td><td>'.$fecha_decide.' a las '.$hora_decide.' hrs.</td></tr>';
+							echo '<tr><td>Motivo de la decisi&oacute;n</td><td>'.$motivo_decide.'</td></tr>';
 							echo '<tr><td><hr /></td><td><hr /></td></tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Nuevo Nombre';
-								echo '</td>';
-								echo '<td>';
-									echo $nuevo_nombre;
-								echo '</td>';
-							echo '</tr>';
+							echo '<tr><td>Nuevo Nombre</td><td>'.$nuevo_nombre.'</td></tr>';
 							echo '<tr><td>Nuevo Orden</td><td>'.$nuevo_orden.'</td></tr>';
-							echo '<tr>';
-								echo '<td>';
-									echo 'Nueva Situaci&oacute;n';
-								echo '</td>';
-								echo '<td>';
-									echo $nuevo_situacion;
-								echo '</td>';
-							echo '</tr>';
+							echo '<tr><td>Nueva Situaci&oacute;n</td><td>'.$nuevo_situacion.'</td></tr>';
 							echo '<tr><td>Nueva Descripci&oacute;n</td><td>'.$nuevo_descripcion.'</td></tr>';
 							echo '<tr><td>Nuevo Banner</td><td>'.$nuevo_enlace.'</td></tr>';
 							echo '<tr><td>Nueva Fecha inicia vigencia</td><td>'.$nuevo_fecha_inicio.'</td></tr>';
@@ -2491,15 +2099,9 @@ class clase_baner_lateral extends conexion
 											else
 												{$color = '';}
 											echo '<tr>';
-												echo '<td '.$color.'>';
-													echo "$fecha_propone <br />a las $hora_propone";
-												echo '</td>';
-												echo '<td '.$color.'>';
-													echo "$fecha_decide <br />a las $hora_decide";
-												echo '</td>';
-												echo '<td align = "center" '.$color.'>';
-													echo $situacion;
-												echo '</td>';
+												echo '<td '.$color.'>'.$fecha_propone.' <br />a las '.$hora_propone.'</td>';
+												echo '<td '.$color.'>'.$fecha_decide.'<br />a las '.$hora_decide.'</td>';
+												echo '<td align = "center" '.$color.'>'.$situacion.'</td>';
 												echo '<td align = "center" '.$color.'>';
 													echo '<form name="cambio_'.$clave_baners_cambios.'" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" method="post" >';
 														echo '<input type="hidden" name="archivo" value = "../librerias/modulos/baner_lateral/baner_lateral_admon.php" />';
@@ -2668,6 +2270,6 @@ class clase_baner_lateral extends conexion
 							}
 					}
 			}
-// ------------------------------ Fin de funciones para controlar los cambios de la información del módulo			
+// ------------------------------ Fin de funciones para controlar los cambios de la informaciï¿½n del mï¿½dulo			
 	}
 ?>
