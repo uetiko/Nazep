@@ -73,6 +73,7 @@ class clase_baner_lateral extends conexion
 												'archivo' =>$this->DirArchivo,
 												'clase' =>$this->NomClase,
 												'metodo' =>'configurar',
+												'estado' =>'modificar',
 												'clave_modulo' =>$clave_modulo) ));	
 									}
 							}
