@@ -2,17 +2,17 @@
 /*
 Sistema: Nazep
 Nombre archivo: cabeza.php
-Función archivo: archivo que genera la cabeza del tema por defecto nazep2 para su visualización
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo que genera la cabeza del tema por defecto nazep2 para su visualizaciï¿½n
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 ?>
 <table width="777" border="0" cellspacing="0" cellpadding="0" align="center" class="imagen_cabeza" >
 	<tr><td height="96" align="right" valign="bottom">
-        <?php if(!$this->registro =="no")
+        <?php if($this->registro =='si')
 			{echo 'Usuario: '.$this->nom_usuario.'<br/><a href="index.php?salir=si">Salir</a>';}?>
 	</td></tr>
 </table>

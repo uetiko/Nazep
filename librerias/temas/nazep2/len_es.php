@@ -32,8 +32,9 @@ define('dia_07','Domingo');
 define('dia','D&iacute;a');
 define('mes','Mes');
 define('ano','A&ntilde;o');
-define ('txt_nick_user','Usuario');
-define ('txt_pasword_user','Password');
-define ('txt_enviar_user','Enviar');
-define ('error_acceso_admon','Error al Ingresar sus Datos');
+define('txt_nick_user_vista', 'Nombre de Usuario');
+define('txt_pasword_user_vista', 'Contrase&ntilde;a del Usuario');
+define('txt_titulo_login_vista','Iniciar Sesi&oacute;n');
+define('txt_enviar_user_vista','Ingresar');
+define('txt_error_acceso_vista','Error al ingresar sus datos, intentelo de nuevo');
 ?>

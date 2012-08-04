@@ -2,12 +2,12 @@
 /*
 Sistema: Nazep
 Nombre archivo: vista_final.php
-Función archivo: Contener todas las funciones necesarias para ver el portal
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: Contener todas las funciones necesarias para ver el portal
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 if( file_exists("librerias/error.php") && file_exists("librerias/conexion.php") )
 	{
@@ -96,11 +96,11 @@ class vista_final extends conexion
 			}
 		function validar_usuario_redireccionar($sec)
 			{
-				$pasword_usuario_vista = $_POST["pasword_usuario_vista"];
-				$nick_usuario_vista = $_POST["nick_usuario_vista"];
-				$pasword_usuario_vista = md5($pasword_usuario_vista);
+				$password_usuario_vista = $_POST["password_usuario_vista"];
+				$nick_usuario_vista = addslashes($_POST["nick_usuario_vista"]);
+				$password_usuario_vista = md5($password_usuario_vista);
 				$consulta_usu = "select nombre, a_mat, a_pat from nazep_usuarios_final
-				where nick_usuario = '$nick_usuario_vista' and pasword = '$pasword_usuario_vista' and situacion = 'activo'";
+				where nick_usuario = '$nick_usuario_vista' and pasword = '$password_usuario_vista' and situacion = 'activo'";
 				$conexion = $this->conectarse();
 				$res_con = mysql_query($consulta_usu);
 				$cantidad = mysql_num_rows($res_con);
@@ -121,39 +121,42 @@ class vista_final extends conexion
 						$delete = "delete from nazep_sesiones where nick_usuario = 'Invitado' and ip = '$temporal_ip'";
 						if (mysql_query($delete))
 							{
-								$this->registro = "si";
+								$this->registro = 'si';
 								header("Location:  index.php?sec=$sec");
 							}
 					}
 			}
 		function validar_usuario($sec)
 			{
-				echo '<form name="formulario_acceso_vista" id="formulario_acceso_vista" method="post" action="index.php?sec='.$sec.'">';
-					echo '<table width="100%" border="0">';
-						echo '<tr>';
-							echo '<td align = "center">';
-								$error_de_usuario = @$_GET["error_usuario"];
-								if($error_de_usuario  == "si")
-									{ echo '<span class="error_usuario">'. error_acceso_admon .'</span>'; }
-								else
-									{ echo '&nbsp;'; }
-							echo '</td>';
-						echo '</tr>';
-						echo '<tr>';
-							echo '<td>';
-								echo '<table width = "100%">';
-									echo '<tr><td>'.txt_nick_user.'</td>';
-									echo '<td><input type= "text" name="nick_usuario_vista" /></td></tr>';
-									echo '<tr><td>'.txt_pasword_user.'</td>';
-									echo '<td><input type= "password" name="pasword_usuario_vista" /></td></tr>';
-									echo '<tr><td></td>';
-										echo '<td><input type="hidden" name="validar_vista" value = "si" /><input type="submit" name="Submit" value="'.txt_enviar_user.'" /></td>';
-									echo '</tr>';
-								echo '</table>';
-							echo '</td>';
-						echo '</tr>';
-					echo '</table>';
-				echo '</form>';
+				$texto = '';
+				$texto .= '<form name="formulario_acceso_vista" id="formulario_acceso_vista" method="post" action="index.php?sec='.$sec.'">';
+					$texto .= '<div class="div_error_login" >';
+						$error_de_usuario = (isset($_GET["error_usuario"])) ?$_GET["error_usuario"]:'';
+						if($error_de_usuario  == 'si')
+							{ $texto .=  '<span class="error_usuario">'.txt_error_acceso_vista.'</span>'; }
+						else
+							{ $texto .=  '&nbsp;'; }
+					$texto .= '</div>';
+					$texto .= '<div class="div_titulo_login_vista">'.txt_titulo_login_vista.'</div>';
+					$texto .= '<div class="div_nick_user_login">';
+						$texto .= '<div class="div_nick_user_a"> '.txt_nick_user_vista.'</div>';
+						$texto .= '<div class="div_nick_user_b"> <input type= "text" name="nick_usuario_vista" id="nick_usuario_vista"  /></div>';
+						$texto .= '<div style="clear:both;"></div>';
+					$texto .= '</div>';	
+					
+					$texto .= '<div class="div_password_user_login">';
+						$texto .= '<div class="div_password_user_login_a">'.txt_pasword_user_vista.'</div>';
+						$texto .= '<div class="div_password_user_login_b"><input type= "password" name="password_usuario_vista" id="password_usuario_vista" /></div>';
+						$texto .= '<div style="clear:both;"></div>';
+					$texto .= '</div>';	
+					
+					$texto .= '<div class="div_boton_login_ingresar">';
+						$texto .= '<input type="hidden" name="validar_vista" value = "si" />
+								<input type="submit" name="Submit" value="'.txt_enviar_user_vista.'" />';
+					$texto .= '</div>';	
+				$texto .= '</form>';
+				echo $texto;
+				$texto = '';
 			}
 		function firma()
 			{
@@ -304,13 +307,9 @@ class vista_final extends conexion
 				if(!isset($direccion_temporal[1]) || $direccion_temporal[1] == '')
 					{
 						if($direccion_temporal[0]=="/index/")
-							{
-								$cadena_print = "index.php?formato=print";
-							}
+							{ $cadena_print = "index.php?formato=print"; }
 						else
-							{
-								$cadena_print = "?formato=print";
-							}
+							{ $cadena_print = "?formato=print"; }
 					}
 				else
 					{
@@ -326,13 +325,9 @@ class vista_final extends conexion
 				if(!isset($direccion_temporal[1]) || $direccion_temporal[1] == '')
 					{
 						if($direccion_temporal[0]=="/index/")
-							{
-								$cadena_print = "index.php?formato=print";
-							}
+							{ $cadena_print = "index.php?formato=print"; }
 						else
-							{
-								$cadena_print = "?formato=print";
-							}
+							{ $cadena_print = "?formato=print"; }
 					}
 				else
 					{
@@ -472,13 +467,9 @@ class vista_final extends conexion
 				$clave_rss = $ren_sec["clave_rss"];
 				echo '<a class="enlace_rss" href="index.php?sec='.$clave_rss.'" >';
 					if($tipo=="imagen")
-						{
-							echo '<img src= "'.$imagen.'" alt ="'.$alt.'" title="'.$titulo.'" border= "0" />';
-						}
+						{ echo '<img src= "'.$imagen.'" alt ="'.$alt.'" title="'.$titulo.'" border= "0" />'; }
 					elseif($tipo=="texto")
-						{
-							echo $texto;
-						}						
+						{ echo $texto; }						
 				echo '</a>';				
 			}			
 		function enlace_inicio($texto)
@@ -1202,7 +1193,7 @@ class vista_final extends conexion
 			}
 		function lis_secc_prin_ver_tablas($inicio, $cantidad, $ancho, $mostrar_titulo, $titulo, $mostrar_balazo, $ubicacion_tema, $espacio_secciones, $imagen_balazo, $alt_bal, $titulo_bal)
 			{
-				/*Función descotinuada, por usar tablas, remplazada por lis_secc_prin_ver_ul en la version 0.1.6*/
+				/*Funciï¿½n descotinuada, por usar tablas, remplazada por lis_secc_prin_ver_ul en la version 0.1.6*/
 				$inicio--;
 				$hoy = date('Y-m-d');
 				$con_sec = " select clave_seccion, titulo, tipo_contenido, tipo_titulo, flash_secion, imagen_secion, ancho_medio, alto_medio from  nazep_secciones  where clave_seccion_pertenece = '1' 
@@ -1255,7 +1246,7 @@ class vista_final extends conexion
 		function lis_secc_prin_hor_tablas($inicio, $cantidad, $simbolo, $ancho)
 			{
 				/*
-				Función que te permite hacer un listado de las secciones principales del portal 
+				Funciï¿½n que te permite hacer un listado de las secciones principales del portal 
 				en forma horizontal en una tabla con un ancho variable,
 				separados por un simbolo personalizable y mostrando una cantidad establecida.
 				*/
@@ -1290,9 +1281,7 @@ class vista_final extends conexion
 									$alto_medio = $ren["alto_medio"];
 									$formato = '';
 									if($tipo_contenido=="xml")
-										{
-											$formato = '&amp;formato=xml';
-										}
+										{ $formato = '&amp;formato=xml'; }
 									if($con > 1)
 										{
 											echo '<span class="simb_sep_men_prin_hor">';
@@ -1542,8 +1531,8 @@ class vista_final extends conexion
 		function historial_vista($sec, $simbolo, $alineacion, $target)
 			{
 				/*
-				Función que te permite ver le historial de navegación en las secciones del portal.
-				se recibe la clave de la sección y el simbolo que se usara para dividir las secciones 
+				Funciï¿½n que te permite ver le historial de navegaciï¿½n en las secciones del portal.
+				se recibe la clave de la secciï¿½n y el simbolo que se usara para dividir las secciones 
 				*/
 				$clave_seccion_usada = $sec;
 				for($a=1;$a>0;$a++)

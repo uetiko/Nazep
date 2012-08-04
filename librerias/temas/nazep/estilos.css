@@ -2,14 +2,14 @@
 /*
 Sistema: Nazep
 Nombre archivo: estilos.css
-Función archivo: archivo que las hojas de estilos para el sitio
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo que las hojas de estilos para el sitio
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
-/* inicio de configuración general del tema */
+/* inicio de configuraciï¿½n general del tema */
 body 
 	{
 		background-color: #FFFFFF;
@@ -36,7 +36,7 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 		margin:0px;
 		padding:0px;
 	}
-/* fin de configuración general del tema */
+/* fin de configuraciï¿½n general del tema */
 /* inicio de enlaces principales y menus principales*/
 .titulo_secc_principales
 	{
@@ -50,6 +50,50 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 		padding-left:5px;
 		padding-right:5px;	
 	}
+/***************************************** Login *************************************************************************/
+.div_error_login
+	{
+		text-align:center;
+	}
+	.error_usuario{color: #FF0000; font-size: 12px;}
+.div_titulo_login_vista
+	{
+		text-align:center;
+
+	}
+.div_nick_user_login
+	{}
+	.div_nick_user_a
+		{
+			float:left;
+			text-align: right;
+			width: 200px;
+		}
+	.div_nick_user_b
+		{
+			float:left;
+			text-align: left;
+			width: 200px;
+		}
+.div_password_user_login
+	{}
+	.div_password_user_login_a
+		{
+			float:left;
+			text-align: right;
+			width: 200px;
+		}
+	.div_password_user_login_b
+		{
+			float:left;
+			text-align: left;
+			width: 200px;
+		}
+.div_boton_login_ingresar
+	{
+		text-align:center;
+	}		
+/***************************************** Login *************************************************************************/
 /******************************************************************************************************************/
 .menu_prin_horizontal{color: #000000 ; text-decoration: none; 	font-size: 12px; }
 .menu_prin_horizontal:link {color: #000000; text-decoration: none; 	font-size: 12px;}
@@ -57,7 +101,7 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .menu_prin_horizontal:hover {color: #000000; text-decoration: underline; font-size: 12px;}
 /******************************************************************************************************************/
 .simb_sep_men_prin_hor{color: #000000;}
-.centro_contenido_gral{ padding-left:2%; padding-right:2%; border: }
+.centro_contenido_gral{ padding-left:2%; padding-right:2%; }
 /******************************************************************************************************************/
 .menu_prin_vertical{color: #000000 ; text-decoration: none; 	font-size: 12px; }
 .menu_prin_vertical:link {color: #000000; text-decoration: none; 	font-size: 12px;}
@@ -128,7 +172,6 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .pie_creditos:hover {font-size: 10px;}
 /******************************************************************************************************************/
 /*fin de enlaces principales y menus principales */
-.error_usuario{color: #FF0000; font-size: 12px;}
 .texto_visitas{color: #000000; font-size: 12px;}
 .numero_visitas{color: #000000; font-size: 12px; font-weight: bold;}
 .titulo_seccion{font-weight: bold; font-size: 14px;}
@@ -172,7 +215,7 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 		background-repeat:no-repeat
 	}
 /*******************************Fin de las imagenes del tema **********************************/	
-/* inicio funciones para módulo baners laterales */
+/* inicio funciones para mï¿½dulo baners laterales */
 .titulo_banner{ text-align:center; height:20px;}
 .clas_ren_sep_banner{height:10px;clear: both;}
 .clas_bal_baner	
@@ -185,13 +228,13 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .clas_cue_baner{ width:115px; text-align:left; vertical-align:top; float:left; }
 .clas_sep_leer_baner { height:10px; }
 .clas_leer_mas_baner{}
-/* fin funciones para módulo baners laterales */
+/* fin funciones para mï¿½dulo baners laterales */
 
-/* inicio funciones para módulo Buscador */
+/* inicio funciones para mï¿½dulo Buscador */
 .clas_tit_bus{text-align:center;}
-/* fin funciones para módulo Buscador */
+/* fin funciones para mï¿½dulo Buscador */
 	
-/* inicio funciones para módulo contenido paginado */
+/* inicio funciones para mï¿½dulo contenido paginado */
 .div_contenido_principal_print{text-align:left; width:480px;padding-left:2%; padding-right:2%;}
 .titulo_paginacion_contenido{text-align:center;}
 .celda_paginacion_contenido{text-align:center;}
@@ -205,9 +248,9 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .titulo_res_ava{ text-align:center; padding-top:10px; padding-bottom:10px;}
 .res_bus_con{ text-align:left;}
 .pag_res_con{text-align:center; padding-top:10px; padding-bottom:10px;}
-/* fin funciones para módulo contenido paginado */
+/* fin funciones para mï¿½dulo contenido paginado */
 
-/* inicio funciones para módulo articulos */
+/* inicio funciones para mï¿½dulo articulos */
 .titulo_buscador_articulos{text-align:center; padding-top:10px; padding-bottom:10px;}
 .formulario_buscador_articulos{text-align:left;}
 .res_bus_art{text-align:left;}
@@ -255,9 +298,9 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .div_tip_bus{text-align:center;}
 .div_btn_buscar_vista{text-align:center; padding-top:10px;}
 .renglon_vacio_articulo{height:10px;}
-/* fin funciones para módulo articulos */
+/* fin funciones para mï¿½dulo articulos */
 
-/* inicio funciones para módulo listar articulos */
+/* inicio funciones para mï¿½dulo listar articulos */
 .configuracion_lista{ text-align:center;}
 .renglon_vacio_articulo_lista{ border: #00F solid 1px; height:10px;}
 .nombre_art_listado{text-align:center;  background-color: #FFFFFF;}
@@ -273,9 +316,9 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .separacion_titulos{ clear: both; height:10px;  }
 .separacion_registros{clear: both; height:10px;  }
 .separacion_elementos{clear: both; height:5px;  }
-/* fin funciones para módulo listar articulos */
+/* fin funciones para mï¿½dulo listar articulos */
 
-/* inicio funciones para módulo noticias */
+/* inicio funciones para mï¿½dulo noticias */
 .titulo_paginacion_noticias{text-align:center;}
 .celda_paginacion_noticia{text-align:center;}
 .numero_pagina_sele_noticia{font-weight: bold;}
@@ -292,9 +335,9 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .leer_mas_noticia:link {color: #000000;text-decoration: underline;font-size: 12px;}
 .leer_mas_noticia:visited {	color: #000000;	text-decoration: underline; font-size: 12px;}
 .leer_mas_noticia:hover{color: #000000;	text-decoration: underline;	font-size: 12px;}
-/* fin funciones para módulo noticias */
+/* fin funciones para mï¿½dulo noticias */
 
-/* inicio funciones para módulo recomendar */
+/* inicio funciones para mï¿½dulo recomendar */
 .recomendar_mensaje_uno{ text-align:center; font-weight:bold; padding-top:5px; padding-bottom:5px; }
 .recomendar_mensaje_dos{text-align:center; font-weight:bold; padding-top:5px; padding-bottom:5px;}
 .recomendar_texto_dir{ text-align:left;}
@@ -303,9 +346,9 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .recomendar_col_texto_dos{ float:left; }
 .recomendar_ren_vacio{clear: both; height:1px;}
 .recomendar_boton_enviar{ padding-top:10px; padding-bottom:10px; text-align:center;}
-/* fin funciones para módulo recomendar */
+/* fin funciones para mï¿½dulo recomendar */
 
-/* inicio funciones para módulo contacto */
+/* inicio funciones para mï¿½dulo contacto */
 .contacto_titulo{ text-align:center; padding-bottom:10px;}
 .contacto_mensaje{ text-align:center; padding-bottom:10px; padding-top:10px; }
 .contacto_ren_vacio{clear: both; height:1px;}
@@ -323,14 +366,14 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 .txt_cont_mensaje{ width: 250px; height:80px;}
 .contacto_campos_obl{ text-align:center;}
 .contacto_btn{text-align:center;}
-/* fin funciones para módulo recomendar */
+/* fin funciones para mï¿½dulo recomendar */
 
-/* inicio funciones para módulo listado baners */
+/* inicio funciones para mï¿½dulo listado baners */
 .listado_enlace_balazo{ float:left;}
 .separacion_listado_enlace{ height:10px;clear: both;}
-/* fin funciones para módulo listado baners */
+/* fin funciones para mï¿½dulo listado baners */
 
-/* inicio funciones para módulo mapa del sitio */
+/* inicio funciones para mï¿½dulo mapa del sitio */
 #dhtmlgoodies_tree li
 	{
 		list-style-type:none;	
@@ -367,7 +410,7 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 		color: #FFFFFF;
 		font-weight:bold;
 	}
-/* fin funciones para módulo mapa del sitio */
+/* fin funciones para mï¿½dulo mapa del sitio */
 /*Inicio para configuraciones especiales para el tema nuevo*/
 
 /*Fin para configuraciones especiales para el tema nuevo*/
