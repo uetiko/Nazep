@@ -13,10 +13,14 @@ Correo electr�nico: claudio@nazep.com.mx
 
 <table width="777" border="0" cellspacing="0" cellpadding="0" align="center" class="imagen_cabeza" >
 	<tr><td height="96"  align="right" valign="bottom">
-    	<?php
-			if($this->registro =='si')
-				{echo 'Usuario: '.$this->nom_usuario.'<br/><a href="index.php?salir=si">Salir</a>';}
-		?>
+<?php
+            if($this->registro =='si')
+                {
+                    echo 'Usuario: '.$this->nom_usuario.'<br/>';
+                    echo '<a href="'.$this->generarUrlSalir().'" title="Salir" alt="Salir" >Salir</a>';
+                    
+                }
+?>
 	</td></tr>
 </table>
 <table width="777" border="0" cellspacing="0" cellpadding="0" align="center" class="imagen_fondo_menu">

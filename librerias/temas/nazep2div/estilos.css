@@ -36,7 +36,16 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 		margin:0px;
 		padding:0px;
 	}
-/* fin de configuraci�n general del tema */
+/* fin de configuracion general del tema */
+.divusuarioactivado
+{
+    text-align: center;
+}
+.divusuarionoactivado
+{
+    text-align: center;
+    color:#FF0000;
+}
 .clas_marco_principal
 	{
 		width:100%;
@@ -151,6 +160,179 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
 		text-align:center;
 	}		
 /***************************************** Login *************************************************************************/
+/***************************************** Inicio Registro Usuario ***************************/
+.div_titulo_registro_usuario
+    {
+        text-align: center;
+    }
+
+.div_nick_user_registro
+    {
+        
+    }
+.div_nick_user_r_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_nick_user_r_b
+    {
+        float: left;
+        height: 25px;
+    }
+#txt_nick_usuario_registrar
+    {
+        width: 200px;
+        
+    }
+.div_mensaje_nombre_usuario
+    {
+        text-align: center;
+    }
+.div_correo_r_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_correo_r_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_password_registro_a_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_password_registro_a_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_password_registro_b_a  
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_password_registro_b_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_nombre_usuario_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_nombre_usuario_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_ape_p_usuario_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_ape_p_usuario_a
+    {
+        float: left;
+        height: 25px;
+    }
+.div_ape_m_usuario_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_ape_m_usuario_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_fecha_nacimiento_usuario_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;        
+    }
+ .div_fecha_nacimiento_usuario_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_ubicacion_usuario_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0; 
+    }
+.div_ubicacion_usuario_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_web_usuario_a 
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_web_usuario_b 
+    {
+        float: left;
+        height: 25px;
+    }
+.div_zona_horaria_a
+    {
+        float: left;
+        width: 250px;
+        text-align: right;
+        height: 22px;
+        margin: 3px 0 0 0;
+    }
+.div_zona_horaria_b
+    {
+        float: left;
+        height: 25px;
+    }
+.div_enlace_regreso_acceso
+    {
+        text-align: center;
+    }
+.div_boton_registrar_usuario
+    {
+        text-align: center;
+    }
+/***************************************** Fin Registro Usuario ***************************/
+
+
 .menu_prin_horizontal{color: #000000 ; text-decoration: none; 	font-size: 12px; }
 .menu_prin_horizontal:link {color: #000000; text-decoration: none; 	font-size: 12px;}
 .menu_prin_horizontal:visited {color: #000000; text-decoration: none; 	font-size: 12px;}

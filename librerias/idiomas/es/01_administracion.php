@@ -2,14 +2,19 @@
 /*
 Sistema: Nazep
 Nombre archivo: len_es.php
-Función archivo: Textos para el administrador del sitio en español
-Fecha creación: junio 2007
-Fecha última Modificación: Diciembre 2009
-Versión: 0.1.5
+Funciï¿½n archivo: Textos para el administrador del sitio en espaï¿½ol
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Diciembre 2009
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 //************************************** Inicio de Cadenas de uso en general
+define('NAZEP_NOHAVEFILEMODULE','No existe el archivo del modulo solicitado');
+define('NAZEP_NOEXISTCLASS','No existe la clase solicitada');
+define('NAZEP_NOEXISTMETHOD','No existe el metodo solicitado');
+define('NAZEP_NOCALLMETHOD','No se puede ejecutar el metodo solicitado');
+
 
 define('error_query', 'Ha ocurrido un problema al ejecutar la sentencia sql');
 define('txt_perdio_contra', '&iquest;Perdio la contrase&ntilde;a?');
@@ -114,19 +119,19 @@ define('dia','D&iacute;a');
 define('mes','Mes');
 define('ano','A&ntilde;o');
 //************************************** Fin de Cadenas de uso en general
-//************************************** Inicio de Cadenas del sistema de administración
+//************************************** Inicio de Cadenas del sistema de administraciï¿½n
 //***** Inicio de cadenas de control de acceso
 define('titulo_acceso_admon','Control de acceso al Nazep');
 define('titulo_camb_contra','Recuperar Contrase&ntilde;a');
 define('titulo_camb_bloqueo','Desbloquar un Usuario');
-define('error_acceso_admon','¡Error al ingresar los datos! ');
+define('error_acceso_admon','ï¿½Error al ingresar los datos! ');
 define('inten_error_acceso_admon',', No. de Intentos fallidos: ');
 define('inten_error_acceso_admon2',' Con <strong>5</strong> intentos erroneos, se bloquea la cuenta');
 define('inten_error_acceso_admon3','El usuario: <strong>');
 define('inten_error_acceso_admon4','</strong>, ha sido bloqueado ');
 define('txt_enviar_user','Validar datos');
 //***** Fin de cadenas de control de acceso
-//***** Inicio de cadenas de Cabeza html, cabeza y menú
+//***** Inicio de cadenas de Cabeza html, cabeza y menï¿½
 define('titulo_admon','Administraci&oacute;n de NAZEP');
 define('titulo_btn_incio','Inicio');
 define('titulo_btn_secciones','Secciones del portal');
@@ -154,7 +159,7 @@ define('erro_regres_2',' de la secci&oacute;n');
 define('not_adm_reg_lis','Regresar al listado de noticias');
 define('not_adm_tit_lis','Noticias del Administrador de Contenidos Web Nazep');
 //***** Fin de cadenas de Noticias del administrador
-//***** Inicio de cadenas de Opción de Secciones
+//***** Inicio de cadenas de Opciï¿½n de Secciones
 define('sepr_titulo_orden','Orden');
 define('sepr_titulo_situacion','Situaci&oacute;n');
 define('sepr_titulo_listar','Listar');
@@ -172,7 +177,7 @@ define('sepr_enlace_estadisticas','Estad&iacute;sticas');
 define('sepr_enlace_listar_sub','Listar Subsecciones');
 define('sepr_enlace_crear_nueva','Crear nueva');
 define('sepr_enlace_regresar_secc','Regresar al listado de secciones anterior');
-//***** Fin de cadenas de Opción de Secciones
+//***** Fin de cadenas de Opciï¿½n de Secciones
 //***** Inicio de cadenas Modificar usuario
 define('mous_titulo_sec','Cambiar los datos del usuario');
 define('mous_alert_pas_dif','Los campos de la Contrase\u00D1as son diferentes');
@@ -188,7 +193,7 @@ define('mous_txt_cor_use','Correo electr&oacute;nico');
 define('mous_txt_dir_use','Direcci&oacute;n');
 define('mous_btn_guardar','Guardar cambios a los datos');
 //***** Fin de cadenas Modificar usuario
-//************************************** Inicio de Cadenas del sistema de administración
+//************************************** Inicio de Cadenas del sistema de administraciï¿½n
 define('img_inicio','Imagen de Bienvenida');
 define('nombre_usuario','Usuario');
 define('nivel_usuario','Nivel');

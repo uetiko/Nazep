@@ -21,8 +21,8 @@ Correo electrónico: claudio@nazep.com.mx
 		<meta name="description" content="'.$this->descripcion_seccion($sec).'" />
 		<link rel="STYLESHEET" type="text/css" href="'.$estilo_css.'" />';
         ?>
-        <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.js"></script>
-        <script type="text/javascript" src="../librerias/jquery/jquery_nazep_vista.js"></script>
+        <script type="text/javascript" src="librerias/jquery/jquery-1.3.2.js"></script>
+        <script type="text/javascript" src="librerias/jquery/jquery_nazep_vista.js"></script>
 	</head>
 	<body>
 	<div id="div_marco_principal" class="clas_marco_principal">

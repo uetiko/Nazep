@@ -21,7 +21,70 @@ class FunGral
 		static private $MesesNombre = array('January'=>mes_01,'February'=>mes_02,'March'=>mes_03,'April'=>mes_04,'May'=>mes_05,'June'=>mes_06, 'July'=>mes_07,'August'=>mes_08,'September'=>mes_09,'October'=>mes_10,'November'=>mes_11,'December'=>mes_12);
 		static private $DiasNumero = array(dia_01,dia_02,dia_03,dia_04,dia_05,dia_06,dia_07);
 		static private $DiasNombres = array('Monday'=>dia_01,'Tuesday'=>dia_02,'Wednesday'=>dia_03,'Thursday'=>dia_04,'Friday'=>dia_05,'Saturday'=>dia_06,'Sunday'=>dia_07);
-		static private $ArregloNiveles = array(nivel_01,nivel_02,nivel_03);		
+		static private $ArregloNiveles = array(nivel_01,nivel_02,nivel_03);	
+		
+		public static function validarClaseMetodoVista($clase, $metodo)
+			{
+				if(class_exists($clase))
+					{
+						$objeto = new $clase();
+						$arregloMetodo = array($objeto, $metodo);
+						if (method_exists($objeto, $metodo))
+							{
+								if(is_callable($arregloMetodo,false,$nombre))
+									{ 
+										return true; 
+									}
+								else
+									{
+										HtmlVista::verMensajeError(array('mensaje'=>NAZEP_NOCALLMETHOD));
+										return false;
+									}
+							}
+						else
+							{
+								HtmlVista::verMensajeError(array('mensaje'=>NAZEP_NOEXISTMETHOD));
+								return false;
+							}
+					}
+				else
+					{
+						HtmlVista::verMensajeError(array('mensaje'=>NAZEP_NOEXISTCLASS));
+						return false;
+					}
+			}		
+		public static function validarClaseMetodoAdmon($clase, $metodo)
+			{
+				if(class_exists($clase))
+					{
+						$objeto = new $clase();
+						$arregloMetodo = array($objeto, $metodo);
+						if (method_exists($objeto, $metodo))
+							{
+								if(is_callable($arregloMetodo,false,$nombre))
+									{ 
+										return true; 
+									}
+								else
+									{
+										HtmlAdmon::verMensajeError(array('mensaje'=>NAZEP_NOCALLMETHOD));
+										return false;
+									}
+							}
+						else
+							{
+								HtmlAdmon::verMensajeError(array('mensaje'=>NAZEP_NOEXISTMETHOD));
+								return false;
+							}
+						print_r($objeto);
+					}
+				else
+					{
+						HtmlAdmon::verMensajeError(array('mensaje'=>NAZEP_NOEXISTCLASS));
+						return false;
+					}
+			}		
+			
 		public static function int_contectarse()
 			{
 				$objconect = new conexion();

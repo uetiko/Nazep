@@ -2,12 +2,12 @@
 /*
 Sistema: Nazep
 Nombre archivo: recomendar_admon.php
-Función archivo: archivo para controlar la administración del módulo de recomendar el sitio
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo para controlar la administraciï¿½n del mï¿½dulo de recomendar el sitio
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 class clase_recomendar extends conexion
 	{
@@ -15,9 +15,9 @@ class clase_recomendar extends conexion
 		private $NomClase = 'clase_recomendar';		
 		function clase_recomendar()
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/recomendar.php');
+				include_once('../librerias/idiomas/'.FunGral::SaberIdioma().'/recomendar.php');
 			} 
-// ------------------------------ Inicio de funciones para controlar las funciones del módulo
+// ------------------------------ Inicio de funciones para controlar las funciones del mï¿½dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
 				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
@@ -54,8 +54,8 @@ class clase_recomendar extends conexion
 			}
 		function op_cambios_central($clave_seccion_enviada, $nivel, $nombre_sec, $clave_modulo)
 			{ echo '<br />'.avi_no_mod_mod; }
-// ------------------------------ Fin de funciones para controlar las funciones del módulo
-// ------------------------------ Inicio de funciones para controlar la modificación de la información del módulo			
+// ------------------------------ Fin de funciones para controlar las funciones del mï¿½dulo
+// ------------------------------ Inicio de funciones para controlar la modificaciï¿½n de la informaciï¿½n del mï¿½dulo			
 		function configurar_recomenaciones($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];

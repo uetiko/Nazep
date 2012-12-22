@@ -2,24 +2,25 @@
 /*
 Sistema: Nazep
 Nombre archivo: recomendar_vista.php
-Función archivo: archivo para controlar la vista final del módulo de recomendar
-Fecha creación: junio 2007
-Fecha última Modificación: Marzo 2011
-Versión: 0.2
+Funciï¿½n archivo: archivo para controlar la vista final del mï¿½dulo de recomendar
+Fecha creaciï¿½n: junio 2007
+Fecha ï¿½ltima Modificaciï¿½n: Marzo 2011
+Versiï¿½n: 0.2
 Autor: Claudio Morales Godinez
-Correo electrónico: claudio@nazep.com.mx
+Correo electrï¿½nico: claudio@nazep.com.mx
 */
 class clase_recomendar extends conexion
 	{
 		function clase_recomendar()
 			{
-				include('librerias/idiomas/'.FunGral::SaberIdioma().'/recomendar.php');
+				include_once('librerias/idiomas/'.FunGral::SaberIdioma().'/recomendar.php');
 			}
 		function vista_redireccion($sec, $ubicacion_tema, $nick_usuario, $clave_modulo)
 			{
 				$direccion_regreso = $_POST["direccion_regreso"]; 
 				$conexion = $this->conectarse();
-				$con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp from nazep_configuracion";
+				
+                                $con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp from nazep_configuracion";
 				$con_configurar ="select asunto, introduccion, mensaje, despedida from nazep_zmod_recomendar_conf";
 				$res_configurar = mysql_query($con_configurar);
 				$ren_configurar = mysql_fetch_array($res_configurar);
@@ -47,6 +48,7 @@ class clase_recomendar extends conexion
 				$correo_recibe = $_POST["correo_recibe"];
 				$comentario = $_POST["comentario"];
 				$sec_recomendar = $_POST["sec_recomendar"];
+                                
 				require("librerias/phpmailer/class.phpmailer.php");
 				$mail = new PHPMailer ();
 				$mail->SetLanguage("es","librerias/phpmailer/language/");
@@ -111,13 +113,15 @@ class clase_recomendar extends conexion
 				else
 					{
 						if($error==1)
-							echo 'fallo-No se pudo enviar la Recomendación';
+							echo 'fallo-No se pudo enviar la Recomendaciï¿½n';
 						else
-							echo 'fallo-Se envio la Recomendación, pero no se registro';
+							echo 'fallo-Se envio la Recomendaciï¿½n, pero no se registro';
 					}
 			}
 		function vista($sec, $ubicacion_tema, $nick_usuario, $clave_modulo)
 			{
+                                echo "aaaaaadddd<br>";
+                                
 				$con_con ="select ancho_nom1, ancho_cor1, ancho_nom2, ancho_cor2, ancho_mens, alto_mens from nazep_zmod_recomendar_conf";
 				$res_con = mysql_query($con_con);
 				$ren_con = mysql_fetch_array($res_con);

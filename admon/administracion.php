@@ -63,7 +63,7 @@ class administracion extends conexion
 														if($_GET["mensaje"]=="")
 															$texto_mostrar='&nbsp;';
 														elseif($_GET["mensaje"]==0)
-															$texto_mostrar='El cambio de contrase�a fue exitoso';
+															$texto_mostrar='El cambio de contrase&ntilde;a fue exitoso';
 														elseif($_GET["mensaje"]==1)
 															$texto_mostrar='No existe ese usuario solicitado';
 														elseif($_GET["mensaje"]==2)
@@ -145,6 +145,7 @@ class administracion extends conexion
 									echo '<head><title>::-:: '.titulo_acceso_admon.' ::-::</title>';	
 									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
 									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                                                                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
 									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
 									<script type="text/javascript">
@@ -2552,7 +2553,7 @@ class administracion extends conexion
 					{
 						$conexion = $this->conectarse();
 						$nombre = HtmlAdmon::historial($clave_seccion_enviada);
-						HtmlAdmon::titulo_seccion(titulo_mod_sec);	
+						HtmlAdmon::titulo_seccion(titulo_mod_sec);
 						echo '<table width="'.$this->ancho_pixeles.'" border="0" cellspacing="0" cellpadding="0" bgcolor="#999798" >';
 							echo '<tr><td align ="center"><strong>"'.$nombre.'"</strong></td></tr>';
 						echo '</table>';
@@ -2566,6 +2567,7 @@ class administracion extends conexion
 								echo '<td width="50%" align ="center"><strong>'.opc_mod_mod_sec.'</strong></td></tr>';	
 							echo '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
 							$arreglo_modulos = $this->obtener_modulos($clave_seccion_enviada);
+							
 							$cantidad  = count($arreglo_modulos);
 							$con_sec=0;
 							for($a=0;$a<$cantidad;$a++)
@@ -2591,21 +2593,34 @@ class administracion extends conexion
 													echo '<table width="'.$this->ancho_pixeles.'" border="0" cellspacing="0" cellpadding="0"  bgcolor="#999798" >';
 													$con_sec++;
 												}
-											$clave_modulo = $arreglo_modulos[$a][1];
-											$nombre_modulo = $arreglo_modulos[$a][2];
-											$archivo = "../librerias/modulos/".$arreglo_modulos[$a][3]."/".$arreglo_modulos[$a][3]."_admon.php";
-											$clase = "clase_".$arreglo_modulos[$a][3];
-											include_once($archivo);
-											$obj = new $clase();																						
+																						
 											$color = '#F89520';
 											if( $a % 2 == 0)
-												{
-													$color = '#F7BB49';
-												}
+												{ $color = '#F7BB49';}
+												
+											$clave_modulo = $arreglo_modulos[$a][1];
+											$nombre_modulo = $arreglo_modulos[$a][2];
+
+												
 											echo '<tr>';
 												echo '<td  width="50%" align ="center" valign="middle" bgcolor="'.$color.'">'.$nombre_modulo.'</td>';
 												echo '<td width="50%" align ="center" valign="middle" bgcolor="'.$color.'">';	
-													$obj->op_modificar_central($clave_seccion_enviada, $this->nivel, $clave_modulo);
+													
+													$archivo = '../librerias/modulos/'.$arreglo_modulos[$a][3].'/'.$arreglo_modulos[$a][3].'_admon.php';
+													if(is_readable($archivo))
+														{
+															include_once($archivo);
+															$clase = 'clase_'.$arreglo_modulos[$a][3];
+															if(FunGral::validarClaseMetodoAdmon($clase,'op_modificar_central'))
+																{
+																	$obj_v = new $clase('usar');
+																	$obj_v->op_modificar_central($clave_seccion_enviada, $this->nivel, $clave_modulo);
+																}
+														}
+													else
+														{
+															HtmlAdmon::verMensajeError(array('mensaje'=>NAZEP_NOHAVEFILEMODULE));
+														}												
 												echo '</td>';
 											echo '</tr>';
 											echo '<tr><td >&nbsp;</td><td >&nbsp;</td></tr>';
@@ -2723,13 +2738,22 @@ class administracion extends conexion
 							{$this->$funcion();	}
 						else
 							{
-								include_once($archivo);
-								$obj = new $clase();
-								$obj->$funcion($this->nick_user, $this->nivel, $this->ubi_tema, $this->nombre, $this->correo_user);
+								if(is_readable($archivo))
+									{
+										include_once($archivo);
+										if(FunGral::validarClaseMetodoAdmon($clase,$funcion))
+											{
+												$obj = new $clase('usar');
+												$obj->$funcion($this->nick_user, $this->nivel, $this->ubi_tema, $this->nombre, $this->correo_user);
+											}
+									}
+								else
+									{
+										HtmlAdmon::verMensajeError(array('mensaje'=>NAZEP_NOHAVEFILEMODULE));
+									}	
 							}
 					}
-			}
-			
+			}	
 		function cambios_seccion()
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];
@@ -2770,8 +2794,7 @@ class administracion extends conexion
 									{
 										$clave_modulo = $arreglo_modulos[$a][1];
 										$nombre_modulo = $arreglo_modulos[$a][2];
-										$archivo = "../librerias/modulos/".$arreglo_modulos[$a][3]."/".$arreglo_modulos[$a][3]."_admon.php";
-										$clase = "clase_".$arreglo_modulos[$a][3];
+										$archivo = "../librerias/modulos/".$arreglo_modulos[$a][3]."/".$arreglo_modulos[$a][3]."_admon.php";							
 										$tipo = $arreglo_modulos[$a][6];
 										if($a==0)
 											{
@@ -2789,16 +2812,30 @@ class administracion extends conexion
 												echo '</table>';
 												echo '<table width="'.$this->ancho_pixeles.'" border="0" cellspacing="0" cellpadding="0" bgcolor="#999798">';
 												$con_sec++;
-											}
-										include_once($archivo);
-										$obj = new $clase();
-										$color = "#F89520";
-										if( $a % 2 == 0)
-											{ $color = '#F7BB49'; }
+											}										
 										echo '<tr>';
+											$color = "#F89520";
+											if( $a % 2 == 0)
+												{ $color = '#F7BB49'; }										
 											echo '<td width="50%" align="center" bgcolor="'.$color.'">'.$nombre_modulo.'</td>';	
-											echo '<td width="50%" align="center" bgcolor="'.$color.'">';	
-												$obj->op_cambios_central($clave_seccion_enviada, $this->nivel, $nombre_sec, $clave_modulo);
+											echo '<td width="50%" align="center" bgcolor="'.$color.'">';
+
+												if(is_readable($archivo))
+													{
+														include_once($archivo);
+														$clase = 'clase_'.$arreglo_modulos[$a][3];
+														if(FunGral::validarClaseMetodoAdmon($clase,'op_cambios_central'))
+															{
+																$obj = new $clase('usar');
+																$obj->op_cambios_central($clave_seccion_enviada, $this->nivel, $nombre_sec, $clave_modulo);
+															}
+													}
+												else
+													{
+														HtmlAdmon::verMensajeError(array('mensaje'=>NAZEP_NOHAVEFILEMODULE));
+													}
+													
+												
 											echo '</td>';
 										echo '</tr>';
 										echo '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
@@ -2820,7 +2857,7 @@ class administracion extends conexion
 						$this->acceso_denegado();
 					}
 			}
-		function obtener_modulos($clave_seccion)
+		private function obtener_modulos($clave_seccion)
 			{
 				$con_mod = "select m.nombre_archivo, m.nombre, m.clave_modulo, sm.clave_secciones_modulos, sm.situacion, m.tipo
 				from nazep_secciones_modulos sm, nazep_modulos m

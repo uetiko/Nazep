@@ -37,4 +37,38 @@ define('txt_pasword_user_vista', 'Contrase&ntilde;a del Usuario');
 define('txt_titulo_login_vista','Iniciar Sesi&oacute;n');
 define('txt_enviar_user_vista','Ingresar');
 define('txt_error_acceso_vista','Error al ingresar sus datos, intentelo de nuevo');
+
+define('txt_enlace_registrar_usuario','Registro de nuevo usuario');
+define('txt_enlace_recuperar_password','Recuperar contrase&ntilde;a');
+
+define('txt_reg_user_men_1','Usuario Registrado Exitosamente');
+define('txt_reg_user_men_2','El usuario ya existe en el sistema, no se puede registrar');
+define('txt_reg_user_men_3','El Correo del usuario ya existe en el sistema, no se puede registrar');
+define('txt_reg_user_men_4','Los passwords no son iguales');
+define('txt_reg_user_men_5','No se pudo registrar el usuario, intentar mas tarde');
+define('txt_reg_user_men_6','No se pudo enviar los datos por correo, pero se registro el usuario');
+
+define('txt_nue_pass_men_1','Se envio el nuevo Password a tu correo');
+define('txt_nue_pass_men_2','No se encuentra el usuario o no esta activo');
+define('txt_nue_pass_men_3','No se pudo generar un nuevo Password');
+define('txt_nue_pass_men_4','Se genero pero no se pudo enviar por correo');
+
+
+define('txt_titulo_registro_usuario','Formulario para Registrar un Nuevo Usuario');
+define('txt_nick_user_registro','Nombre de nuevo usuario');
+define('txt_correo_registro','Correo del nuevo usuario');
+define('txt_password_a','Contrase&ntilde;a del nuevo usuario');
+define('txt_password_b','Repetir Contrase&ntilde;a del nuevo usuario');
+
+define('txt_nombre_usuario','Nombre real del Usuario');
+define('txt_apellido_p_usuario','Apellido Paterno del Usuario');
+define('txt_apellido_m_usuario','Apellido Materno del Usuario');
+define('txt_ubicacion_usuario','Ubicaci&oacute;n Geogr&aacute;fica del Usuario');
+define('txt_web_usuario','Web del Usuario');
+define('txt_zona_horaria_usuario','Zona Horaria GMT');
+
+define('NAZEP_NOHAVEFILEMODULE','No existe el archivo del modulo solicitado');
+define('NAZEP_NOEXISTCLASS','No existe la classe solicitada');
+define('NAZEP_NOEXISTMETHOD','No existe el metodo solicitado');
+define('NAZEP_NOCALLMETHOD','No se puede ejecutar el metodo solicitado');
 ?>

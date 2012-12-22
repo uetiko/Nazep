@@ -67,7 +67,8 @@ class clase_configuracion extends conexion
 											'BName'=>'btn_registro_accesos',
 											'OpcOcultas' => array('metodo' =>'registro_accesos')
 											))
-							));			
+							));
+							
 						html::hr(array('presentacion'=>'echo','id'=>'hr_02'));
 						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
 							HtmlAdmon::AccesoMetodo(array(
@@ -90,7 +91,20 @@ class clase_configuracion extends conexion
 											'BName'=>'btn_modificar_user_vista',
 											'OpcOcultas' => array('metodo' =>'modificar_usuario_vista')
 											))
-							));		
+							));	
+
+						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+							HtmlAdmon::AccesoMetodo(array(
+											'presentacion'=>'return',
+											'opcionNavega'=>'2',
+											'name'=>'configurar_user_final',
+											'Id'=>'configurar_user_final',
+											'BText'=>'Configuraci&oacute;n usuario del portal',
+											'BName'=>'btn_configurar_user_vista',
+											'OpcOcultas' => array('metodo' =>'configurar_usuario_vista')
+											))
+							));							
+								
 						html::hr(array('presentacion'=>'echo','id'=>'hr_03'));
 						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
 							HtmlAdmon::AccesoMetodo(array(
@@ -2420,6 +2434,18 @@ class clase_configuracion extends conexion
 							}
 					}
 			}
+		function configurar_usuario_vista($user,$correo)
+			{
+				if(FunGral::_Post("guardar")=='si')
+					{
+					}
+				else
+					{
+						HtmlAdmon::titulo_seccion("Configuraci&oacute;n Usuario Final");
+						$con_gral = "select * from nazep_usuarios_final_config";						
+					}
+			}
+			
 		function nuevo_modulo($user,$correo)
 			{
 				if(FunGral::_Post("guardar")=='si')
@@ -3089,6 +3115,12 @@ class clase_configuracion extends conexion
 						$con_no_disponible = $_POST["con_no_disponible"];
 						$palabras_clave = $_POST["palabras_clave"]; 
 						$resolucion_ancho = $_POST["resolucion_ancho"];
+						
+
+						$llave_publica_captcha = $_POST["llave_publica_captcha"];
+						$llave_privada_captcha = $_POST["llave_privada_captcha"];						
+
+						
 						$update = "update nazep_configuracion set
 						nombre_sitio = '$nombre_sitio', url_sitio= '$url_sitio', lema = '$lema', pie_sitio = '$pie_sitio',
 						fecha_incio = '$fecha_incio', clave_tema = '$clave_tema', titu_sitio = '$titu_sitio', 
@@ -3098,7 +3130,9 @@ class clase_configuracion extends conexion
 						palabras_clave = '$palabras_clave',
 						mensaje_nuevo_usuario_admon = '$mensaje_nuevo_usuario_admon', mensaje_nuevo_usuario_vista = '$mensaje_nuevo_usuario_vista',
 						ver_noticias = '$ver_noticias', resolucion_ancho = '$resolucion_ancho', ver_pag_inicio = '$ver_pag_inicio', pag_inicio= '$pag_inicio',
-						cant_noticias_admon = '$cant_noticias_admon', con_no_disponible = '$con_no_disponible'";
+						cant_noticias_admon = '$cant_noticias_admon', con_no_disponible = '$con_no_disponible',
+						 llave_publica_captcha = '$llave_publica_captcha', llave_privada_captcha= '$llave_privada_captcha' 
+						  ";
 						$conexion = $this->conectarse();
 						if (!@mysql_query($update))
 							{
@@ -3150,12 +3184,32 @@ class clase_configuracion extends conexion
 						$con_no_disponible = $ren_gral["con_no_disponible"];
 						$palabras_clave = $ren_gral["palabras_clave"];
 						$resolucion_ancho = $ren_gral["resolucion_ancho"];
+						
+						
+						
+						$llave_publica_captcha = $ren_gral["llave_publica_captcha"];
+						$llave_privada_captcha = $ren_gral["llave_privada_captcha"];
+						
+						
+						
 						echo '<script type="text/javascript">
 							$(document).ready(function()
 								{									
 									$.frm_elem_color("#FACA70","");
 									$.guardar_valores("frm_configuracion_gral");
-								});	
+								});
+							
+							function mostrar_ocultar_div(div)
+								{
+									if ($("#"+div).is (":visible"))
+										{
+											$("#"+div).hide();
+										}
+									else
+										{
+											$("#"+div).show();
+										}
+								}	
 							function validar_form(formulario)
 								{	
 									valor_pagina_inicio = FCKeditorAPI.__Instances[\'pag_inicio\'].GetHTML();
@@ -3174,39 +3228,59 @@ class clase_configuracion extends conexion
 						echo '<form name="recargar_pantalla" id= "recargar_pantalla" method="post" action="index.php?opc=2" class="margen_cero">';
 						echo '<input type="hidden" name="metodo" value = "configuracion" /></form>';
 						echo '<form name="frm_configuracion_gral" id="frm_configuracion_gral" method="post" action="index.php?opc=2" >';
+							
+							echo '<a name="n_datos_internos" id="a_datos_internos"></a> 
+							
+							<div style="text-align:center;" ><a href="#a_datos_internos" onClick="mostrar_ocultar_div(\'div_datos_internos\');" >
+							<strong>Datos Internos HTML</strong></a> </div>';
+							
+							echo ' <div  id="div_datos_internos">';
+								echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
+									echo '<tr>';
+										echo '<td>Nombre del sitio</td>';
+										echo '<td><input type = "text" name = "nombre_sitio" size = "69" value = "'.$nombre_sitio.'" /></td>';
+									echo '</tr>';
+									echo '<tr>';
+										echo '<td>T&iacute;tulo del sitio</td>';
+										echo '<td><input type = "text" name = "titu_sitio" size = "69" value = "'.$titu_sitio.'" /></td>';
+									echo '</tr>';
+									echo '<tr>';
+										echo '<td>Url del sitio</td>';
+										echo '<td><input type = "text" name = "url_sitio" size = "69" value = "'.$url_sitio.'" /></td>';
+									echo '</tr>';
+									echo '<tr>';
+										echo '<td>Palabras claves</td>';
+										echo '<td><textarea name="palabras_clave" cols="60" rows="5">'.$palabras_clave.'</textarea></td>';
+									echo '</tr>';
+									echo '<tr>';
+										echo '<td>Lema del sitio</td>';
+										echo '<td><textarea name="lema" cols="60" rows="5">'.$lema.'</textarea></td>';
+									echo '</tr>';
+									echo '<tr>';
+										echo '<td>Pie del sitio</td>';
+										echo '<td><textarea name="pie_sitio" cols="60" rows="5">'.$pie_sitio.'</textarea></td>';
+									echo '</tr>';
+								echo '</table>';
+							echo '</div>';
+							echo '<br/><hr/><br/>';
+
+							
 							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
 								echo '<tr>';
-									echo '<td>Nombre del sitio</td>';
-									echo '<td><input type = "text" name = "nombre_sitio" size = "60" value = "'.$nombre_sitio.'" /></td>';
-								echo '</tr>';
+									echo '<td>Llave Publica de Google Captcha</td>';
+									echo '<td><input type = "text" name = "llave_publica_captcha" size = "60" value = "'.$llave_publica_captcha.'" /></td>';
+								echo '</tr>';																
+
 								echo '<tr>';
-									echo '<td>T&iacute;tulo del sitio</td>';
-									echo '<td><input type = "text" name = "titu_sitio" size = "60" value = "'.$titu_sitio.'" /></td>';
+									echo '<td>Llave Privada de Google Captcha</td>';
+									echo '<td><input type = "text" name = "llave_privada_captcha" size = "60" value = "'.$llave_privada_captcha.'" /></td>';
 								echo '</tr>';
-								echo '<tr>';
-									echo '<td>Url del sitio</td>';
-									echo '<td><input type = "text" name = "url_sitio" size = "60" value = "'.$url_sitio.'" /></td>';
-								echo '</tr>';
-								echo '<tr>';
-									echo '<td>Palabras claves</td>';
-									echo '<td><textarea name="palabras_clave" cols="60" rows="5">'.$palabras_clave.'</textarea></td>';
-								echo '</tr>';
-								echo '<tr>';
-									echo '<td>Lema del sitio</td>';
-									echo '<td><textarea name="lema" cols="60" rows="5">'.$lema.'</textarea></td>';
-								echo '</tr>';
-								echo '<tr>';
-									echo '<td>Pie del sitio</td>';
-									echo '<td><textarea name="pie_sitio" cols="60" rows="5">'.$pie_sitio.'</textarea></td>';
-								echo '</tr>';
-								echo '<tr>';
-									echo '<td>Mensaje del nuevo usuario de administraci&oacute;n</td>';
-									echo '<td><textarea name="mensaje_nuevo_usuario_admon" cols="60" rows="3">'.$mensaje_nuevo_usuario_admon.'</textarea></td>';
-								echo '</tr>';
-								echo '<tr>';
-									echo '<td>Mensaje del nuevo usuario de Vista final</td>';
-									echo '<td><textarea name="mensaje_nuevo_usuario_vista" cols="60" rows="3">'.$mensaje_nuevo_usuario_vista.'</textarea></td>';
-								echo '</tr>';
+							echo '</table>';
+							
+							echo '<br/><hr/><br/>';
+							
+							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';	
+								
 								echo '<tr>';
 									echo '<td>Ancho del administrador</td>';
 									echo '<td>';
@@ -3256,7 +3330,12 @@ class clase_configuracion extends conexion
 												}
 										echo '</select>';
 									echo '</td>';
-								echo '</tr>';
+								echo '</tr>';			
+							echo '</table>';
+							
+							echo '<br/><hr/><br/>';
+							
+							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
 								echo '<tr>';
 									echo '<td>Tipo de envi&oacute; de correo</td>';
 									echo '<td>';
@@ -3278,6 +3357,19 @@ class clase_configuracion extends conexion
 									echo '<td>Password SMTP</td>';
 									echo '<td><input type = "text" name = "pass_smtp" size = "60" value = "'.$pass_smtp.'" /></td>';
 								echo '</tr>';
+								echo '<tr>';
+									echo '<td>Mensaje del nuevo usuario de administraci&oacute;n</td>';
+									echo '<td><textarea name="mensaje_nuevo_usuario_admon" cols="60" rows="3">'.$mensaje_nuevo_usuario_admon.'</textarea></td>';
+								echo '</tr>';
+								echo '<tr>';
+									echo '<td>Mensaje del nuevo usuario de Vista final</td>';
+									echo '<td><textarea name="mensaje_nuevo_usuario_vista" cols="60" rows="3">'.$mensaje_nuevo_usuario_vista.'</textarea></td>';
+								echo '</tr>';
+							echo '</table>';
+							
+							echo '<br/><hr/><br/>';
+													
+							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';		
 								echo '<tr>';
 									echo '<td>Lenguaje</td>';
 									echo '<td><input type = "text" name ="lenguaje" size ="60" value ="'.$lenguaje.'" /></td>';

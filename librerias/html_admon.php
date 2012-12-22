@@ -16,6 +16,15 @@ class HtmlAdmon
 				$objconect = new conexion();
 				$objconect->conectarse();				
 			}
+		public static function verMensajeError($arr)
+			{
+				$cadena_mostrar_f = '<div class="divMensajeErrorVista">'.$arr["mensaje"].'</div>';
+				$tipo_presentacion = ( isset($arr["tipo_presentacion"]) && $arr["tipo_presentacion"]!=''  ) ?$arr["tipo_presentacion"]:'echo';
+				if($tipo_presentacion=='echo')
+					echo $cadena_mostrar_f;
+				else if($tipo_presentacion=='return')
+					return $cadena_mostrar_f;
+			}
 		public static function RadiosSiNO($arr)
 			{
 				//Inicia valores por defecto
@@ -37,7 +46,7 @@ class HtmlAdmon
 					{
 						$orden_array = explode('-',$orden);
 						if($ValorSeleccionado=='si' || $ValorSeleccionado== 'SI' )
-							{ $val_che = array('si'=>'checked="checked"','no'=>''); }							
+							{ $val_che = array('si'=>'checked="checked"','no'=>''); }
 						else if($ValorSeleccionado=='no' || $ValorSeleccionado=='NO')
 							{ $val_che = array('si'=>'','no'=>'checked="checked"'); }
 						else
@@ -45,18 +54,18 @@ class HtmlAdmon
 						
 						$cadena_mostrar['si'] = html::label(array('presentacion'=>'return', 'tipo'=>'inifin', 'for'=>$NombreRadio.'_si', 'contenido'=>'SI'))
 						.html::input(array('presentacion'=>'return', 'type'=>'radio', 
-						'name'=>$NombreRadio, 'value' => 'si', 'id'=>$NombreRadio.'_si', 'varios'=>$val_che['si']));										
+						'name'=>$NombreRadio, 'value' => 'si', 'id'=>$NombreRadio.'_si', 'varios'=>$val_che['si']));
 						
 						$cadena_mostrar['no'] = html::label(array('presentacion'=>'return', 'tipo'=>'inifin', 'for'=>$NombreRadio.'_no', 'contenido'=>'NO'))
 						.html::input(array('presentacion'=>'return','type'=>'radio', 
 						'name'=>$NombreRadio,  'value' => 'no', 'id'=>$NombreRadio.'_no', 'varios'=>$val_che['no']));
-																						
+						
 						$cadena_mostrar_f = $cadena_mostrar[$orden_array[0]].$cadena_mostrar[$orden_array[1]];
 												
 						if($tipo_presentacion=='echo')
 							echo $cadena_mostrar_f;
 						else if($tipo_presentacion=='return')
-							return $cadena_mostrar_f;						
+							return $cadena_mostrar_f;
 					}
 			}
 		public static function historial($sec)
@@ -75,7 +84,7 @@ class HtmlAdmon
 						if($clave_seccion_usada == 1)
 							{$a = -1;}
 						else
-							{$clave_seccion_usada = $clave_seccion_pertenece;}			
+							{$clave_seccion_usada = $clave_seccion_pertenece;}
 					}
 				$cantidad = count($nombre_seccion);
 				$nombre_final = '';
@@ -100,7 +109,7 @@ class HtmlAdmon
 		public static function acceso_denegado()
 			{
 				echo '<table width="100%" cellspacing="0" cellpadding="0"  border="0"><tr><td height="50" align ="center">'.opcion_denegado.'</td></tr></table>';
-			}				
+			}
 		public static function boton_regreso($arr)
 			{
 				$tipo = ( isset($arr["tipo"]) && $arr["tipo"]!=''  ) ? $arr["tipo"] : 'sencillo';
@@ -158,11 +167,17 @@ class HtmlAdmon
 														));
 					}
 				
-				html::div(array( 'presentacion'=>'echo', 'id'=>'boton_regreso', 'class'=>'css_boton_regreso','tipo'=>'inifin', 'contenido'=>$contenido_div ));							
+				html::div(array( 'presentacion'=>'echo', 'id'=>'boton_regreso', 'class'=>'css_boton_regreso','tipo'=>'inifin', 'contenido'=>$contenido_div ));
 			}
 		public static function div_res_oper($arr)
 			{
-				echo '<div class = "div_resultado_operacion" id="div_resultado_operacion"></div>';
+                            $mensaje =(isset($arr["mensaje"]) && $arr["mensaje"]!='') ? $arr["mensaje"]: '';
+                            $presentacion = ( isset($arr["presentacion"]) && $arr["presentacion"]!=''  ) ? $arr["presentacion"] : 'echo';
+                            
+			    html::div(array( 'presentacion'=>'echo', 
+                                    'id'=>'div_resultado_operacion', 
+                                    'class'=>'div_resultado_operacion',
+                                    'tipo'=>'inifin', 'contenido'=>$mensaje));
 			}
 		public static function AccesoMetodo($arr)
 			{
@@ -172,17 +187,17 @@ class HtmlAdmon
 				$claveSeccion = (isset($arr["ClaveSeccion"]) && $arr["ClaveSeccion"]!='') ? '&amp;clave_seccion='.$arr["ClaveSeccion"]: '';
 				
 				$action = 'index.php?opc='.$opcionNavega.$claveSeccion;
-				$presentacion = ( isset($arr["presentacion"]) && $arr["presentacion"]!=''  ) ? $arr["presentacion"] : 'echo';							
+				$presentacion = ( isset($arr["presentacion"]) && $arr["presentacion"]!=''  ) ? $arr["presentacion"] : 'echo';
 				$class =(isset($arr["class"]) && $arr["class"]!='') ? $arr["class"]: 'margen_cero';
-				$method = (isset($arr["method"]) && $arr["method"]!='') ? $arr["ClaveSeccion"]:'POST';				
+				$method = (isset($arr["method"]) && $arr["method"]!='') ? $arr["ClaveSeccion"]:'POST';
 				$name = (isset($arr["name"]) && $arr["name"]!='') ? $arr["name"] : 'FormularioAcceso';
 				$id =(isset($arr["id"]) && $arr["id"]!='') ? $arr["id"] : 'FormularioAcceso';
 				$OpcAntes = (isset($arr["OpcAntes"]) && $arr["OpcAntes"]!='') ? $arr["OpcAntes"]: '';
 				$OpcDespues = (isset($arr["OpcDespues"]) && $arr["OpcDespues"]!='') ? $arr["OpcDespues"]: '';
 				$BText = (isset($arr["BText"]) && $arr["BText"]!='') ? $arr["BText"] : 'Acceso Metodo';
 				$BName = (isset($arr["BName"]) && $arr["BName"]!='') ? $arr["BName"]: 'Boton_Metodo';
-				$BId = (isset($arr["BId"]) && $arr["BId"]!='') ? $arr["BId"] :'Boton_Metodo';				
-				$BSrc = (isset($arr["BSrc"]) && $arr["BSrc"]!='') ?$arr["BSrc"] : '';				
+				$BId = (isset($arr["BId"]) && $arr["BId"]!='') ? $arr["BId"] :'Boton_Metodo';
+				$BSrc = (isset($arr["BSrc"]) && $arr["BSrc"]!='') ?$arr["BSrc"] : '';
 				$OpcOcultas = (isset($arr["OpcOcultas"]) && $arr["OpcOcultas"]!='') ? $arr["OpcOcultas"]: array();
 				//Inicio formularo
 				$cadenaUsar =  html::form(array('presentacion'=>'return', 'action'=>$action , 'class'=>$class, 'name'=>$name, 'id'=>$id,  'tipo'=>'ini') );

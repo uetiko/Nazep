@@ -68,7 +68,7 @@ class clase_articulos_rss extends conexion
 										$titulo = $ren_con["titulo"];
 										$etiquetas = array("<br>","<br/>","<br >","<br />","<p>","</p>","<p >","</ p>"); 
 										$titulo = str_replace($etiquetas, "", $titulo);
-										$titulo = $this->remplazar_uft8($titulo);
+										$titulo = utf8_encode($titulo);
 										$resumen_articulo = stripslashes($ren_con["resumen_articulo"]);
 										$numero_articulo = $ren_con["numero_articulo"];
 										$fecha_articulo = $ren_con["fecha_articulo"];

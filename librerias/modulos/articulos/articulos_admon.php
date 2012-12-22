@@ -14,9 +14,12 @@ class clase_articulos extends conexion
 		//Propiedads privadas para la direcci�n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/articulos/articulos_admon.php';
 		private $NomClase = 'clase_articulos';
-		function __construct()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos.php');
+				if($etapa=='usar')
+					{
+						include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos.php');
+					}
 			} 
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
@@ -100,7 +103,9 @@ class clase_articulos extends conexion
 											'BName'=>'btn_administrar_comentarios',
 											'BId'=>'btn_administrar_comentarios',
 											'OpcOcultas' => array(
-											'archivo' =>$this->DirArchivo,'clase' =>$this->NomClase,'metodo' =>'admon_comentarios') ));
+											'archivo' =>$this->DirArchivo,
+											'clase' =>$this->NomClase,
+											'metodo' =>'admon_comentarios') ));
 									}
 							}
 						else
@@ -264,8 +269,9 @@ class clase_articulos extends conexion
 								$res_art = mysql_query($con_art);
 								$ren_art = mysql_fetch_array($res_art);
 							}
-						echo '<script type="text/javascript">';	
-						echo '$(document).ready(function()
+						$CadenaSalida = '';
+						$CadenaSalida .= html::script(array('presentacion'=>'return', 'tipo'=>'ini'));						
+						$CadenaSalida .= '$(document).ready(function()
 								{
 									$.frm_elem_color("#FACA70","");
 									$.guardar_valores("frm_modificar_tema");
@@ -293,15 +299,19 @@ class clase_articulos extends conexion
 									formulario.btn_guardar.style.visibility="hidden";
 									formulario.formulario_final.value = nombre_formulario;
 								}';
-						echo '</script>';
-						echo '<form name="recargar_pantalla" id="recargar_pantalla" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero">';
-							echo '<input type="hidden" name="archivo" value = "../librerias/modulos/articulos/articulos_admon.php" />';
-							echo '<input type="hidden" name="clase" value = "clase_articulos"/>';
-							echo '<input type="hidden" name="metodo" value = "modificar_tipo" />';
-							echo '<input type="hidden" name="operacion" value = "modificar" />';
-						echo '</form>';
+						$CadenaSalida .= html::script(array('presentacion'=>'return', 'tipo'=>'fin'));
+
+						$CadenaSalida .= '<form name="recargar_pantalla" id="recargar_pantalla" method="post" action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero">';
+							$CadenaSalida .= '<input type="hidden" name="archivo" value = "../librerias/modulos/articulos/articulos_admon.php" />';
+							$CadenaSalida .= '<input type="hidden" name="clase" value = "clase_articulos"/>';
+							$CadenaSalida .= '<input type="hidden" name="metodo" value = "modificar_tipo" />';
+							$CadenaSalida .= '<input type="hidden" name="operacion" value = "modificar" />';
+						$CadenaSalida .= '</form>';
+						echo $CadenaSalida;
+						
 						echo '<form name="frm_modificar_tema" id="frm_modificar_tema" method="post"  action="index.php?opc=111&amp;clave_seccion='.$clave_seccion_enviada.'" class="margen_cero" >';
 							echo '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
+							
 							if($operacion=="modificar")
 								{							
 									echo '<tr><td width="2%">&nbsp;</td><td>'.user_actua.'</td><td>'.$ren_art["user_actualiza"].'</td></tr>';
@@ -329,7 +339,9 @@ class clase_articulos extends conexion
 								echo '</td></tr>';
 								echo '<tr><td bgcolor="#999798" height="3"></td><td bgcolor="#999798" ></td><td bgcolor="#999798" ></td></tr>';
 								echo '<tr><td bgcolor="#F9D07B">&nbsp;</td><td bgcolor="#F9D07B">'.ap_txt_usa_tem.'</td><td bgcolor="#F9D07B">';									
+									
 									HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'usar_tema','ValorSeleccionado'=>FunGral::_ValorArray($ren_art,"usar_tema"), 'orden'=>'no-si' ));									
+								
 								echo '</td></tr>';
 								echo '<tr><td width="2%">&nbsp;</td><td>'.ap_txt_usa_tem_lis.'</td><td>';
 									HtmlAdmon::RadiosSiNO(array('NombreRadio'=>'permitir_ver_temas_lista','ValorSeleccionado'=>FunGral::_ValorArray($ren_art,"permitir_ver_temas_lista"), 'orden'=>'no-si'));
@@ -1047,6 +1059,7 @@ class clase_articulos extends conexion
 												$dia=date('d');
 												$mes=date('m');
 												$ano=date('Y');
+												
 												$areglo_meses = FunGral::MesesNumero();
 												echo dia.'&nbsp;<select name = "dia_i">';
 												for ($a = 1; $a<=31; $a++)
@@ -1060,6 +1073,8 @@ class clase_articulos extends conexion
 												for ($b=$ano-10; $b<=$ano+10; $b++)
 													{echo '<option value = "'.$b.'" '; if ($ano == $b) {echo ' selected="selected" ';} echo '>'.$b.'</option>';}
 												echo '</select>';
+												
+												
 											echo '</td>';
 										echo '</tr>';
 										echo '<tr><td>'.fecha_fin_vig.'</td><td>';

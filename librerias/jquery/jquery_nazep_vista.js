@@ -8,6 +8,77 @@ Versión: 0.2
 Autor: Claudio Morales Godinez
 Correo electrónico: claudio@nazep.com.mx
 */
+jQuery.buscarUsuarioRegistrado = function(nombreUsuario, seccion)
+        {
+            if(nombreUsuario.length>3)
+                {                
+                    $.ajax({
+                            async:true,
+                            type:"POST",
+                            url: "index.php",
+                            data: "NombreUsuario="+nombreUsuario+"&sqlBack=si&buscarUsuario=si",
+                            beforeSend: function(data)
+                                    {
+                                        $("#div_mensajes_nombre_usuario").html("Verificando Nombre de usuario");
+                                    },
+                             success:function(data)
+                                    {
+                                        data_final = data;
+                                        if(data_final=="disponible")
+                                            {
+                                                 $("#div_mensajes_nombre_usuario").html("Usuario Disponible");
+                                                 $("#txt_usuario_valido").val("SI");
+                                            }
+                                        else if(data_final=="ocupado")
+                                            {
+                                                $("#div_mensajes_nombre_usuario").html("Usuario NO Disponible");
+                                            }
+
+                                    },
+                            error: function(data, error)
+                                    {
+                                        $("#div_mensajes_nombre_usuario").html("Ocurrio el siguiente problema: "+data);
+                                    }					
+                            })
+                }
+            else
+                {
+                    $("#div_mensajes_nombre_usuario").html("El usuario debe tener mas de 3 caracteres");
+                }
+            return false;            
+        }               
+jQuery.buscarCorreoRegistrado = function(correo, seccion)
+        {
+            $.ajax({
+                    async:true,
+                    type:"POST",
+                    url: "index.php",
+                    data: "correo="+correo+"&sqlBack=si&buscarUsuario=si",
+                    beforeSend: function(data)
+                            {
+                                $("#div_mensajes_correo").html("Verificando Correo de usuario");
+                            },
+                     success:function(data)
+                            {
+                                data_final = data;  
+                                if(data_final=="disponible")
+                                    {
+                                         $("#div_mensajes_correo").html("Correo Disponible");
+                                         $("#txt_correo_valido").val("SI");
+                                    }
+                                else if(data_final=="ocupado")
+                                    {
+                                        $("#div_mensajes_correo").html("Correo NO Disponible");
+                                    }
+
+                            },
+                    error: function(data, error)
+                            {
+                                $("#div_mensajes_correo").html("Ocurrio el siguiente problema: "+data);
+                            }					
+                    })
+            return false;            
+        }                 
 jQuery.frm_elem_color = function(color_focus, color_blur)
 	{
 		$("input,textarea").each(function()
@@ -93,11 +164,4 @@ jQuery.guardar_datos_limpiar = function(formulario,ubicacion_tema,mensaje_exito)
 			else
 			return false;
 		}
-//-------------- Fin del script para Verificar si un texto es un correo valido	
-	
-	
-	
-	
-	
-	
-	
+//-------------- Fin del script para Verificar si un texto es un correo valido		

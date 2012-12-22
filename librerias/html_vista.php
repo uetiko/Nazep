@@ -24,6 +24,15 @@ class HtmlVista
 				$ren_contenido = mysql_fetch_array($res_contenido);
 				$con_no_disponible = $ren_contenido['con_no_disponible'];				
 				echo '<div id="div_contendio_no_disponible" class="contendio_no_disponible"> '.$con_no_disponible.'</div>';				
-			}					
+			}
+		public static function verMensajeError($arr)
+			{
+				$cadena_mostrar_f = '<div class="divMensajeErrorVista">'.$arr["mensaje"].'</div>';
+				$tipo_presentacion = ( isset($arr["tipo_presentacion"]) && $arr["tipo_presentacion"]!=''  ) ?$arr["tipo_presentacion"]:'echo';
+				if($tipo_presentacion=='echo')
+					echo $cadena_mostrar_f;
+				else if($tipo_presentacion=='return')
+					return $cadena_mostrar_f;
+			}
 	}
 ?>
