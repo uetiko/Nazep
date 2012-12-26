@@ -36,82 +36,82 @@ $paso = isset($_POST["paso"]) ? ($_POST["paso"]!="" ? $_POST["paso"] : "0") : "0
 						<tr><td align="right" valign="middle" height="100">Paso # <?php echo $paso; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
 					</table>
 					<br />
-                    <?php					
-					if($paso == "1")
+<?php					
+					if($paso == '1')
 						{					
-							$conecto = comprobar_conexion();
-							if($conecto)	
-								{
-									echo '<table width="500" border="0" cellspacing="0" cellpadding="0" >';
-										echo '<tr><td align = "center">La conexi&oacute;n con la base de datos ha sido exitosa.</td></tr>';
-									echo '</table>';
-									echo '<br />';
-									$con_tablas  ='select * from nazep_configuracion';
-									$conexion = conectarse();
-									$res_con = mysql_query($con_tablas);
-									$error = mysql_errno();
-									if($error=="1146")
-										{
-											//Si no existen las tablas se mostraran las opciones para crearlas
-											$res_tipo_tablas = mysql_query("SHOW VARIABLES LIKE '%have_innodb%';");
-											$ren_tipo = mysql_fetch_array($res_tipo_tablas);
-											$variable_name = $ren_tipo["Variable_name"];
-											$value = $ren_tipo["Value"];
-											if($variable_name=="have_innodb")
-												{	
-													if($value=="YES")
-														{ $tabla = true; }
-												}
-											echo '<form id="crear_tablas_simples"  name="crear_tablas_simples" method="post" action="instalar.php" >';	
-												echo '<table width="500" border="0" cellspacing="0" cellpadding="0" >';
-													echo '<tr>';
-														echo '<td align = "center">';
-															echo 'Tipos de tablas&nbsp;&nbsp;';
-															echo '<select name = "tipo_tablas">';
-																echo '<option value = "MyISAM" >MyISAM</option>';
-																if($tabla)
-																	{ echo '<option value = "InnoDB" >InnoDB</option>'; }
-															echo '</select>';
-														echo '</td>';
-													echo '</tr>';
-													echo '<tr><td align = "center">&nbsp;</td></tr>';
-													echo '<tr>';
-														echo '<td align = "center">';
-															echo '<input type="hidden" name="paso" value = "2" />';
-															echo '<input type="submit" name="btn_guardar" value="Crear las tablas en la Base de Datos" />';	
-														echo '</td>';
-													 echo '</tr>';	
-												echo '</table>';
-											echo '</form>';
-										}
-									else
-										{
-											$consutar_fin = "select instalado from nazep_configuracion";
-											$res_con_fin = mysql_query($consutar_fin);
-											$ren_con_fin = mysql_fetch_array($res_con_fin);
-											$instalado = $ren_con_fin["instalado"];
-											if($instalado == 'no')
-												{
-													echo '<form name="pasar_paso1" method="post" action="instalar.php" >';	
-														echo '<table width="500" border="0" cellspacing="0" cellpadding="0" >';
-															echo '<tr><td align = "center"><input type="hidden" name="paso" value = "3" /><input type="submit" name="btn_guardar" value="Configuraci&oacute;n de Nazep" /></td></tr>';
-														echo '</table>';
-													echo '</form>';
-												
-												}
-											else
-												{
-													echo '<table width="500" border="0" cellspacing="0" cellpadding="0">';
-														echo '<tr><td align="center"> 
-														        La instalaci&oacute;n de Nazep ha finalizado con &eacute;xito
-																<br /><br />Le solicitamos que elimine la carpeta llamada <strong>/instalar/</strong> con su contenido
-																para iniciar la visualizaci&oacute;n y administraci&oacute;n su portal<br /><br /><br />
-																Le agradecemos por seleccionar Nazep para administrar su portal 
-														      </td></tr>';
-													echo '</table>';
-												}
-										}
-								}
+                                                    $conecto = comprobar_conexion();
+                                                    if($conecto)	
+                                                        {
+                                                            echo '<table width="500" border="0" cellspacing="0" cellpadding="0" >';
+                                                                    echo '<tr><td align = "center">La conexi&oacute;n con la base de datos ha sido exitosa.</td></tr>';
+                                                            echo '</table>';
+                                                            echo '<br />';
+                                                            $con_tablas  ='select * from nazep_configuracion';
+                                                            $conexion = conectarse();
+                                                            $res_con = mysql_query($con_tablas);
+                                                            $error = mysql_errno();
+                                                            if($error=="1146")
+                                                                    {
+                                                                        //Si no existen las tablas se mostraran las opciones para crearlas
+                                                                        $res_tipo_tablas = mysql_query("SHOW VARIABLES LIKE '%have_innodb%';");
+                                                                        $ren_tipo = mysql_fetch_array($res_tipo_tablas);
+                                                                        $variable_name = $ren_tipo["Variable_name"];
+                                                                        $value = $ren_tipo["Value"];
+                                                                        if($variable_name=="have_innodb")
+                                                                            {	
+                                                                                if($value=="YES")
+                                                                                    { $tabla = true; }
+                                                                            }
+                                                                        echo '<form id="crear_tablas_simples"  name="crear_tablas_simples" method="post" action="instalar.php" >';	
+                                                                            echo '<table width="500" border="0" cellspacing="0" cellpadding="0" >';
+                                                                                echo '<tr>';
+                                                                                    echo '<td align = "center">';
+                                                                                        echo 'Tipos de tablas&nbsp;&nbsp;';
+                                                                                        echo '<select name = "tipo_tablas">';
+                                                                                            echo '<option value = "MyISAM" >MyISAM</option>';
+                                                                                            if($tabla)
+                                                                                                { echo '<option value = "InnoDB" >InnoDB</option>'; }
+                                                                                        echo '</select>';
+                                                                                    echo '</td>';
+                                                                                echo '</tr>';
+                                                                                echo '<tr><td align = "center">&nbsp;</td></tr>';
+                                                                                echo '<tr>';
+                                                                                    echo '<td align = "center">';
+                                                                                        echo '<input type="hidden" name="paso" value = "2" />';
+                                                                                        echo '<input type="submit" name="btn_guardar" value="Crear las tablas en la Base de Datos" />';	
+                                                                                    echo '</td>';
+                                                                                 echo '</tr>';	
+                                                                            echo '</table>';
+                                                                        echo '</form>';
+                                                                    }
+                                                            else
+                                                                    {
+                                                                        $consutar_fin = "select instalado from nazep_configuracion";
+                                                                        $res_con_fin = mysql_query($consutar_fin);
+                                                                        $ren_con_fin = mysql_fetch_array($res_con_fin);
+                                                                        $instalado = $ren_con_fin["instalado"];
+                                                                        if($instalado == 'no')
+                                                                            {
+                                                                                echo '<form name="pasar_paso1" method="post" action="instalar.php" >';	
+                                                                                    echo '<table width="500" border="0" cellspacing="0" cellpadding="0" >';
+                                                                                            echo '<tr><td align = "center"><input type="hidden" name="paso" value = "3" /><input type="submit" name="btn_guardar" value="Configuraci&oacute;n de Nazep" /></td></tr>';
+                                                                                    echo '</table>';
+                                                                                echo '</form>';
+
+                                                                            }
+                                                                        else
+                                                                            {
+                                                                                echo '<table width="500" border="0" cellspacing="0" cellpadding="0">';
+                                                                                    echo '<tr><td align="center"> 
+                                                                                            La instalaci&oacute;n de Nazep ha finalizado con &eacute;xito
+                                                                                                    <br /><br />Le solicitamos que elimine la carpeta llamada <strong>/instalar/</strong> con su contenido
+                                                                                                    para iniciar la visualizaci&oacute;n y administraci&oacute;n su portal<br /><br /><br />
+                                                                                                    Le agradecemos por seleccionar Nazep para administrar su portal 
+                                                                                          </td></tr>';
+                                                                                echo '</table>';
+                                                                            }
+                                                                    }
+                                                        }
 						}		
 					elseif($paso=="2")
 						{
@@ -611,6 +611,30 @@ fecha_ultima_visita date not null,
 constraint nick_usaurio_pk
 primary key(nick_usuario))ENGINE = $tipo_tablas ;;
 
+create table nazep_usuarios_final_config (
+clave_user_final_config int auto_increment not null,
+nombre_campo varchar(250),
+valor_campo text not null,
+constraint clave_user_final_config_pk
+primary key(clave_user_final_config))ENGINE = $tipo_tablas ;;
+
+insert into nazep_usuarios_final_config 
+(clave_user_final_config,nombre_campo,valor_campo)
+values
+(1,'mostrar_registro_publico','si'),
+(2,'mostrar_recuperar_password','si'),
+(3,'enviar_codigo_activacion','no'),
+(4,'usar_captcha_google','si'),
+(5,'usar_correo_como_usuario','no'),
+(6,'pedir_nombre','no'),
+(7,'pedir_ape_p','no'),
+(8,'pedir_ape_m','no'),
+(9,'pedir_fecha_nacimiento','no'),
+(10,'pedir_ubicacion','no'),
+(11,'pedir_web','no'),
+(12,'pedir_zona_horaria','no');;
+
+
 create table nazep_sesiones (
 nick_usuario varchar(250) not null,
 hora varchar(250) not null,
@@ -726,6 +750,9 @@ tipo_tablas varchar(30) not null,
 resolucion_ancho varchar(10) not null,
 ver_pag_inicio varchar(5) not null,
 pag_inicio text not null,
+usar_captcha_google varchar(10),
+llave_publica_captcha varchar(255),
+llave_privada_captcha varchar(255),
 con_no_disponible text not null
 )ENGINE = $tipo_tablas ;;
 
@@ -735,7 +762,7 @@ insert into nazep_configuracion values ('Sitio creado por nazep',
 'es','1','1','1','1','1','0.2','no','palabra1, palabra2',
 'Este es el usuario de administraci&oacute;n para el sistema nazep',
 'Este es el usuario de vista para el sitio', 
-'si','5','$tipo_tablas','777','no','','Contenido no disponible');;
+'si','5','$tipo_tablas','777','no','','no','','','Contenido no disponible');;
 
 create table nazep_zmod_recomendar (
 clave_recomendar int auto_increment,

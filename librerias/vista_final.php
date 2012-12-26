@@ -40,17 +40,17 @@ class vista_final extends conexion
                             $clave_seccion_usada = $sec;
                             $arreglo_seccion[0] = $sec;
                             for($a=1;$a>0;$a++)
-                                    {	
-                                            $con = "select clave_seccion_pertenece from nazep_secciones where clave_seccion = '$clave_seccion_usada'";	
-                                            $res = mysql_query($con);
-                                            $ren = mysql_fetch_array($res);
-                                            $clave_seccion_pertenece = $ren["clave_seccion_pertenece"]; 
-                                            $arreglo_seccion[$a] = $clave_seccion_pertenece;
-                                            if($clave_seccion_pertenece == 1)
-                                                    { $a = -1; }
-                                            else
-                                                    { $clave_seccion_usada = $clave_seccion_pertenece; }
-                                    }
+                                {	
+                                    $con = "select clave_seccion_pertenece from nazep_secciones where clave_seccion = '$clave_seccion_usada'";	
+                                    $res = mysql_query($con);
+                                    $ren = mysql_fetch_array($res);
+                                    $clave_seccion_pertenece = $ren["clave_seccion_pertenece"]; 
+                                    $arreglo_seccion[$a] = $clave_seccion_pertenece;
+                                    if($clave_seccion_pertenece == 1)
+                                            { $a = -1; }
+                                    else
+                                            { $clave_seccion_usada = $clave_seccion_pertenece; }
+                                }
                             return $arreglo_seccion;
 			}
 		function salir()
