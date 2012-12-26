@@ -2,14 +2,14 @@
 /*
 Sistema: Nazep
 Nombre archivo: estilos.css
-Funci�n archivo: archivo que las hojas de estilos para el sitio
-Fecha creaci�n: junio 2007
-Fecha �ltima Modificaci�n: Marzo 2011
-Versi�n: 0.2
+Función archivo: archivo que las hojas de estilos para el sitio
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
 Autor: Claudio Morales Godinez
-Correo electr�nico: claudio@nazep.com.mx
+Correo electrónico: claudio@nazep.com.mx
 */
-/* inicio de configuraci�n general del tema */
+/* inicio de configuración general del tema */
 body 
 	{
 		background-color: #FFFFFF;
@@ -330,6 +330,10 @@ A:hover {color: #000000;  text-decoration: underline; font-size: 12px;}
     {
         text-align: center;
     }
+.div_recapcha
+{
+   text-align: center; 
+}
 /***************************************** Fin Registro Usuario ***************************/
 
 

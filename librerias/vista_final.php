@@ -121,13 +121,17 @@ class vista_final extends conexion
                             {
                                 $this->enviarNuevoPassword();
                             }
+                        else if (isset($_POST["validarCapcha"]) && $_POST["validarCapcha"]=='si')
+                            {
+                                $this->validarCaptcha();
+                            }
                     }
                 private function obtenerSeccion()
                     {
                         if(!isset($_GET["sec"]) || $_GET["sec"]=='')
-                                {$sec = 1;}
+                            {$sec = 1;}
                         else
-                                { $sec = $_GET["sec"]; } 
+                            { $sec = $_GET["sec"]; } 
                         return (int)$sec;                        
                     }
                 
@@ -180,7 +184,25 @@ class vista_final extends conexion
                             { echo 'disponible'; }
                         $this->desconectarse($conexion);
                     }
-                    
+                private function validarCaptcha()
+                    {
+                        require_once('librerias/recaptcha/recaptchalib.php');
+                        $conexion = $this->conectarse();
+                        $sql = "select llave_privada_captcha from nazep_configuracion ";
+                        $resSql = mysql_query($sql);
+                        $renSql = mysql_fetch_array($resSql);
+                        $llavePrivada = $renSql["llave_privada_captcha"];                        
+                        $resp = recaptcha_check_answer ($llavePrivada,
+                        $_SERVER["REMOTE_ADDR"],
+                        $_POST["recaptcha_challenge_field"],
+                        $_POST["recaptcha_response_field"]);
+                        
+                        if($resp->is_valid)
+                            {  echo 'valido';   }
+                        else
+                            { echo 'invalido';  }
+                        $this->desconectarse($conexion);
+                    }
                 private function generarCodigoUsuario()
                     {
                         $str = "ABCDEFGHJLMNPQRSTUVWXYZabcdefghijmnpqrstuvwxyz23456789";                                
@@ -197,7 +219,7 @@ class vista_final extends conexion
                             { return $this->generarCodigoUsuario(); }
                     }
                 private function guardarNuevoUsuario()
-                    {
+                    {                        
                         $sec = $this->obtenerSeccion();
                         $txt_nick_usuario_registrar = $this->escapar_caracteres($_POST["txt_nick_usuario_registrar"]);
                         $txt_correo_usuario_registrar= $this->escapar_caracteres($_POST["txt_correo_usuario_registrar"]);
@@ -218,6 +240,24 @@ class vista_final extends conexion
                             {
                                 $config_user[$ren_config["nombre_campo"]] = $ren_config["valor_campo"];                                      
                             }
+                        if($config_user["usar_captcha_google"]=='si')
+                            {                               
+                                if(file_exists("librerias/recaptcha/recaptchalib.php") && is_readable("librerias/recaptcha/recaptchalib.php"))
+                                   {
+                                        require_once('librerias/recaptcha/recaptchalib.php');
+                                        $sql = "select llave_privada_captcha from nazep_configuracion ";
+                                        $resSql = mysql_query($sql);
+                                        $renSql = mysql_fetch_array($resSql);
+                                        $llavePrivada = $renSql["llave_privada_captcha"];                        
+                                        $resp = recaptcha_check_answer ($llavePrivada,
+                                        $_SERVER["REMOTE_ADDR"],
+                                        $_POST["recaptcha_challenge_field"],
+                                        $_POST["recaptcha_response_field"]);                                        
+                                        if(!$resp->is_valid)
+                                            {  header("Location: index.php?sec=$sec&f=n&m=7");   }                                                                               
+                                   }  
+                            }    
+                            
                         if($config_user["usar_correo_como_usuario"]=='no')
                             {
                                 $sql = "select nick_usuario from nazep_usuarios_final where nick_usuario = '$txt_nick_usuario_registrar'";
@@ -410,98 +450,134 @@ class vista_final extends conexion
 		private function enviarNuevoPassword()
                     {
                         $sec = $this->obtenerSeccion();
-                        $txt_correo_usuario_recuperar  = $this->escapar_caracteres($_POST["txt_correo_usuario_recuperar"]);
-                        $sql = "select correo from nazep_usuarios_final where correo = '$txt_correo_usuario_recuperar' and situacion = 'activo' ";
                         $conexion = $this->conectarse();
-                        $resSql = mysql_query($sql);
-                        $canSql = mysql_num_rows($resSql);
-                        
-                        if($canSql<1)
+                        $con_config = "select * from nazep_usuarios_final_config";
+                        $res_config = mysql_query($con_config);
+                        $config_user = array();
+                        while($ren_config=mysql_fetch_array($res_config))
                             {
-                                header("Location: index.php?sec=$sec&f=r&m=2");
+                                $config_user[$ren_config["nombre_campo"]] = $ren_config["valor_campo"];                                      
                             }
-                        else
+                        $pasar=true;
+                        if($config_user["usar_captcha_google"]=='si')
+                            {                               
+                                if(file_exists("librerias/recaptcha/recaptchalib.php") && is_readable("librerias/recaptcha/recaptchalib.php"))
+                                   {
+                                        require_once('librerias/recaptcha/recaptchalib.php');
+                                        $sql = "select llave_privada_captcha from nazep_configuracion ";
+                                        $resSql = mysql_query($sql);
+                                        $renSql = mysql_fetch_array($resSql);
+                                        $llavePrivada = $renSql["llave_privada_captcha"];                        
+                                        $resp = recaptcha_check_answer ($llavePrivada,
+                                        $_SERVER["REMOTE_ADDR"],
+                                        $_POST["recaptcha_challenge_field"],
+                                        $_POST["recaptcha_response_field"]);
+                                        
+                                        if($resp->is_valid)
+                                            {   $pasar=true;  }
+                                        else
+                                            {   $pasar=false; }
+                                   }  
+                            }                     
+                        if($pasar)
                             {
-                                $newPassword ='';
-                                $str = "ABCDEFGHJLMNPQRSTUVWXYZabcdefghijmnpqrstuvwxyz23456789";                                
-                                for($i=0;$i<12;$i++) 
-                                    {
-                                        $newPassword .= substr($str,rand(0,53),1);
-                                    }
-                                $newPasswordmd5 = md5($newPassword);
-                                $sql2 = "update nazep_usuarios_final set pasword ='$newPasswordmd5' where correo = '$txt_correo_usuario_recuperar' ";
-                                if (mysql_query($sql2))
-                                    {
-                                        require("librerias/phpmailer/class.phpmailer.php");
-                                        $mail = new PHPMailer();
-                                        $mail->SetLanguage("es","librerias/phpmailer/language/");
-                                        $con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp, 
-                                        mensaje_nuevo_usuario_vista, url_sitio
-                                        from nazep_configuracion ";
-                                        $res_con = mysql_query($con_conf);
-                                        $ren_con = mysql_fetch_array($res_con);
-                                        $envio_correo = $ren_con["envio_correo"];
-                                        $servidor_smtp = $ren_con["servidor_smtp"];
-                                        $user_smtp = $ren_con["user_smtp"];
-                                        $pass_smtp	= $ren_con["pass_smtp"];
-                                        
-                                        $url_sitio = $ren_con["url_sitio"];
-                                   
-                                        $con_datos_user = "select nombre, email from nazep_usuarios_admon where nick_user = 'admin'";
-                                        $res_datos = mysql_query($con_datos_user);
-                                        $ren_datos = mysql_fetch_array($res_datos);
-                                        $nombre_ad = $ren_datos["nombre"];
-                                        $email_ad = $ren_datos["email"];                                
-                                        if($envio_correo =="smtp")
-                                            {
-                                                $mail->IsSMTP();
-                                                $mail->Host = $servidor_smtp;
+                                $txt_correo_usuario_recuperar  = $this->escapar_caracteres($_POST["txt_correo_usuario_recuperar"]);
+                                $sql = "select correo from nazep_usuarios_final where correo = '$txt_correo_usuario_recuperar' and situacion = 'activo' ";
 
-                                                $mail->SMTPAuth = true;
-                                                $mail->Username = $user_smtp; 
-                                                $mail->Password = $pass_smtp; 
-                                                $mail->Mailer  = "smtp";
-                                            }
-                                        if($servidor_smtp=="ssl://smtp.gmail.com")
-                                            {
-                                                $mail->Port = 465;
-                                            }
-                                        $mail->From = $email_ad;
-                                        $mail->FromName = " ".$nombre_ad." ";
-                                        $mail->AddAddress($txt_correo_usuario_recuperar, 'Usuario');
-                                        $mail->IsHTML(true);
-                                        $mail->Subject = "Cambio de Password de: $url_sitio ";
-                                        $mail->Body ="<strong>Hola</strong>
-                                        <br /><br />
-                                        Se realizo un cambio de Password en tu cuenta:
-                                        <br /><br />
-                                        Nuevo Password: $newPassword
-                                        <br /><br />
-                                        URL de portal:
-                                        <br /><br />
-                                        $url_sitio/index.php
-                                        <br /><br />
-                                        
-                                        Atentamente
-                                        <br /><br />
-                                        $nombre_ad
-                                        <br /><br >";
-                                        if(!$mail->Send())
-                                            {                                                
-                                                header("Location: index.php?sec=$sec&f=r&m=4");
-                                            }
-                                        else 
-                                            {
-                                                header("Location: index.php?sec=$sec&f=r&m=1");
-                                            }
+                                $resSql = mysql_query($sql);
+                                $canSql = mysql_num_rows($resSql);
+
+                                if($canSql<1)
+                                    {
+                                        header("Location: index.php?sec=$sec&f=r&m=2");
                                     }
                                 else
                                     {
-                                       header("Location: index.php?sec=$sec&f=r&m=3"); 
-                                    }                                
+                                        $newPassword ='';
+                                        $str = "ABCDEFGHJLMNPQRSTUVWXYZabcdefghijmnpqrstuvwxyz23456789";                                
+                                        for($i=0;$i<12;$i++) 
+                                            {
+                                                $newPassword .= substr($str,rand(0,53),1);
+                                            }
+                                        $newPasswordmd5 = md5($newPassword);
+                                        $sql2 = "update nazep_usuarios_final set pasword ='$newPasswordmd5' where correo = '$txt_correo_usuario_recuperar' ";
+                                        if (mysql_query($sql2))
+                                            {
+                                                require("librerias/phpmailer/class.phpmailer.php");
+                                                $mail = new PHPMailer();
+                                                $mail->SetLanguage("es","librerias/phpmailer/language/");
+                                                $con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp, 
+                                                mensaje_nuevo_usuario_vista, url_sitio
+                                                from nazep_configuracion ";
+                                                $res_con = mysql_query($con_conf);
+                                                $ren_con = mysql_fetch_array($res_con);
+                                                $envio_correo = $ren_con["envio_correo"];
+                                                $servidor_smtp = $ren_con["servidor_smtp"];
+                                                $user_smtp = $ren_con["user_smtp"];
+                                                $pass_smtp	= $ren_con["pass_smtp"];
+
+                                                $url_sitio = $ren_con["url_sitio"];
+
+                                                $con_datos_user = "select nombre, email from nazep_usuarios_admon where nick_user = 'admin'";
+                                                $res_datos = mysql_query($con_datos_user);
+                                                $ren_datos = mysql_fetch_array($res_datos);
+                                                $nombre_ad = $ren_datos["nombre"];
+                                                $email_ad = $ren_datos["email"];                                
+                                                if($envio_correo =="smtp")
+                                                    {
+                                                        $mail->IsSMTP();
+                                                        $mail->Host = $servidor_smtp;
+
+                                                        $mail->SMTPAuth = true;
+                                                        $mail->Username = $user_smtp; 
+                                                        $mail->Password = $pass_smtp; 
+                                                        $mail->Mailer  = "smtp";
+                                                    }
+                                                if($servidor_smtp=="ssl://smtp.gmail.com")
+                                                    {
+                                                        $mail->Port = 465;
+                                                    }
+                                                $mail->From = $email_ad;
+                                                $mail->FromName = " ".$nombre_ad." ";
+                                                $mail->AddAddress($txt_correo_usuario_recuperar, 'Usuario');
+                                                $mail->IsHTML(true);
+                                                $mail->Subject = "Cambio de Password de: $url_sitio ";
+                                                $mail->Body ="<strong>Hola</strong>
+                                                <br /><br />
+                                                Se realizo un cambio de Password en tu cuenta:
+                                                <br /><br />
+                                                Nuevo Password: $newPassword
+                                                <br /><br />
+                                                URL de portal:
+                                                <br /><br />
+                                                $url_sitio/index.php
+                                                <br /><br />
+
+                                                Atentamente
+                                                <br /><br />
+                                                $nombre_ad
+                                                <br /><br >";
+                                                if(!$mail->Send())
+                                                    {                                                
+                                                        header("Location: index.php?sec=$sec&f=r&m=4");
+                                                    }
+                                                else 
+                                                    {
+                                                        header("Location: index.php?sec=$sec&f=r&m=1");
+                                                    }
+                                            }
+                                        else
+                                            {
+                                               header("Location: index.php?sec=$sec&f=r&m=3"); 
+                                            }                                
+                                    }
                             }
-                    }
-                    
+                        else
+                            {
+                                header("Location: index.php?sec=$sec&f=r&m=5");
+                            }
+                                
+                    }                    
                 function formulario_ingresar_usuarios($config_user,$sec)
                     {
                         $texto = '';                                                               
@@ -552,296 +628,338 @@ class vista_final extends conexion
                         echo $texto;
                         unset($texto);
                     }
-		function formulario_registrar_usuario($config_user,$sec)
-			{
-                            $texto = '';                                
-                            $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'ini'));
-                                $texto .= '
-                                            function validarUsuario(valor)
-                                                {                                                               
-                                                    $.buscarUsuarioRegistrado(valor,"'.$sec.'");
-                                                }
-                                            function validarCorreo(valor)
-                                                {
-                                                    $.buscarCorreoRegistrado(valor,"'.$sec.'");
-                                                }
-                                            function validarRegistro(formulario)
-                                                {
-                                           ';
-                                if($config_user["usar_correo_como_usuario"]=='no')
+		function formulario_registrar_usuario($config_user, $sec)
+                    {
+                        $texto = '';                                
+                        $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'ini'));
+                            $texto .= '
+                                        function validarUsuario(valor)
+                                            {                                                               
+                                                $.buscarUsuarioRegistrado(valor,"'.$sec.'");
+                                            }
+                                        function validarCorreo(valor)
+                                            {
+                                                $.buscarCorreoRegistrado(valor,"'.$sec.'");
+                                            }
+                                        function validarCaptcha(formulario)
+                                            {
+                                                if(formulario.recaptcha_response_field.value=="")
+                                                    {
+                                                        alert("No puedes quedar vac\u00EDo el campo de captcha")
+                                                        formulario.recaptcha_response_field.focus();
+                                                        return false;
+                                                    }
+                                                else
+                                                    {
+                                                        valoruno = formulario.recaptcha_challenge_field.value;
+                                                        valordos = formulario.recaptcha_response_field.value;
+                                                        $.validarCapcha(formulario, valoruno, valordos, "'.$sec.'")
+                                                    }                                                
+                                            }
+                                        function validarRegistro(formulario)
+                                            {
+                                       ';
+                            if($config_user["usar_correo_como_usuario"]=='no')
+                                {
+                                    $texto .='
+                                                if(formulario.txt_nick_usuario_registrar.value == "") 
+                                                    {
+                                                        alert("El Nombre de Usuario no puede quedar vac\u00EDo")
+                                                        formulario.txt_nick_usuario_registrar.focus();
+                                                        return false;
+                                                    }
+                                                else
+                                                    {
+
+                                                        nombre_usario = formulario.txt_nick_usuario_registrar.value;
+                                                        var RegExPattern = /([a-zA-Z0-9_-]{4,20})$/;
+                                                        var errorMessage = "Nombre de Usuario no valido \nEl nombre tiene que contener de 4 a 12 caracteres \nNO se admiten caracteres raros";
+                                                        if(!nombre_usario.match(RegExPattern))
+                                                            {
+                                                                alert(errorMessage);
+                                                                formulario.txt_nick_usuario_registrar.focus();
+                                                                return false;												
+                                                            }
+
+                                                    }
+                                               ';
+                                }
+                            $texto .= '
+                                                if(formulario.txt_correo_usuario_registrar.value == "") 
+                                                    {
+                                                        alert("El Correo del Usuario no puede quedar vac\u00EDo");
+                                                        formulario.txt_correo_usuario_registrar.focus();
+                                                        return false;
+                                                    }
+
+                                                if(!isEmailAddress(formulario.txt_correo_usuario_registrar.value))
+                                                    {
+                                                        alert("El Formato de Email es incorrecto");
+                                                        formulario.txt_correo_usuario_registrar.focus();
+                                                        return false;
+                                                    }
+                                                if(formulario.txt_usuario_valido.value == "NO")
+                                                    {
+                                                        alert("El nombre de usuario ya esta registrado, usa otro");
+                                                        formulario.txt_usuario_valido.focus();
+                                                        return false;
+                                                    }
+                                        ';
+                            if($config_user["usar_correo_como_usuario"]=='no')
                                     {
                                         $texto .='
-                                                    if(formulario.txt_nick_usuario_registrar.value == "") 
-                                                        {
-                                                            alert("El Nombre de Usuario no puede quedar vac\u00EDo")
-                                                            formulario.txt_nick_usuario_registrar.focus();
-                                                            return false;
-                                                        }
-                                                    else
-                                                        {
-
-                                                            nombre_usario = formulario.txt_nick_usuario_registrar.value;
-                                                            var RegExPattern = /([a-zA-Z0-9_-]{4,20})$/;
-                                                            var errorMessage = "Nombre de Usuario no valido \nEl nombre tiene que contener de 4 a 12 caracteres \nNO se admiten caracteres raros";
-                                                            if(!nombre_usario.match(RegExPattern))
-                                                                {
-                                                                    alert(errorMessage);
-                                                                    formulario.txt_nick_usuario_registrar.focus();
-                                                                    return false;												
-                                                                }
-
-                                                        }
-                                                   ';
+                                                if(formulario.txt_correo_valido.value == "NO")
+                                                    {
+                                                        alert("El Correo de usuario ya esta registrado, usa otro");
+                                                        formulario.txt_correo_valido.focus();
+                                                        return false;
+                                                    }                                                
+                                                ';
                                     }
-                                $texto .= '
-                                                    if(formulario.txt_correo_usuario_registrar.value == "") 
-                                                        {
-                                                            alert("El Correo del Usuario no puede quedar vac\u00EDo");
-                                                            formulario.txt_correo_usuario_registrar.focus();
-                                                            return false;
-                                                        }
+                            $texto .= '
+                                                if(formulario.txt_password_usuario_a.value == "") 
+                                                    {
+                                                        alert("La contraseña del Usuario no puede quedar vac\u00EDa")
+                                                        formulario.txt_password_usuario_a.focus();
+                                                        return false;
+                                                    }
+                                                if(formulario.txt_password_usuario_b.value == "") 
+                                                    {
+                                                        alert("La confirmacion de la contraseña del Usuario no puede quedar vac\u00EDa")
+                                                        formulario.txt_password_usuario_b.focus();
+                                                        return false;
+                                                    }
+                                                if(formulario.txt_password_usuario_b.value != formulario.txt_password_usuario_a.value ) 
+                                                    {
+                                                        alert("Los dos campos de contraseñas no coinciden")
+                                                        formulario.txt_password_usuario_a.focus();
+                                                        return false;
+                                                    }
+                                                formulario.submit();
+                                            }                                                                    
+                                      ';
+                        $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'fin'));
+                        $texto .= '<form name="formulario_registrar_usuario" id="formulario_registrar_usuario" method="post" action="index.php?sec='.$sec.'">';
+                                $texto .= '<div class="div_mensaje_registro_user" >';
+                                        $mensa_respuesta = (isset($_GET["m"])) ?$_GET["m"]:'';
+                                        if($mensa_respuesta  == 1)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_1.'</span>'; }
+                                        elseif($mensa_respuesta  == 2)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_2.'</span>'; }
+                                        elseif($mensa_respuesta  == 3)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_3.'</span>'; }
+                                        elseif($mensa_respuesta  == 4)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_4.'</span>'; }
+                                        elseif($mensa_respuesta  == 5)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_5.'</span>'; }
+                                        elseif($mensa_respuesta  == 6)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_6.'</span>'; }
+                                        elseif($mensa_respuesta  == 7)
+                                            { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_7.'</span>'; }    
+                                        else
+                                            { $texto .=  '&nbsp;'; }
+                                $texto .= '</div>';	
 
-                                                    if(!isEmailAddress(formulario.txt_correo_usuario_registrar.value))
-                                                        {
-                                                            alert("El Formato de Email es incorrecto");
-                                                            formulario.txt_correo_usuario_registrar.focus();
-                                                            return false;
-                                                        }
-                                                    if(formulario.txt_usuario_valido.value == "NO")
-                                                        {
-                                                            alert("El nombre de usuario ya esta registrado, usa otro");
-                                                            formulario.txt_usuario_valido.focus();
-                                                            return false;
-                                                        }
-                                            ';
+                                $texto .= '<div class="div_titulo_registro_usuario">'.txt_titulo_registro_usuario.'</div>';
+
+                                $texto .= '<div><input name="txt_usuario_valido" id="txt_usuario_valido" type="hidden" value="NO" />
+                                            <input name="registrarNuevoUsuario" id="registrarNuevoUsuario" type="hidden" value="si" />
+                                            <input name="sqlBack" id="sqlBack" type="hidden" value="si" />
+                                            </div>';
                                 if($config_user["usar_correo_como_usuario"]=='no')
-                                        {
-                                            $texto .='
-                                                        if(formulario.txt_correo_valido.value == "NO")
-                                                            {
-                                                                alert("El Correo de usuario ya esta registrado, usa otro");
-                                                                formulario.txt_correo_valido.focus();
-                                                                return false;
-                                                            }                                                
-                                                    ';
-                                        }
-                                $texto .= '
-                                                            if(formulario.txt_password_usuario_a.value == "") 
-                                                                {
-                                                                    alert("La contraseña del Usuario no puede quedar vac\u00EDa")
-                                                                    formulario.txt_password_usuario_a.focus();
-                                                                    return false;
-                                                                }
-                                                            if(formulario.txt_password_usuario_b.value == "") 
-                                                                {
-                                                                    alert("La confirmacion de la contraseña del Usuario no puede quedar vac\u00EDa")
-                                                                    formulario.txt_password_usuario_b.focus();
-                                                                    return false;
-                                                                }
-                                                            if(formulario.txt_password_usuario_b.value != formulario.txt_password_usuario_a.value ) 
-                                                                {
-                                                                    alert("Los dos campos de contraseñas no coinciden")
-                                                                    formulario.txt_password_usuario_a.focus();
-                                                                    return false;
-                                                                }
-
-                                                    }                                                                    
-                                          ';
-                            $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'fin'));
-                            $texto .= '<form name="formulario_registrar_usuario" id="formulario_registrar_usuario" method="post" action="index.php?sec='.$sec.'">';
-                                    $texto .= '<div class="div_mensaje_registro_user" >';
-                                            $mensa_respuesta = (isset($_GET["m"])) ?$_GET["m"]:'';
-                                            if($mensa_respuesta  == 1)
-                                                { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_1.'</span>'; }
-                                            elseif($mensa_respuesta  == 2)
-                                                { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_2.'</span>'; }
-                                            elseif($mensa_respuesta  == 3)
-                                                { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_3.'</span>'; }
-                                            elseif($mensa_respuesta  == 4)
-                                                { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_4.'</span>'; }
-                                            elseif($mensa_respuesta  == 5)
-                                                { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_5.'</span>'; }
-                                            elseif($mensa_respuesta  == 5)
-                                                { $texto .=  '<span class="mensaje_registro">'.txt_reg_user_men_5.'</span>'; }        
-                                            else
-                                                { $texto .=  '&nbsp;'; }
-                                    $texto .= '</div>';	
-                                        
-                                    $texto .= '<div class="div_titulo_registro_usuario">'.txt_titulo_registro_usuario.'</div>';
-
-                                    $texto .= '<div><input name="txt_usuario_valido" id="txt_usuario_valido" type="hidden" value="NO" />
-                                                <input name="registrarNuevoUsuario" id="registrarNuevoUsuario" type="hidden" value="si" />
-                                                <input name="sqlBack" id="sqlBack" type="hidden" value="si" />
-                                                </div>';
-                                    if($config_user["usar_correo_como_usuario"]=='no')
-                                            {
-                                                    $texto .= '<div class="div_nick_user_registro">';
-                                                            $texto .= '<div class="div_nick_user_r_a">'.txt_nick_user_registro.'&nbsp;</div>';
-                                                            $texto .= '<div class="div_nick_user_r_b"> 
-                                                                            <input onchange="validarUsuario(this.value)" type= "text" name="txt_nick_usuario_registrar" id="txt_nick_usuario_registrar"  />
-                                                                       </div>';
-                                                            $texto .= '<div style="clear:both;"></div>';
-                                                    $texto .= '</div>';
-                                                    $texto .= ' <div id="div_mensajes_nombre_usuario"></div>';
-                                            }
-                                   else
-                                            {
-                                                $texto .= '<div class = "div_mensaje_nombre_usuario"> El email se usara como Nombre de Usuario </div>';
-                                            }
-                                    $texto .= '<div class="div_correo_registro">';
-                                            $texto .= '<div class="div_correo_r_a"> '.txt_correo_registro.'&nbsp;</div>';
-
-                                            $texto .= '<div class="div_correo_r_b">'; 
-
-
-                                                if($config_user["usar_correo_como_usuario"]=='si')
-                                                    {
-                                                        $texto .= '<input type= "text" onchange="validarUsuario(this.value)" name="txt_correo_usuario_registrar" id="txt_correo_usuario_registrar"  />';
-                                                        $texto .= '</div>';
-                                                        $texto .= '<div style="clear:both;"></div>';
-                                                        $texto .= '<div id="div_mensajes_nombre_usuario"></div>';
-                                                    }
-                                                elseif($config_user["usar_correo_como_usuario"]=='no')
-                                                    {
-                                                        $texto .= '<input type= "text" onchange="validarCorreo(this.value)" name="txt_correo_usuario_registrar" id="txt_correo_usuario_registrar"  />';
-                                                        $texto .= '</div>';
-                                                        $texto .= '<div style="clear:both;"></div>';
-                                                        $texto .= '<input name="txt_correo_valido" id="txt_correo_valido" type="hidden" value="NO" />';
-                                                        $texto .= '<div id="div_mensajes_correo"></div>';
-                                                    }
-
-                                    $texto .= '</div>';
-
-                                    $texto .= '<div class="div_password_registro_a">';
-                                            $texto .= '<div class="div_password_registro_a_a"> '.txt_password_a.'&nbsp;</div>';
-
-                                            $texto .= '<div class="div_password_registro_a_b"> 
-                                                            <input type= "password" name="txt_password_usuario_a" id="txt_password_usuario_a"  />
-                                                        </div>';
+                                    {
+                                        $texto .= '<div class="div_nick_user_registro">';
+                                            $texto .= '<div class="div_nick_user_r_a">'.txt_nick_user_registro.'&nbsp;</div>';
+                                            $texto .= '<div class="div_nick_user_r_b"> 
+                                                            <input onchange="validarUsuario(this.value)" type= "text" name="txt_nick_usuario_registrar" id="txt_nick_usuario_registrar"  />
+                                                       </div>';
                                             $texto .= '<div style="clear:both;"></div>';
-                                    $texto .= '</div>';						
+                                        $texto .= '</div>';
+                                        $texto .= ' <div id="div_mensajes_nombre_usuario"></div>';
+                                    }
+                               else
+                                    {
+                                        $texto .= '<div class = "div_mensaje_nombre_usuario"> El email se usara como Nombre de Usuario </div>';
+                                    }
+                                $texto .= '<div class="div_correo_registro">';
+                                        $texto .= '<div class="div_correo_r_a"> '.txt_correo_registro.'&nbsp;</div>';
 
-                                    $texto .= '<div class="div_password_registro_b">';
-                                            $texto .= '<div class="div_password_registro_b_a"> '.txt_password_b.'&nbsp;</div>';
-                                            $texto .= '<div class="div_password_registro_b_b"> 
-                                                            <input type= "password" name="txt_password_usuario_b" id="txt_password_usuario_b"  />
-                                                        </div>';
-                                            $texto .= '<div style="clear:both;"></div>';
-                                    $texto .= '</div>';
+                                        $texto .= '<div class="div_correo_r_b">'; 
 
-                                    if($config_user["pedir_nombre"]=='si')
-                                        {
-                                            $texto .= '<div class="div_nombre_usuario">';
-                                                    $texto .= '<div class="div_nombre_usuario_a"> '.txt_nombre_usuario.'&nbsp;</div>';
 
-                                                    $texto .= '<div class="div_nombre_usuario_b"> 
-                                                                    <input type= "text" name="txt_nombre_usuario" id="txt_nombre_usuario"  />
-                                                               </div>';
-                                                    $texto .= '<div style="clear:both;"></div>';
-                                            $texto .= '</div>';
-                                        }
-                                    if($config_user["pedir_ape_p"]=='si')
-                                        {
-                                            $texto .= '<div class="div_ape_p_usuario">';
-                                                    $texto .= '<div class="div_ape_p_usuario_a"> '.txt_apellido_p_usuario.'&nbsp;</div>';
-
-                                                    $texto .= '<div class="div_nombre_usuario_b"> 
-                                                                    <input type= "text" name="txt_apellido_p_usuario" id="txt_apellido_p_usuario"  />
-                                                               </div>';
-                                                    $texto .= '<div style="clear:both;"></div>';
-                                            $texto .= '</div>';
-                                        }                                            
-                                    if($config_user["pedir_ape_m"]=='si')
-                                        {
-                                            $texto .= '<div class="div_ape_m_usuario">';
-                                                    $texto .= '<div class="div_ape_m_usuario_a"> '.txt_apellido_m_usuario.'&nbsp;</div>';
-
-                                                    $texto .= '<div class="div_ape_m_usuario_b"> 
-                                                                    <input type= "text" name="txt_apellido_m_usuario" id="txt_apellido_m_usuario"  />
-                                                               </div>';
-                                                    $texto .= '<div style="clear:both;"></div>';
-                                            $texto .= '</div>';
-                                        }                                                
-                                    if($config_user["pedir_fecha_nacimiento"]=='si')
-                                        {
-                                            $texto .= '<div class="div_fecha_nacimiento_usuario">';
-
-                                                    $texto .= '<div class="div_fecha_nacimiento_usuario_a">'.txt_fecha_nacimiento_usuario.'&nbsp;</div>';
-
-                                                    $texto .= '<div class="div_fecha_nacimiento_usuario_b"> ';
-
-                                                        $dia=date('d');
-                                                        $mes=date('m');
-                                                        $ano=date('Y');                                                        
-                                                        $areglo_meses = FunGral::MesesNumero();
-                                                        $texto .=  dia.'&nbsp;<select name = "dia_n">';
-                                                        for ($a = 1; $a<=31; $a++)
-                                                                {$texto .=  '<option value = "'.$a.'" '; if ($dia == $a) { $texto .=  'selected="selected"'; } $texto .=  ' > '.$a.' </option>';}
-                                                        $texto .=  '</select>&nbsp;';
-                                                        $texto .=  mes.'&nbsp;<select name = "mes_n">';
-                                                        for ($b=1; $b<=12; $b++)
-                                                                {$texto .=  '<option value = "'.$b.'"  '; if ($mes == $b) {$texto .=  ' selected="selected" ';} $texto .=  ' >'.$areglo_meses[$b].'</option>';}
-                                                        $texto .=  '</select>&nbsp;';
-                                                        $texto .=  ano.'&nbsp;<select name = "ano_n">';
-                                                        for ($b=$ano-10; $b<=$ano+10; $b++)
-                                                                {$texto .=  '<option value = "'.$b.'" '; if ($ano == $b) {$texto .=  ' selected="selected" ';} $texto .=  '>'.$b.'</option>';}
-                                                        $texto .=  '</select>';
-                                                    $texto .= '</div>';                                                                  
-                                                    $texto .= '<div style="clear:both;"></div>';
-                                            $texto .= '</div>';
-
-                                        }
-                                    if($config_user["pedir_ubicacion"]=='si')
-                                        {
-                                            $texto .= '<div class="div_ubicacion_usuario">';
-                                                    $texto .= '<div class="div_ubicacion_usuario_a"> '.txt_ubicacion_usuario.'&nbsp;</div>';
-
-                                                    $texto .= '<div class="div_ubicacion_usuario_b"> 
-                                                                    <input type= "text" name="txt_ubicacion_usuario" id="txt_ubicacion_usuario"  />
-                                                               </div>';
-                                                    $texto .= '<div style="clear:both;"></div>';
-                                            $texto .= '</div>';
-                                        }
-                                    if($config_user["pedir_web"]=='si')
-                                        {
-                                            $texto .= '<div class="div_web_usuario">';
-                                                    $texto .= '<div class="div_web_usuario_a"> '.txt_web_usuario.'&nbsp;</div>';
-
-                                                    $texto .= '<div class="div_web_usuario_b"> 
-                                                                    <input type= "text" name="txt_web_usuario" id="txt_web_usuario"  />
-                                                               </div>';
-                                                    $texto .= '<div style="clear:both;"></div>';
-                                            $texto .= '</div>';
-                                        } 
-                                    if($config_user["pedir_zona_horaria"]=='si')
-                                        {
-                                            $texto .= '<div class="div_zona_horaria">';
-                                                    $texto .= '<div class="div_zona_horaria_a"> '.txt_zona_horaria_usuario.'&nbsp;</div>';
-
-                                                    $texto .= '<div class="div_zona_horaria_b">'; 
-                                                        $texto .= '<select name = "zona_horario_usuario"  >';
-                                                        for ($b=-12; $b<=12; $b++)
-                                                                { $texto .= '<option value = "'.$b.'"  '; if ($b == "0") {$texto .= 'selected= "selected" ';} $texto .= ' >'.$b.'</option>'; }
-                                                        $texto .= '</select>';
+                                            if($config_user["usar_correo_como_usuario"]=='si')
+                                                {
+                                                    $texto .= '<input type= "text" onchange="validarUsuario(this.value)" name="txt_correo_usuario_registrar" id="txt_correo_usuario_registrar"  />';
                                                     $texto .= '</div>';
                                                     $texto .= '<div style="clear:both;"></div>';
+                                                    $texto .= '<div id="div_mensajes_nombre_usuario"></div>';
+                                                }
+                                            elseif($config_user["usar_correo_como_usuario"]=='no')
+                                                {
+                                                    $texto .= '<input type= "text" onchange="validarCorreo(this.value)" name="txt_correo_usuario_registrar" id="txt_correo_usuario_registrar"  />';
+                                                    $texto .= '</div>';
+                                                    $texto .= '<div style="clear:both;"></div>';
+                                                    $texto .= '<input name="txt_correo_valido" id="txt_correo_valido" type="hidden" value="NO" />';
+                                                    $texto .= '<div id="div_mensajes_correo"></div>';
+                                                }
+
+                                $texto .= '</div>';
+
+                                $texto .= '<div class="div_password_registro_a">';
+                                        $texto .= '<div class="div_password_registro_a_a"> '.txt_password_a.'&nbsp;</div>';
+
+                                        $texto .= '<div class="div_password_registro_a_b"> 
+                                                        <input type= "password" name="txt_password_usuario_a" id="txt_password_usuario_a"  />
+                                                    </div>';
+                                        $texto .= '<div style="clear:both;"></div>';
+                                $texto .= '</div>';						
+
+                                $texto .= '<div class="div_password_registro_b">';
+                                        $texto .= '<div class="div_password_registro_b_a"> '.txt_password_b.'&nbsp;</div>';
+                                        $texto .= '<div class="div_password_registro_b_b"> 
+                                                        <input type= "password" name="txt_password_usuario_b" id="txt_password_usuario_b"  />
+                                                    </div>';
+                                        $texto .= '<div style="clear:both;"></div>';
+                                $texto .= '</div>';
+
+                                if($config_user["pedir_nombre"]=='si')
+                                    {
+                                        $texto .= '<div class="div_nombre_usuario">';
+                                                $texto .= '<div class="div_nombre_usuario_a"> '.txt_nombre_usuario.'&nbsp;</div>';
+
+                                                $texto .= '<div class="div_nombre_usuario_b"> 
+                                                                <input type= "text" name="txt_nombre_usuario" id="txt_nombre_usuario"  />
+                                                           </div>';
+                                                $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+                                    }
+                                if($config_user["pedir_ape_p"]=='si')
+                                    {
+                                        $texto .= '<div class="div_ape_p_usuario">';
+                                                $texto .= '<div class="div_ape_p_usuario_a"> '.txt_apellido_p_usuario.'&nbsp;</div>';
+
+                                                $texto .= '<div class="div_nombre_usuario_b"> 
+                                                                <input type= "text" name="txt_apellido_p_usuario" id="txt_apellido_p_usuario"  />
+                                                           </div>';
+                                                $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+                                    }                                            
+                                if($config_user["pedir_ape_m"]=='si')
+                                    {
+                                        $texto .= '<div class="div_ape_m_usuario">';
+                                                $texto .= '<div class="div_ape_m_usuario_a"> '.txt_apellido_m_usuario.'&nbsp;</div>';
+
+                                                $texto .= '<div class="div_ape_m_usuario_b"> 
+                                                                <input type= "text" name="txt_apellido_m_usuario" id="txt_apellido_m_usuario"  />
+                                                           </div>';
+                                                $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+                                    }                                                
+                                if($config_user["pedir_fecha_nacimiento"]=='si')
+                                    {
+                                        $texto .= '<div class="div_fecha_nacimiento_usuario">';
+
+                                                $texto .= '<div class="div_fecha_nacimiento_usuario_a">'.txt_fecha_nacimiento_usuario.'&nbsp;</div>';
+
+                                                $texto .= '<div class="div_fecha_nacimiento_usuario_b"> ';
+
+                                                    $dia=date('d');
+                                                    $mes=date('m');
+                                                    $ano=date('Y');                                                        
+                                                    $areglo_meses = FunGral::MesesNumero();
+                                                    $texto .=  dia.'&nbsp;<select name = "dia_n">';
+                                                    for ($a = 1; $a<=31; $a++)
+                                                            {$texto .=  '<option value = "'.$a.'" '; if ($dia == $a) { $texto .=  'selected="selected"'; } $texto .=  ' > '.$a.' </option>';}
+                                                    $texto .=  '</select>&nbsp;';
+                                                    $texto .=  mes.'&nbsp;<select name = "mes_n">';
+                                                    for ($b=1; $b<=12; $b++)
+                                                            {$texto .=  '<option value = "'.$b.'"  '; if ($mes == $b) {$texto .=  ' selected="selected" ';} $texto .=  ' >'.$areglo_meses[$b].'</option>';}
+                                                    $texto .=  '</select>&nbsp;';
+                                                    $texto .=  ano.'&nbsp;<select name = "ano_n">';
+                                                    for ($b=$ano-10; $b<=$ano+10; $b++)
+                                                            {$texto .=  '<option value = "'.$b.'" '; if ($ano == $b) {$texto .=  ' selected="selected" ';} $texto .=  '>'.$b.'</option>';}
+                                                    $texto .=  '</select>';
+                                                $texto .= '</div>';                                                                  
+                                                $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+
+                                    }
+                                if($config_user["pedir_ubicacion"]=='si')
+                                    {
+                                        $texto .= '<div class="div_ubicacion_usuario">';
+                                                $texto .= '<div class="div_ubicacion_usuario_a"> '.txt_ubicacion_usuario.'&nbsp;</div>';
+
+                                                $texto .= '<div class="div_ubicacion_usuario_b"> 
+                                                                <input type= "text" name="txt_ubicacion_usuario" id="txt_ubicacion_usuario"  />
+                                                           </div>';
+                                                $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+                                    }
+                                if($config_user["pedir_web"]=='si')
+                                    {
+                                        $texto .= '<div class="div_web_usuario">';
+                                                $texto .= '<div class="div_web_usuario_a"> '.txt_web_usuario.'&nbsp;</div>';
+
+                                                $texto .= '<div class="div_web_usuario_b"> 
+                                                                <input type= "text" name="txt_web_usuario" id="txt_web_usuario"  />
+                                                           </div>';
+                                                $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+                                    } 
+                                if($config_user["pedir_zona_horaria"]=='si')
+                                    {
+                                        $texto .= '<div class="div_zona_horaria">';
+                                            $texto .= '<div class="div_zona_horaria_a"> '.txt_zona_horaria_usuario.'&nbsp;</div>';
+
+                                            $texto .= '<div class="div_zona_horaria_b">'; 
+                                                $texto .= '<select name = "zona_horario_usuario"  >';
+                                                for ($b=-12; $b<=12; $b++)
+                                                        { $texto .= '<option value = "'.$b.'"  '; if ($b == "0") {$texto .= 'selected= "selected" ';} $texto .= ' >'.$b.'</option>'; }
+                                                $texto .= '</select>';
                                             $texto .= '</div>';
-                                        }
+                                            $texto .= '<div style="clear:both;"></div>';
+                                        $texto .= '</div>';
+                                    }
+                                if($config_user["usar_captcha_google"]=='si')
+                                    {
+                                        $texto .= '<div class="div_recapcha">';
+                                        if(file_exists("librerias/recaptcha/recaptchalib.php") && ("librerias/recaptcha/recaptchalib.php"))
+                                            {
+                                                require_once('librerias/recaptcha/recaptchalib.php');
+                                                $sql = "select llave_publica_captcha from nazep_configuracion ";
+                                                $resSql = mysql_query($sql);
+                                                $renSql = mysql_fetch_array($resSql);
+                                                $llave_publica_captcha = $renSql["llave_publica_captcha"];                                                                                              
+                                                $texto .= recaptcha_get_html($llave_publica_captcha);
+                                                $texto .= '<div class="div_mensaje_captcha" id="div_mensaje_captcha"></div>';
+                                            }
+                                        else
+                                            {
+                                                $texto .= 'No se puede cargar el sistema Capcha';
+                                            }                                                                                  
+                                        $texto .= '</div>';
+                                        $texto .= '<div class="div_boton_registrar_usuario" > 
+                                            <input type="button" value="Registrar Usuario" onclick= "return validarCaptcha(this.form)" > 
+                                            </div>';
+                                    }
+                                else 
+                                    {
+                                        $texto .= '<div class="div_boton_registrar_usuario" > 
+                                            <input type="button" value="Registrar Usuario" onclick= "return validarRegistro(this.form)" > 
+                                            </div>';
+                                    }
 
-
-                                    $texto .= '<div class="div_boton_registrar_usuario" > 
-                                        <input type="submit" value="Registrar Usuario" onclick= "return validarRegistro(this.form)" > </div>';
-                            $texto .= '</form>';
-                            $texto .= '<div class="div_enlace_regreso_acceso" ><a href="index.php?sec='.$sec.'">Regresar Formulario de Ingreso</a></div> ';
-                            echo $texto;							
-			}
-		function formulario_recuperar_acceso()
+                                
+                        $texto .= '</form>';
+                        $texto .= '<div class="div_enlace_regreso_acceso" ><a href="index.php?sec='.$sec.'">Regresar Formulario de Ingreso</a></div> ';
+                        echo $texto;							
+                    }
+		function formulario_recuperar_acceso($config_user, $sec)
                     {
                         $sec = $this->obtenerSeccion();
                         $texto ='';
                         $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'ini'));
-                        $texto .= 
-                        '
+                        $texto .= '
                             function validarCorreo(formulario)
                                 {
                                     if(formulario.txt_correo_usuario_recuperar.value == "") 
@@ -850,15 +968,19 @@ class vista_final extends conexion
                                             formulario.txt_correo_usuario_recuperar.focus();
                                             return false;
                                         }
-
                                     if(!isEmailAddress(formulario.txt_correo_usuario_recuperar.value))
                                         {
                                             alert("El Formato de Email es incorrecto");
                                             formulario.txt_correo_usuario_recuperar.focus();
                                             return false;
-                                        }                                    
-                                }
-                        ';                        
+                                        }
+                                    if(formulario.recaptcha_response_field.value=="")
+                                        {
+                                            alert("No puedes quedar vac\u00EDo el campo de captcha")
+                                            formulario.recaptcha_response_field.focus();
+                                            return false;
+                                        }                                        
+                                }';                        
                         $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'fin'));                                    
                         $texto .= '<div class="div_mensaje_nuevo_pass" >';
                                 $mensa_respuesta = (isset($_GET["m"])) ?$_GET["m"]:'';
@@ -869,20 +991,41 @@ class vista_final extends conexion
                                 elseif($mensa_respuesta  == 3)
                                     { $texto .=  '<span class="mensaje_registro">'.txt_nue_pass_men_3.'</span>'; }
                                 elseif($mensa_respuesta  == 4)
-                                    { $texto .=  '<span class="mensaje_registro">'.txt_nue_pass_men_4.'</span>'; }                                      
+                                    { $texto .=  '<span class="mensaje_registro">'.txt_nue_pass_men_4.'</span>'; }
+                                elseif($mensa_respuesta  == 5)
+                                    { $texto .=  '<span class="mensaje_registro">'.txt_nue_pass_men_5.'</span>'; }                                    
                                 else
                                     { $texto .=  '&nbsp;'; }
                         $texto .= '</div>';                                    
                         $texto .= '<form name="formulario_generar_nuevo_password" id="formulario_generar_nuevo_password" method="post" action="index.php?sec='.$sec.'">';
-                            $texto .= '<div>';
-                                $texto .= 'Formulario para recuperar Contraseña';
-                            $texto .= '</div>';
+                            $texto .= '<div>Formulario para recuperar Contraseña</div>';
                             $texto .= '<div>';
                                 $texto .= 'Ingresar tu dirección de correo electronico de tu usuario';
                             $texto .= '</div>';
                             $texto .= '<div>';
                                 $texto .= '<input type= "text"  name="txt_correo_usuario_recuperar" id="txt_correo_usuario_recuperar"  />';
                             $texto .= '</div>';
+                            
+                            if($config_user["usar_captcha_google"]=='si')
+                                {
+                                    $texto .= '<div class="div_recapcha">';
+                                    if(file_exists("librerias/recaptcha/recaptchalib.php") && ("librerias/recaptcha/recaptchalib.php"))
+                                        {
+                                            require_once('librerias/recaptcha/recaptchalib.php');
+                                            $sql = "select llave_publica_captcha from nazep_configuracion ";
+                                            $resSql = mysql_query($sql);
+                                            $renSql = mysql_fetch_array($resSql);
+                                            $llave_publica_captcha = $renSql["llave_publica_captcha"];                                                                                              
+                                            $texto .= recaptcha_get_html($llave_publica_captcha);
+                                            $texto .= '<div class="div_mensaje_captcha" id="div_mensaje_captcha"></div>';
+                                        }
+                                    else
+                                        {
+                                            $texto .= 'No se puede cargar el sistema Capcha';
+                                        }                                                                                  
+                                    $texto .= '</div>';
+                                }                            
+                            
                             $texto .= '<div>';
                                 $texto .= ' <input type="submit" onclick= "return validarCorreo(this.form)" value="Generar Nuevo Password"  >
                                             <input type="hidden" name="sqlBack" value = "si" />
@@ -1739,55 +1882,55 @@ class vista_final extends conexion
 			}
 		function listar_mod_secundarios_ver_div($sec, $lado, $alto_separacion, $marg_izq, $marg_der, $color_separacion)
 			{
-				$hoy = date('Y-m-d');	
-				$con_mod_alt = "select m.nombre_archivo, m.clave_modulo
-				from nazep_modulos m, nazep_secciones_modulos sm
-				where sm.clave_seccion = '$sec' and sm.situacion = 'activo'
-				and (case sm.usar_vigencia_mod 
-				when 'si'
-				then
-				sm.fecha_inicio <= '$hoy' and sm.fecha_fin >= '$hoy'
-				else
-				1
-				end) 
-				and m.tipo = 'secundario' and sm.posicion = '$lado'
-				and sm.clave_modulo = m.clave_modulo
-				order by sm.orden";
-				$res_mod_alt = mysql_query($con_mod_alt);
-				$cantidad_modulos = mysql_num_rows($res_mod_alt);
-				if($cantidad_modulos!="0")
-					{
-						$con = 1;
-						echo '<div style="padding-left:'.$marg_izq.'; padding-right:'.$marg_der.';">';
-						while($ren_mod_alt = mysql_fetch_array($res_mod_alt))
-							{
-								echo '<div id="div_mod_'.$con.'">';
-									$nombre_archivo = $ren_mod_alt["nombre_archivo"];
-									$clave_modulo = $ren_mod_alt["clave_modulo"];
-									$archivo = 'librerias/modulos/'.$nombre_archivo.'/'.$nombre_archivo.'_vista.php';
-									if(is_readable($archivo))
-										{
-											include_once($archivo);
-											$clase = 'clase_'.$nombre_archivo;
-											if(FunGral::validarClaseMetodoVista($clase,'vista'))
-												{
-													$obj_v = new $clase();
-													$obj_v->vista($sec, $ubicacion_tema, $nick_usuario, $clave_modulo);
-												}
-										}
-									else
-										{
-											HtmlVista::verMensajeError(array('mensaje'=>NAZEP_NOHAVEFILEMODULE));
-										}
-								echo '</div>';
-								if($con<$cantidad_modulos)
-									{
-										echo'<div id="separacion_mod_'.$con.'"  style="width:100%; background-color:#'.$color_separacion.';  height:'.$alto_separacion.'px;"></div>';
-									}
-								$con++;
-							}
-						echo '</div>';
-					}
+                            $hoy = date('Y-m-d');	
+                            $con_mod_alt = "select m.nombre_archivo, m.clave_modulo
+                            from nazep_modulos m, nazep_secciones_modulos sm
+                            where sm.clave_seccion = '$sec' and sm.situacion = 'activo'
+                            and (case sm.usar_vigencia_mod 
+                            when 'si'
+                            then
+                            sm.fecha_inicio <= '$hoy' and sm.fecha_fin >= '$hoy'
+                            else
+                            1
+                            end) 
+                            and m.tipo = 'secundario' and sm.posicion = '$lado'
+                            and sm.clave_modulo = m.clave_modulo
+                            order by sm.orden";
+                            $res_mod_alt = mysql_query($con_mod_alt);
+                            $cantidad_modulos = mysql_num_rows($res_mod_alt);
+                            if($cantidad_modulos!="0")
+                                {
+                                    $con = 1;
+                                    echo '<div style="padding-left:'.$marg_izq.'; padding-right:'.$marg_der.';">';
+                                    while($ren_mod_alt = mysql_fetch_array($res_mod_alt))
+                                        {
+                                            echo '<div id="div_mod_'.$con.'">';
+                                                $nombre_archivo = $ren_mod_alt["nombre_archivo"];
+                                                $clave_modulo = $ren_mod_alt["clave_modulo"];
+                                                $archivo = 'librerias/modulos/'.$nombre_archivo.'/'.$nombre_archivo.'_vista.php';
+                                                if(is_readable($archivo))
+                                                    {
+                                                        include_once($archivo);
+                                                        $clase = 'clase_'.$nombre_archivo;
+                                                        if(FunGral::validarClaseMetodoVista($clase,'vista'))
+                                                            {
+                                                                $obj_v = new $clase();
+                                                                $obj_v->vista($sec, $ubicacion_tema, $nick_usuario, $clave_modulo);
+                                                            }
+                                                    }
+                                                else
+                                                    {
+                                                        HtmlVista::verMensajeError(array('mensaje'=>NAZEP_NOHAVEFILEMODULE));
+                                                    }
+                                            echo '</div>';
+                                            if($con<$cantidad_modulos)
+                                                {
+                                                    echo'<div id="separacion_mod_'.$con.'"  style="width:100%; background-color:#'.$color_separacion.';  height:'.$alto_separacion.'px;"></div>';
+                                                }
+                                            $con++;
+                                        }
+                                    echo '</div>';
+                                }
 			}
 		function listar_mod_secundarios_ver_div_per($sec, $lado, $alto_separacion, $marg_izq, $marg_der, $color_separacion)
 			{
@@ -2265,60 +2408,62 @@ class vista_final extends conexion
 			}
 		function lis_secc_prin_ver_ul($inicio, $cantidad, $anc_mar_izq, $anc_mar_der, $alto_sep, $mostrar_titulo, $titulo, $mostrar_balazo, $ubicacion_tema, $espacio_secciones, $imagen_balazo, $alt_bal, $titulo_bal)
 			{
-				$inicio--;
-				$hoy = date('Y-m-d');
-				$con_sec = " select clave_seccion, titulo, tipo_contenido, tipo_titulo, flash_secion, imagen_secion, ancho_medio, alto_medio
-					from  nazep_secciones 
-					where clave_seccion_pertenece = '1' 
-					and (case usar_vigencia 
-						when 'si' then fecha_iniciar_vigencia <= '$hoy' and fecha_termina_vigencia >= '$hoy'
-						when 'no' then 1
-						else 0 end)
-					and situacion = 'activo' order by orden limit $inicio, $cantidad";
-				$res_sub  = mysql_query($con_sec);	
-				$can_sub = mysql_num_rows($res_sub);
-				if($can_sub!=0)
-					{
-						if($mostrar_titulo=="si")
-							{echo'<div id="nzp_div_tit_menu" class="titulo_secc_principales" >'.$titulo.'</div>';}						
-						if($mostrar_balazo=="si")
-							{$balazo_ul = 'list-style-image:url('.$imagen_balazo.');';}
-						else
-							{$balazo_ul = 'list-style: none;';}
-						echo '<ul style="'.$balazo_ul.' margin:0px; padding-left: '.$anc_mar_izq.';  padding-right: '.$anc_mar_der.';">';
-						while($ren = mysql_fetch_array($res_sub))
-							{
-								$titulo = $ren["titulo"];
-								$clave_seccion = $ren["clave_seccion"];
-								$tipo_contenido = $ren["tipo_contenido"];
-								$tipo_titulo = $ren["tipo_titulo"];
-								$flash_secion = $ren["flash_secion"];
-								$imagen_secion = $ren["imagen_secion"];	
-								$ancho_medio = $ren["ancho_medio"];
-								$alto_medio = $ren["alto_medio"];
-								$formato = '';
-								if($tipo_contenido=="xml")
-									{
-										$formato = '&amp;formato=xml';
-									}
-								echo'<li style="padding-bottom:'.$alto_sep.';" >';
-										if(($tipo_titulo=="texto") or ($tipo_titulo=="imagen"))
-											{
-												echo '<a class="menu_prin_vertical" title="'.$titulo.'" href="index.php?sec='.$clave_seccion.$formato.'" >';	
-												if($tipo_titulo=="texto")
-												{echo $titulo;}
-												elseif($tipo_titulo=="imagen")
-												{echo '<img src="'.$imagen_secion.'" width="'.$ancho_medio.'" height="'.$alto_medio.'" border="0" alt="'.$titulo.'" title="'.$titulo.'" >';}
-												echo '</a>';
-											}
-										elseif($tipo_titulo=="flash")
-											{
-												echo '<embed  width="'.$ancho_medio.'" height="'.$alto_medio.'" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.$flash_secion.'" play="true" loop="true" menu="true"></embed>';
-											}	
-								echo '</li>';
-							}
-						echo '</ul>';
-					}
+                            $inicio--;
+                            $hoy = date('Y-m-d');
+                            $con_sec = " select clave_seccion, titulo, tipo_contenido, tipo_titulo, flash_secion, imagen_secion, ancho_medio, alto_medio
+                                    from  nazep_secciones 
+                                    where clave_seccion_pertenece = '1' 
+                                    and (case usar_vigencia 
+                                            when 'si' then fecha_iniciar_vigencia <= '$hoy' and fecha_termina_vigencia >= '$hoy'
+                                            when 'no' then 1
+                                            else 0 end)
+                                    and situacion = 'activo' order by orden limit $inicio, $cantidad";
+                            $conexion = $this->conectarse();
+                            $res_sub  = mysql_query($con_sec);
+                            $can_sub = mysql_num_rows($res_sub);
+                            if($can_sub!=0)
+                                {
+                                    if($mostrar_titulo=="si")
+                                        {echo'<div id="nzp_div_tit_menu" class="titulo_secc_principales" >'.$titulo.'</div>';}						
+                                    if($mostrar_balazo=="si")
+                                        {$balazo_ul = 'list-style-image:url('.$imagen_balazo.');';}
+                                    else
+                                        {$balazo_ul = 'list-style: none;';}
+                                    echo '<ul style="'.$balazo_ul.' margin:0px; padding-left: '.$anc_mar_izq.';  padding-right: '.$anc_mar_der.';">';
+                                    while($ren = mysql_fetch_array($res_sub))
+                                        {
+                                            $titulo = $ren["titulo"];
+                                            $clave_seccion = $ren["clave_seccion"];
+                                            $tipo_contenido = $ren["tipo_contenido"];
+                                            $tipo_titulo = $ren["tipo_titulo"];
+                                            $flash_secion = $ren["flash_secion"];
+                                            $imagen_secion = $ren["imagen_secion"];	
+                                            $ancho_medio = $ren["ancho_medio"];
+                                            $alto_medio = $ren["alto_medio"];
+                                            $formato = '';
+                                            if($tipo_contenido=="xml")
+                                                {
+                                                    $formato = '&amp;formato=xml';
+                                                }
+                                            echo'<li style="padding-bottom:'.$alto_sep.';" >';
+                                                if(($tipo_titulo=="texto") or ($tipo_titulo=="imagen"))
+                                                    {
+                                                        echo '<a class="menu_prin_vertical" title="'.$titulo.'" href="index.php?sec='.$clave_seccion.$formato.'" >';	
+                                                        if($tipo_titulo=="texto")
+                                                        {echo $titulo;}
+                                                        elseif($tipo_titulo=="imagen")
+                                                        {echo '<img src="'.$imagen_secion.'" width="'.$ancho_medio.'" height="'.$alto_medio.'" border="0" alt="'.$titulo.'" title="'.$titulo.'" >';}
+                                                        echo '</a>';
+                                                    }
+                                                elseif($tipo_titulo=="flash")
+                                                    {
+                                                        echo '<embed  width="'.$ancho_medio.'" height="'.$alto_medio.'" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.$flash_secion.'" play="true" loop="true" menu="true"></embed>';
+                                                    }	
+                                            echo '</li>';
+                                        }
+                                    echo '</ul>';
+                                }
+                            $this->desconectarse($conexion);
 			}
 		function lis_subsecc_ver_ul($sec, $anc_mar_izq, $anc_mar_der, $mostrar_titulo, $titulo, $mostrar_balazo, $ubicacion_tema, $espacio_secciones, $imagen_balazo, $alt_bal, $titulo_bal)
 			{

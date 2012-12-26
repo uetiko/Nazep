@@ -47,11 +47,13 @@ define('txt_reg_user_men_3','El Correo del usuario ya existe en el sistema, no s
 define('txt_reg_user_men_4','Los passwords no son iguales');
 define('txt_reg_user_men_5','No se pudo registrar el usuario, intentar mas tarde');
 define('txt_reg_user_men_6','No se pudo enviar los datos por correo, pero se registro el usuario');
+define('txt_reg_user_men_7','El codigo captcha no es correcto');
 
 define('txt_nue_pass_men_1','Se envio el nuevo Password a tu correo');
 define('txt_nue_pass_men_2','No se encuentra el usuario o no esta activo');
 define('txt_nue_pass_men_3','No se pudo generar un nuevo Password');
 define('txt_nue_pass_men_4','Se genero pero no se pudo enviar por correo');
+define('txt_nue_pass_men_5','El codigo captcha no es correcto');
 
 
 define('txt_titulo_registro_usuario','Formulario para Registrar un Nuevo Usuario');

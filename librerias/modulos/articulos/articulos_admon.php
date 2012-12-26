@@ -2,26 +2,26 @@
 /*
 Sistema: Nazep
 Nombre archivo: articulos_admon.php
-Funci�n archivo: archivo para controlar la administraci�n del m�dulo de art�culos
-Fecha creaci�n: junio 2007
-Fecha �ltima Modificaci�n: Marzo 2011
-Versi�n: 0.2
+Función archivo: archivo para controlar la administración del módulo de artículos
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
 Autor: Claudio Morales Godinez
-Correo electr�nico: claudio@nazep.com.mx
+Correo electrónico: claudio@nazep.com.mx
 */
 class clase_articulos extends conexion
 	{
-		//Propiedads privadas para la direcci�n del archivo y nombre de la clase
+		//Propiedads privadas para la dirección del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/articulos/articulos_admon.php';
 		private $NomClase = 'clase_articulos';
 		function __construct($etapa='test')
 			{
-				if($etapa=='usar')
-					{
-						include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos.php');
-					}
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos.php');
+                                }
 			} 
-// ------------------------------ Inicio de funciones para controlar las funciones del m�dulo
+// ------------------------------ Inicio de funciones para controlar las funciones del módulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
 				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
@@ -191,8 +191,8 @@ class clase_articulos extends conexion
 				else
 					{echo '<br />'.mens_mod_no_act_camb;}
 			}
-// ------------------------------ Fin de M�todos para controlar las funciones del m�dulo		
-// ------------------------------ Inicio de M�todos para controlar la modificaci�n de la informaci�n del m�dulo
+// ------------------------------ Fin de Métodos para controlar las funciones del m�dulo		
+// ------------------------------ Inicio de Métodos para controlar la modificaci�n de la informaci�n del m�dulo
 		function modificar_tipo($nick_user, $nivel, $ubi_tema, $nom_user, $cor_user)
 			{
 				$clave_seccion_enviada = $_GET["clave_seccion"];

@@ -3,167 +3,167 @@
 Sistema: Nazep
 Nombre archivo: configuracion_gral.php
 Función archivo: Genera las opciones para configurar el sistema en forma general
-Fecha creaci�n: junio 2007
-Fecha �ltima Modificaci�n: Marzo 2011
-Versi�n: 0.2
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
 Autor: Claudio Morales Godinez
-Correo electr�nico: claudio@nazep.com.mx
+Correo electrónico: claudio@nazep.com.mx
 */
 class clase_configuracion extends conexion
 	{
-		function opciones($user,$correo)
-			{
-						HtmlAdmon::titulo_seccion("Configuraci&oacute;n del Administrador Nazep");
-						html::div(array('presentacion'=>'echo', 'tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',							
-											'opcionNavega'=>'2',
-											'name'=>'nueva_noticia',
-											'Id'=>'nueva_noticia',
-											'BText'=>'Ingresar nueva noticia del administrador',
-											'BName'=>'btn_nueva_noticia',
-											'OpcOcultas' => array('metodo' =>'nuevo_noticia_admon') ))
-										));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'modifica_noticia',
-											'Id'=>'modifica_noticia',
-											'BText'=>'Modifica una noticia del administrador',
-											'BName'=>'btn_mod_noticia',
-											'OpcOcultas' => array('metodo' =>'modificar_noticia_admon')))
-							));
-						html::hr(array('presentacion'=>'echo','id'=>'hr_01'));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'nuevo_user',
-											'Id'=>'<strong>nuevo_user</strong>',											
-											'BText'=>'Ingresar nuevo usuario al sistema de administraci&oacute;n',
-											'BName'=>'btn_nuevo_user',
-											'OpcOcultas' => array('metodo' =>'nuevo_usuario_admon')
-											))
-							));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'modificar_user',
-											'Id'=>'modificar_user',
-											'BText'=>'Modificar un usuario del sistema de administraci&oacute;n',
-											'BName'=>'btn_modificar_user',
-											'OpcOcultas' => array('metodo' =>'modificar_usuario_admon')
-											))
-							));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'registro_accesos',
-											'Id'=>'registro_accesos',
-											'BText'=>'Registro de accesos al sistema',
-											'BName'=>'btn_registro_accesos',
-											'OpcOcultas' => array('metodo' =>'registro_accesos')
-											))
-							));
-							
-						html::hr(array('presentacion'=>'echo','id'=>'hr_02'));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'nuevo_user_vista',
-											'Id'=>'nuevo_user_vista',
-											'BText'=>'Ingresar nuevo usuario del portal',
-											'BName'=>'btn_nuevo_user_vista',
-											'OpcOcultas' => array('metodo' =>'nuevo_usuario_vista')
-											))
-							));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'modificar_user_vista',
-											'Id'=>'modificar_user_vista',
-											'BText'=>'Modificar usuario del portal',
-											'BName'=>'btn_modificar_user_vista',
-											'OpcOcultas' => array('metodo' =>'modificar_usuario_vista')
-											))
-							));	
+            function opciones($user,$correo)
+                {
+                    HtmlAdmon::titulo_seccion("Configuraci&oacute;n del Administrador Nazep");
+                    html::div(array('presentacion'=>'echo', 'tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',							
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'nueva_noticia',
+                                                            'Id'=>'nueva_noticia',
+                                                            'BText'=>'Ingresar nueva noticia del administrador',
+                                                            'BName'=>'btn_nueva_noticia',
+                                                            'OpcOcultas' => array('metodo' =>'nuevo_noticia_admon') ))
+                                                    ));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'modifica_noticia',
+                                                            'Id'=>'modifica_noticia',
+                                                            'BText'=>'Modifica una noticia del administrador',
+                                                            'BName'=>'btn_mod_noticia',
+                                                            'OpcOcultas' => array('metodo' =>'modificar_noticia_admon')))
+                            ));
+                    html::hr(array('presentacion'=>'echo','id'=>'hr_01'));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'nuevo_user',
+                                                            'Id'=>'<strong>nuevo_user</strong>',											
+                                                            'BText'=>'Ingresar nuevo usuario al sistema de administraci&oacute;n',
+                                                            'BName'=>'btn_nuevo_user',
+                                                            'OpcOcultas' => array('metodo' =>'nuevo_usuario_admon')
+                                                            ))
+                            ));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'modificar_user',
+                                                            'Id'=>'modificar_user',
+                                                            'BText'=>'Modificar un usuario del sistema de administraci&oacute;n',
+                                                            'BName'=>'btn_modificar_user',
+                                                            'OpcOcultas' => array('metodo' =>'modificar_usuario_admon')
+                                                            ))
+                            ));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'registro_accesos',
+                                                            'Id'=>'registro_accesos',
+                                                            'BText'=>'Registro de accesos al sistema',
+                                                            'BName'=>'btn_registro_accesos',
+                                                            'OpcOcultas' => array('metodo' =>'registro_accesos')
+                                                            ))
+                            ));
 
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'configurar_user_final',
-											'Id'=>'configurar_user_final',
-											'BText'=>'Configuraci&oacute;n usuario del portal',
-											'BName'=>'btn_configurar_user_vista',
-											'OpcOcultas' => array('metodo' =>'configurar_usuario_vista')
-											))
-							));							
-								
-						html::hr(array('presentacion'=>'echo','id'=>'hr_03'));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'nuevo_modulo',
-											'Id'=>'nuevo_modulo',
-											'BText'=>'Ingresar nuevo m&oacute;dulo al sistema',
-											'BName'=>'btn_nuevo_modulo',
-											'OpcOcultas' => array('metodo' =>'nuevo_modulo')
-											))
-							));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'modificar_modulo',
-											'Id'=>'modificar_modulo',
-											'BText'=>'Modifiar m&oacute;dulo del sistema',
-											'BName'=>'btn_modificar_modulo',
-											'OpcOcultas' => array('metodo' =>'modificar_modulo')
-											))
-							));
-						html::hr(array('presentacion'=>'echo','id'=>'hr_04'));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'nuevo_tema',
-											'Id'=>'nuevo_tema',
-											'BText'=>'Ingresar nuevo tema al sistema',
-											'BName'=>'btn_nuevo_tema',
-											'OpcOcultas' => array('metodo' =>'nuevo_tema')
-											))
-							));					
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'modificar_tema',
-											'Id'=>'modificar_tema',
-											'BText'=>'Modificar temas',
-											'BName'=>'btn_nuevo_tema',
-											'OpcOcultas' => array('metodo' =>'modificar_tema')
-											))
-							));
-						html::hr(array('presentacion'=>'echo','id'=>'hr_05'));
-						html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
-							HtmlAdmon::AccesoMetodo(array(
-											'presentacion'=>'return',
-											'opcionNavega'=>'2',
-											'name'=>'configuracion',
-											'Id'=>'configuracion',
-											'BText'=>'Configuraci&oacute;n general',
-											'BName'=>'btn_configuracion',
-											'OpcOcultas' => array('metodo' =>'configuracion')
-											))
-							));					
-			}
+                    html::hr(array('presentacion'=>'echo','id'=>'hr_02'));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'nuevo_user_vista',
+                                                            'Id'=>'nuevo_user_vista',
+                                                            'BText'=>'Ingresar nuevo usuario del portal',
+                                                            'BName'=>'btn_nuevo_user_vista',
+                                                            'OpcOcultas' => array('metodo' =>'nuevo_usuario_vista')
+                                                            ))
+                            ));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'modificar_user_vista',
+                                                            'Id'=>'modificar_user_vista',
+                                                            'BText'=>'Modificar usuario del portal',
+                                                            'BName'=>'btn_modificar_user_vista',
+                                                            'OpcOcultas' => array('metodo' =>'modificar_usuario_vista')
+                                                            ))
+                            ));	
+
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'configurar_user_final',
+                                                            'Id'=>'configurar_user_final',
+                                                            'BText'=>'Configuraci&oacute;n usuario del portal',
+                                                            'BName'=>'btn_configurar_user_vista',
+                                                            'OpcOcultas' => array('metodo' =>'configurar_usuario_vista')
+                                                            ))
+                            ));							
+
+                    html::hr(array('presentacion'=>'echo','id'=>'hr_03'));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'nuevo_modulo',
+                                                            'Id'=>'nuevo_modulo',
+                                                            'BText'=>'Ingresar nuevo m&oacute;dulo al sistema',
+                                                            'BName'=>'btn_nuevo_modulo',
+                                                            'OpcOcultas' => array('metodo' =>'nuevo_modulo')
+                                                            ))
+                            ));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'modificar_modulo',
+                                                            'Id'=>'modificar_modulo',
+                                                            'BText'=>'Modifiar m&oacute;dulo del sistema',
+                                                            'BName'=>'btn_modificar_modulo',
+                                                            'OpcOcultas' => array('metodo' =>'modificar_modulo')
+                                                            ))
+                            ));
+                    html::hr(array('presentacion'=>'echo','id'=>'hr_04'));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'nuevo_tema',
+                                                            'Id'=>'nuevo_tema',
+                                                            'BText'=>'Ingresar nuevo tema al sistema',
+                                                            'BName'=>'btn_nuevo_tema',
+                                                            'OpcOcultas' => array('metodo' =>'nuevo_tema')
+                                                            ))
+                            ));					
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'modificar_tema',
+                                                            'Id'=>'modificar_tema',
+                                                            'BText'=>'Modificar temas',
+                                                            'BName'=>'btn_nuevo_tema',
+                                                            'OpcOcultas' => array('metodo' =>'modificar_tema')
+                                                            ))
+                            ));
+                    html::hr(array('presentacion'=>'echo','id'=>'hr_05'));
+                    html::div(array('presentacion'=>'echo','tipo'=>'inifin', 'style'=>' text-align:center;', 'contenido'=>
+                            HtmlAdmon::AccesoMetodo(array(
+                                                            'presentacion'=>'return',
+                                                            'opcionNavega'=>'2',
+                                                            'name'=>'configuracion',
+                                                            'Id'=>'configuracion',
+                                                            'BText'=>'Configuraci&oacute;n general',
+                                                            'BName'=>'btn_configuracion',
+                                                            'OpcOcultas' => array('metodo' =>'configuracion')
+                                                            ))
+                            ));					
+                }
 		function nuevo_noticia_admon($user, $correo)
 			{
 				if(FunGral::_Post("guardar")=='si')
@@ -2106,11 +2106,11 @@ class clase_configuracion extends conexion
 										$mail->Body =
 										"<strong>Hola $nombre_completo</strong>
 										<br /><br />
-										Tu nueva contrase�a es:
+										Tu nueva contraseña es:
 										<br /><br />
 										$pasword1
 										<br /><br />
-										Direcci�n del portal:
+										Direccion del portal:
 										<br /><br />
 										$url_sitio/index/index.php
 										<br /><br /><br />
@@ -2435,16 +2435,149 @@ class clase_configuracion extends conexion
 					}
 			}
 		function configurar_usuario_vista($user,$correo)
-			{
-				if(FunGral::_Post("guardar")=='si')
-					{
-					}
-				else
-					{
-						HtmlAdmon::titulo_seccion("Configuraci&oacute;n Usuario Final");
-						$con_gral = "select * from nazep_usuarios_final_config";						
-					}
-			}
+                    {
+                        if(FunGral::_Post("guardar")=='si')
+                            {
+                                $formulario_final = $_POST["formulario_final"];
+                                $mostrar_registro_publico  = $_POST["mostrar_registro_publico"];
+                                $mostrar_recuperar_password = $_POST["mostrar_recuperar_password"];
+                                $enviar_codigo_activacion = $_POST["enviar_codigo_activacion"];
+                                $usar_captcha_google = $_POST["usar_captcha_google"];
+                                $usar_correo_como_usuario = $_POST["usar_correo_como_usuario"];
+                                $pedir_nombre = $_POST["pedir_nombre"];
+                                $pedir_ape_p = $_POST["pedir_ape_p"];
+                                $pedir_ape_m = $_POST["pedir_ape_m"];
+                                $pedir_fecha_nacimiento = $_POST["pedir_fecha_nacimiento"];
+                                $pedir_ubicacion = $_POST["pedir_ubicacion"];
+                                $pedir_web = $_POST["pedir_web"];
+                                $pedir_zona_horaria = $_POST["pedir_zona_horaria"];
+                                $sql =  "   update nazep_usuarios_final_config 
+                                            set valor_campo = CASE nombre_campo                                            
+                                            WHEN 'mostrar_registro_publico' THEN '$mostrar_registro_publico'                                                
+                                            WHEN 'mostrar_recuperar_password' THEN '$mostrar_recuperar_password'                                                 
+                                            WHEN 'enviar_codigo_activacion' THEN '$enviar_codigo_activacion'                                                 
+                                            WHEN 'usar_captcha_google' THEN '$usar_captcha_google'                                                 
+                                            WHEN 'usar_correo_como_usuario' THEN '$usar_correo_como_usuario'                                                 
+                                            WHEN 'pedir_nombre' THEN '$pedir_nombre'                                                
+                                            WHEN 'pedir_nombre' THEN '$pedir_nombre'                                                
+                                            WHEN 'pedir_ape_p' THEN '$pedir_ape_p'                                                
+                                            WHEN 'pedir_ape_m' THEN '$pedir_ape_m'                                                
+                                            WHEN 'pedir_fecha_nacimiento' THEN '$pedir_fecha_nacimiento'                                                
+                                            WHEN 'pedir_ubicacion' THEN '$pedir_ubicacion'                                                
+                                            WHEN 'pedir_web' THEN '$pedir_web'                                                
+                                            WHEN 'pedir_zona_horaria' THEN '$pedir_zona_horaria'                                                
+                                            ELSE 'no'
+                                            END";
+                                $conexion = $this->conectarse();
+                                if (!@mysql_query($sql))
+                                    {
+                                        $men = mysql_error();
+                                        echo "Error: $men";
+                                    }
+                                else
+                                    {
+                                        echo "termino-,*-$formulario_final";
+                                    }                                                                
+                            }
+                        else
+                            {
+                                HtmlAdmon::titulo_seccion("Configuraci&oacute;n Usuario Final");
+                                $sql = "select * from nazep_usuarios_final_config";
+                                $resSql = mysql_query($sql);
+                                while($ren = mysql_fetch_array($resSql))
+                                    {
+                                        $valAreglo[$ren["nombre_campo"]] = $ren["valor_campo"];
+                                    }
+                                $htmlMostrar = '';
+                                $htmlMostrar .=  '<script type="text/javascript">';
+                                    $htmlMostrar .=  '
+                                                        $(document).ready(function()
+                                                            {									
+                                                                    $.frm_elem_color("#FACA70","");
+                                                                    $.guardar_valores("frm_modificarConUser");
+                                                            });
+                                                    ';
+                                $htmlMostrar .=  '</script>';
+                                $htmlMostrar .= '<form name="recargar_pantalla" id= "recargar_pantalla" method="post" action="index.php?opc=2" class="margen_cero">';
+                                $htmlMostrar .='<input type="hidden" name="metodo" value = "configurar_usuario_vista" /></form>';
+                                                
+                                $htmlMostrar .= '<form name="frm_modificarConUser" id="frm_modificarConUser" method="post" action="index.php?opc=2" >';
+                                    $htmlMostrar .= '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';    
+                                        $htmlMostrar .= '<tr><td width="300"  >Mostrar Registro Publico </td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'mostrar_registro_publico','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"mostrar_registro_publico"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr bgcolor="#F9D07B" ><td >Mostrar Recuperar Password </td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'mostrar_recuperar_password','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"mostrar_recuperar_password"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr><td>Enviar Codigo de Activacion</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'enviar_codigo_activacion','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"enviar_codigo_activacion"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr bgcolor="#F9D07B"><td>Usar Google Captcha en Registro</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'usar_captcha_google','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"usar_captcha_google"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr><td>Usar el Correo Como Nombre de usuario</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'usar_correo_como_usuario','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"usar_correo_como_usuario"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr bgcolor="#F9D07B"><td>Pedir Nombre</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_nombre','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_nombre"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr><td>Pedir Apellido Paterno</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_ape_p','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_ape_p"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr bgcolor="#F9D07B"><td>Pedir Apellido Materno</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_ape_m','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_ape_m"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+
+                                        $htmlMostrar .= '<tr><td>Pedir Fecha Nacimiento</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_fecha_nacimiento','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_fecha_nacimiento"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr bgcolor="#F9D07B"><td>Pedir Ubicacion</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_ubicacion','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_ubicacion"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr><td>Pedir Web</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_web','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_web"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        $htmlMostrar .= '<tr bgcolor="#F9D07B"><td>Pedir Zona Horaria</td><td>';
+                                            $htmlMostrar .= HtmlAdmon::RadiosSiNO(array('tipo_presentacion'=>'return','NombreRadio'=>'pedir_zona_horaria','ValorSeleccionado'=>FunGral::_ValorArray($valAreglo,"pedir_zona_horaria"), 'orden'=>'si-no' ));    
+                                        $htmlMostrar .= '</td></tr>';
+                                        
+                                        
+                                        $htmlMostrar .= '<tr>';
+                                            $htmlMostrar .= '<td colspan="2" align ="center">';
+                                                $htmlMostrar .= '<input type="hidden" name="formulario_final" value = "recargar_pantalla" />';
+                                                $htmlMostrar .= '<input type="hidden" name="guardar" value = "si" />';
+                                                $htmlMostrar .= '<input type="hidden" name="metodo" value = "configurar_usuario_vista" />';
+                                                $htmlMostrar .= '<input type="submit" name="btn_guardar" value="Guardar Configuracion"  />';
+                                            $htmlMostrar .= '</td>';
+                                         $htmlMostrar .= '</tr>';
+                                        
+                                    $htmlMostrar .= '</table>';
+                                $htmlMostrar .= '</form>';
+                                echo $htmlMostrar;
+                                HtmlAdmon::div_res_oper(array());
+                                $htmlMostrar = '';
+                                $htmlMostrar .=  '<table width="100%" border="0" cellspacing="0" cellpadding="0" >';
+                                    $htmlMostrar .= '<tr>';
+                                        $htmlMostrar .= '<td align ="center">';
+                                            $htmlMostrar .= '<a href="index.php?opc=2" class="regresar">';
+                                            $htmlMostrar .= '<img src="imagenes/atras.gif" align="middle" border="0"  alt ="atras" /><br />';
+                                            $htmlMostrar .= '<strong>Regresar a la Configuraci&oacute;n del Administrador</strong></a>';
+                                        $htmlMostrar .= '</td>';
+                                    $htmlMostrar .= '</tr>';
+                                $htmlMostrar .= '</table>';
+                                echo $htmlMostrar; 
+                            }
+                    }
 			
 		function nuevo_modulo($user,$correo)
 			{
