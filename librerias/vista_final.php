@@ -121,10 +121,6 @@ class vista_final extends conexion
                             {
                                 $this->enviarNuevoPassword();
                             }
-                        else if (isset($_POST["validarCapcha"]) && $_POST["validarCapcha"]=='si')
-                            {
-                                $this->validarCaptcha();
-                            }
                     }
                 private function obtenerSeccion()
                     {
@@ -184,25 +180,6 @@ class vista_final extends conexion
                             { echo 'disponible'; }
                         $this->desconectarse($conexion);
                     }
-                private function validarCaptcha()
-                    {
-                        require_once('librerias/recaptcha/recaptchalib.php');
-                        $conexion = $this->conectarse();
-                        $sql = "select llave_privada_captcha from nazep_configuracion ";
-                        $resSql = mysql_query($sql);
-                        $renSql = mysql_fetch_array($resSql);
-                        $llavePrivada = $renSql["llave_privada_captcha"];                        
-                        $resp = recaptcha_check_answer ($llavePrivada,
-                        $_SERVER["REMOTE_ADDR"],
-                        $_POST["recaptcha_challenge_field"],
-                        $_POST["recaptcha_response_field"]);
-                        
-                        if($resp->is_valid)
-                            {  echo 'valido';   }
-                        else
-                            { echo 'invalido';  }
-                        $this->desconectarse($conexion);
-                    }
                 private function generarCodigoUsuario()
                     {
                         $str = "ABCDEFGHJLMNPQRSTUVWXYZabcdefghijmnpqrstuvwxyz23456789";                                
@@ -239,11 +216,11 @@ class vista_final extends conexion
                         while($ren_config=mysql_fetch_array($res_config))
                             {
                                 $config_user[$ren_config["nombre_campo"]] = $ren_config["valor_campo"];                                      
-                            }
+                            }                        
                         if($config_user["usar_captcha_google"]=='si')
                             {                               
                                 if(file_exists("librerias/recaptcha/recaptchalib.php") && is_readable("librerias/recaptcha/recaptchalib.php"))
-                                   {
+                                   {                                                                                 
                                         require_once('librerias/recaptcha/recaptchalib.php');
                                         $sql = "select llave_privada_captcha from nazep_configuracion ";
                                         $resSql = mysql_query($sql);
@@ -252,12 +229,15 @@ class vista_final extends conexion
                                         $resp = recaptcha_check_answer ($llavePrivada,
                                         $_SERVER["REMOTE_ADDR"],
                                         $_POST["recaptcha_challenge_field"],
-                                        $_POST["recaptcha_response_field"]);                                        
-                                        if(!$resp->is_valid)
-                                            {  header("Location: index.php?sec=$sec&f=n&m=7");   }                                                                               
+                                        $_POST["recaptcha_response_field"]);
+                                        
+                                        if($resp->is_valid==false)
+                                            {
+                                                header("Location: index.php?sec=$sec&f=n&m=7");   
+                                                exit();
+                                            }                                                                               
                                    }  
-                            }    
-                            
+                            }                                
                         if($config_user["usar_correo_como_usuario"]=='no')
                             {
                                 $sql = "select nick_usuario from nazep_usuarios_final where nick_usuario = '$txt_nick_usuario_registrar'";
@@ -273,7 +253,8 @@ class vista_final extends conexion
                         if($can_reg==1)
                             {
                                 //error existe el usuario
-                                header("Location: index.php?sec=$sec&f=n&m=2");                           
+                                header("Location: index.php?sec=$sec&f=n&m=2");
+                                exit();
                             }
                         if($sqlb!='')
                             {
@@ -283,12 +264,14 @@ class vista_final extends conexion
                                     {
                                         //error existe el correo
                                         header("Location: index.php?sec=$sec&f=n&m=3");
+                                        exit();
                                     }
                             }                            
                         if($txt_password_usuario_a!=$txt_password_usuario_b)
                             {
                                 //error no son las mismas contraseñas
                                 header("Location: index.php?sec=$sec&f=n&m=4");
+                                exit();
                             }                            
                         $txt_password_usuario = md5($txt_password_usuario_a);
                         $fecha_hoy = date("Y-m-d");
@@ -329,8 +312,7 @@ class vista_final extends conexion
                                 $user_smtp = $ren_con["user_smtp"];
                                 $pass_smtp	= $ren_con["pass_smtp"];
                                 $mensaje_nuevo_usuario_vista = $ren_con["mensaje_nuevo_usuario_vista"];
-                                $url_sitio = $ren_con["url_sitio"];
-                                
+                                $url_sitio = $ren_con["url_sitio"];                                
                                 $mensajeCodigo = "";
                                 if($config_user["enviar_codigo_activacion"]=='si')
                                     {
@@ -348,7 +330,6 @@ class vista_final extends conexion
                                     {
                                         $mail->IsSMTP();
                                         $mail->Host = $servidor_smtp;
-
                                         $mail->SMTPAuth = true;
                                         $mail->Username = $user_smtp; 
                                         $mail->Password = $pass_smtp; 
@@ -384,13 +365,14 @@ class vista_final extends conexion
                                     {
                                         //fallo
                                         header("Location: index.php?sec=$sec&f=n&m=6");
+                                        exit();
                                     }
                                 else 
                                     {
                                         //Todo esta bien
                                         header("Location: index.php?sec=$sec&f=n&m=1");
-                                    }
-                                        
+                                        exit();
+                                    }                                        
                             }
                         else
                             {
@@ -407,8 +389,6 @@ class vista_final extends conexion
                                 $config_user[$ren_config["nombre_campo"]] = $ren_config["valor_campo"];                                      
                             }					
                         $formularios = (isset($_GET["f"]))?$_GET["f"]:'';
-
-
                         if($formularios=='' )
                             {
                                 $this->formulario_ingresar_usuarios($config_user,$sec);
@@ -444,8 +424,7 @@ class vista_final extends conexion
                         else 
                             {
                                 echo '<div class="divusuarionoactivado">No existe el registro del codigo</div>';
-                            }
-                                
+                            }                                
                     }                    
 		private function enviarNuevoPassword()
                     {
@@ -552,7 +531,6 @@ class vista_final extends conexion
                                                 <br /><br />
                                                 $url_sitio/index.php
                                                 <br /><br />
-
                                                 Atentamente
                                                 <br /><br />
                                                 $nombre_ad
@@ -575,8 +553,7 @@ class vista_final extends conexion
                         else
                             {
                                 header("Location: index.php?sec=$sec&f=r&m=5");
-                            }
-                                
+                            }                                
                     }                    
                 function formulario_ingresar_usuarios($config_user,$sec)
                     {
@@ -641,21 +618,6 @@ class vista_final extends conexion
                                             {
                                                 $.buscarCorreoRegistrado(valor,"'.$sec.'");
                                             }
-                                        function validarCaptcha(formulario)
-                                            {
-                                                if(formulario.recaptcha_response_field.value=="")
-                                                    {
-                                                        alert("No puedes quedar vac\u00EDo el campo de captcha")
-                                                        formulario.recaptcha_response_field.focus();
-                                                        return false;
-                                                    }
-                                                else
-                                                    {
-                                                        valoruno = formulario.recaptcha_challenge_field.value;
-                                                        valordos = formulario.recaptcha_response_field.value;
-                                                        $.validarCapcha(formulario, valoruno, valordos, "'.$sec.'")
-                                                    }                                                
-                                            }
                                         function validarRegistro(formulario)
                                             {
                                        ';
@@ -680,7 +642,6 @@ class vista_final extends conexion
                                                                 formulario.txt_nick_usuario_registrar.focus();
                                                                 return false;												
                                                             }
-
                                                     }
                                                ';
                                 }
@@ -715,7 +676,7 @@ class vista_final extends conexion
                                                         return false;
                                                     }                                                
                                                 ';
-                                    }
+                                    }                                                                                                                                                           
                             $texto .= '
                                                 if(formulario.txt_password_usuario_a.value == "") 
                                                     {
@@ -735,7 +696,19 @@ class vista_final extends conexion
                                                         formulario.txt_password_usuario_a.focus();
                                                         return false;
                                                     }
-                                                formulario.submit();
+                                            ';
+                            if($config_user["usar_captcha_google"]=='si')
+                                    {
+                                        $texto .='
+                                                if(formulario.recaptcha_response_field.value=="")
+                                                    {
+                                                        alert("No puedes quedar vac\u00EDo el campo de captcha")
+                                                        formulario.recaptcha_response_field.focus();
+                                                        return false;
+                                                    }                                              
+                                                ';
+                                    }                                                                                
+                           $texto .= '        
                                             }                                                                    
                                       ';
                         $texto .= html::script(array('presentacion'=>'return', 'tipo'=>'fin'));
@@ -931,25 +904,16 @@ class vista_final extends conexion
                                                 $renSql = mysql_fetch_array($resSql);
                                                 $llave_publica_captcha = $renSql["llave_publica_captcha"];                                                                                              
                                                 $texto .= recaptcha_get_html($llave_publica_captcha);
-                                                $texto .= '<div class="div_mensaje_captcha" id="div_mensaje_captcha"></div>';
                                             }
                                         else
                                             {
-                                                $texto .= 'No se puede cargar el sistema Capcha';
+                                                $texto .= 'No se puede cargar el sistema Captcha';
                                             }                                                                                  
                                         $texto .= '</div>';
-                                        $texto .= '<div class="div_boton_registrar_usuario" > 
-                                            <input type="button" value="Registrar Usuario" onclick= "return validarCaptcha(this.form)" > 
-                                            </div>';
                                     }
-                                else 
-                                    {
-                                        $texto .= '<div class="div_boton_registrar_usuario" > 
-                                            <input type="button" value="Registrar Usuario" onclick= "return validarRegistro(this.form)" > 
-                                            </div>';
-                                    }
-
-                                
+                                $texto .= '<div class="div_boton_registrar_usuario" > 
+                                    <input type="submit" value="Registrar Usuario" onclick= "return validarRegistro(this.form)" > 
+                                    </div>';                                
                         $texto .= '</form>';
                         $texto .= '<div class="div_enlace_regreso_acceso" ><a href="index.php?sec='.$sec.'">Regresar Formulario de Ingreso</a></div> ';
                         echo $texto;							

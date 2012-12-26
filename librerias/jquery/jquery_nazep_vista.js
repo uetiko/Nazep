@@ -7,39 +7,7 @@ Fecha última Modificación: Diciembre 2009
 Versión: 0.2
 Autor: Claudio Morales Godinez
 Correo electrónico: claudio@nazep.com.mx
-*/
-jQuery.validarCapcha = function(formulario, recaptcha_challenge_field, recaptcha_response_field, seccion)
-        {
-            $.ajax({
-                    async:true,
-                    type:"POST",
-                    url: "index.php",
-                    data: "recaptcha_challenge_field="+recaptcha_challenge_field+"&recaptcha_response_field="+recaptcha_response_field+"&sqlBack=si&validarCapcha=si",
-                    beforeSend: function(data)
-                            {
-                                $("#div_mensaje_captcha").html("Verificando Captcha");
-                            },
-                     success:function(data)
-                            {
-                                data_final = data;
-                                if(data_final=="valido")
-                                    {
-                                         $("#div_mensaje_captcha").html("Captcha Valido");
-                                          validarRegistro(formulario);
-                                    }
-                                else if(data_final=="invalido")
-                                    {
-                                        $("#div_mensaje_captcha").html("Captcha NO Valido");                                       
-                                    }
-                            },
-                    error: function(data, error)
-                            {
-                                $("#div_mensaje_captcha").html("Ocurrio el siguiente problema: "+data); 
-                            }					
-                    })
-            return true;                       
-        }
-        
+*/        
 jQuery.buscarUsuarioRegistrado = function(nombreUsuario, seccion)
         {
             if(nombreUsuario.length>3)
