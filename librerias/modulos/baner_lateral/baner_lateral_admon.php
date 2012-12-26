@@ -14,9 +14,12 @@ class clase_baner_lateral extends conexion
 		//Propiedads privadas para la direcci�n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/baner_lateral/baner_lateral_admon.php';
 		private $NomClase = 'clase_baner_lateral';
-		function __construct()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/baner_lateral.php');
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/baner_lateral.php');
+                                }
 			} 
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo	
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)

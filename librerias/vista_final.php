@@ -2261,7 +2261,8 @@ class vista_final extends conexion
 				$hoy = date('Y-m-d');
 				$con_sec = " select clave_seccion, titulo, tipo_contenido, tipo_titulo, flash_secion, imagen_secion, ancho_medio, alto_medio from  nazep_secciones  where clave_seccion_pertenece = '1' 
 					        and (case usar_vigencia  when 'si' then fecha_iniciar_vigencia <= '$hoy' and fecha_termina_vigencia >= '$hoy' when 'no' then 1 else 0 end) and situacion = 'activo' order by orden limit $inicio, $cantidad";
-				$res_sub  = mysql_query($con_sec);	
+				$conexion = $this->conectarse();
+                                $res_sub  = mysql_query($con_sec);	
 				$can_sub = mysql_num_rows($res_sub);
 				if($can_sub!=0)
 					{
@@ -2596,46 +2597,47 @@ class vista_final extends conexion
 		function historial_vista($sec, $simbolo, $alineacion, $target)
 			{
 				/*
-				Funci�n que te permite ver le historial de navegaci�n en las secciones del portal.
-				se recibe la clave de la secci�n y el simbolo que se usara para dividir las secciones 
+				Función que te permite ver le historial de navegación en las secciones del portal.
+				se recibe la clave de la sección y el simbolo que se usara para dividir las secciones 
 				*/
 				$clave_seccion_usada = $sec;
+                                $conexion = $this->conectarse();
 				for($a=1;$a>0;$a++)
-					{	
-						if($clave_seccion_usada=="")
-							{$clave_seccion_usada = '1';}
-						$con = "select clave_seccion_pertenece, titulo from nazep_secciones where clave_seccion = '$clave_seccion_usada'";	
-						$res = mysql_query($con);
-						$ren = mysql_fetch_array($res);
-						$clave_seccion_pertenece = $ren["clave_seccion_pertenece"]; 
-						$titulo = $ren["titulo"];
-						$arreglo_seccion[$a] = $clave_seccion_usada;
-						$nombre_seccion[$a] = $titulo;
-						if($clave_seccion_usada == 1)
-							{$a = -1;}
-						else
-							{$clave_seccion_usada = $clave_seccion_pertenece;}			
-					}
+                                    {	
+                                        if($clave_seccion_usada=="")
+                                                {$clave_seccion_usada = '1';}
+                                        $con = "select clave_seccion_pertenece, titulo from nazep_secciones where clave_seccion = '$clave_seccion_usada'";	
+                                        $res = mysql_query($con);
+                                        $ren = mysql_fetch_array($res);
+                                        $clave_seccion_pertenece = $ren["clave_seccion_pertenece"]; 
+                                        $titulo = $ren["titulo"];
+                                        $arreglo_seccion[$a] = $clave_seccion_usada;
+                                        $nombre_seccion[$a] = $titulo;
+                                        if($clave_seccion_usada == 1)
+                                            {$a = -1;}
+                                        else
+                                            {$clave_seccion_usada = $clave_seccion_pertenece;}			
+                                    }
 				$cantidad = count($nombre_seccion);
 				echo '<table width="100%" border="0">';
-					echo '<tr>';
-						echo '<td align="'.$alineacion.'">';
-							for($a=$cantidad;$a>0;$a--)
-								{
-									$clave = $arreglo_seccion[$a];
-									$nombre = $nombre_seccion[$a];	
-									if($a!=1)
-										{
-											echo '<a class="enlace_historial" href= "index.php?sec='.$clave.'" target="'.$target.'">'.$nombre.'</a>';
-											echo '<span class="flecha_historial">&nbsp;'.$simbolo.'&nbsp;</span>';
-										}
-									else
-										{
-											echo '<span class="final_historia">'.$nombre.'</span>';
-										}
-								}
-						echo '</td>';
-					echo '</tr>';
+                                    echo '<tr>';
+                                        echo '<td align="'.$alineacion.'">';
+                                            for($a=$cantidad;$a>0;$a--)
+                                                {
+                                                    $clave = $arreglo_seccion[$a];
+                                                    $nombre = $nombre_seccion[$a];	
+                                                    if($a!=1)
+                                                        {
+                                                            echo '<a class="enlace_historial" href= "index.php?sec='.$clave.'" target="'.$target.'">'.$nombre.'</a>';
+                                                            echo '<span class="flecha_historial">&nbsp;'.$simbolo.'&nbsp;</span>';
+                                                        }
+                                                    else
+                                                        {
+                                                            echo '<span class="final_historia">'.$nombre.'</span>';
+                                                        }
+                                                }
+                                        echo '</td>';
+                                    echo '</tr>';
 				echo '</table>';
 				return $nombre;
 			}

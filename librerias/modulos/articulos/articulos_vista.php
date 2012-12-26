@@ -2,18 +2,18 @@
 /*
 Sistema: Nazep
 Nombre archivo: articulos_vista.php
-Funci�n archivo: archivo para la visualizaci�n del m�dulo de art�culos
-Fecha creaci�n: junio 2007
-Fecha �ltima Modificaci�n: Marzo 2011
-Versi�n: 0.2
+Función archivo: archivo para la visualización del módulo de artículos
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
 Autor: Claudio Morales Godinez
-Correo electr�nico: claudio@nazep.com.mx
+Correo electrónico: claudio@nazep.com.mx
 */
 class clase_articulos extends conexion
 	{	
 		function __construct()
 			{
-				include('librerias/idiomas/'.FunGral::SaberIdioma().'/articulos.php');
+                            include('librerias/idiomas/'.FunGral::SaberIdioma().'/articulos.php');
 			}
 		function vista_redireccion($sec, $ubicacion_tema, $nick_usuario, $clave_modulo)
 			{

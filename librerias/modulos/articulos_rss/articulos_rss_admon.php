@@ -14,9 +14,12 @@ class clase_articulos_rss extends conexion
 		//Propiedads privadas para la direcci�n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/articulos_rss/articulos_rss_admon.php';
 		private $NomClase = 'clase_articulos_rss';
-		function __construct()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos_rss.php');
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos_rss.php');
+                                }
 			}	
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)

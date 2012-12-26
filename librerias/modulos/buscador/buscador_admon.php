@@ -13,9 +13,12 @@ class clase_buscador extends conexion
 	{
 		private $DirArchivo = '../librerias/modulos/buscador/buscador_admon.php';
 		private $NomClase = 'clase_buscador';
-		function __construct()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/buscador.php');
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/buscador.php');
+                                }
 			}		
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo	
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)

@@ -14,9 +14,12 @@ class clase_contenido extends conexion
 		
 		private $DirArchivo = '../librerias/modulos/contenido/contenido_admon.php';
 		private $NomClase = 'clase_contenido';
-		function __construct()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/contenido.php');
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/contenido.php');
+                                }
 			}
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)

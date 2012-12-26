@@ -14,9 +14,12 @@ class clase_articulos_lista extends conexion
 		//Propiedads privadas para la direcci�n del archivo y nombre de la clase
 		private $DirArchivo = '../librerias/modulos/articulos_lista/articulos_lista_admon.php';
 		private $NomClase = 'clase_articulos_lista';
-		function __construct()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos_lista.php');
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/articulos_lista.php');
+                                }
 			}	
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo	
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)

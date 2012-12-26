@@ -65,6 +65,7 @@ define('txt_password_b','Repetir Contrase&ntilde;a del nuevo usuario');
 define('txt_nombre_usuario','Nombre real del Usuario');
 define('txt_apellido_p_usuario','Apellido Paterno del Usuario');
 define('txt_apellido_m_usuario','Apellido Materno del Usuario');
+define('txt_fecha_nacimiento_usuario','Fecha Nacimiento');
 define('txt_ubicacion_usuario','Ubicaci&oacute;n Geogr&aacute;fica del Usuario');
 define('txt_web_usuario','Web del Usuario');
 define('txt_zona_horaria_usuario','Zona Horaria GMT');

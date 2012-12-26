@@ -2,26 +2,28 @@
 /*
 Sistema: Nazep
 Nombre archivo: contacto_admon.php
-Funci�n archivo: archivo para controlar la administraci�n del m�dulo de contacto
-Fecha creaci�n: junio 2007
-Fecha �ltima Modificaci�n: Marzo 2011
-Versi�n: 0.2
+Función archivo: archivo para controlar la administración del módulo de contacto
+Fecha creación: junio 2007
+Fecha última Modificación: Marzo 2011
+Versión: 0.2
 Autor: Claudio Morales Godinez
-Correo electr�nico: claudio@nazep.com.mx
+Correo electrónico: claudio@nazep.com.mx
 */
 class clase_contacto extends conexion
 	{
 		private $DirArchivo = '../librerias/modulos/contacto/contacto_admon.php';
 		private $NomClase = 'clase_contacto';		
-		function clase_contacto()
+		function __construct($etapa='test')
 			{
-				include('../librerias/idiomas/'.FunGral::SaberIdioma().'/contacto.php');
+                            if($etapa=='usar')
+                                {
+                                    include('../librerias/idiomas/'.FunGral::SaberIdioma().'/contacto.php');
+                                }
 			}	
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
 			{
-				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));
-				echo "--$situacion--****$clave_seccion_enviada****$clave_modulo";
+				$situacion = FunGral::VigenciaModulo(array('clave_seccion'=>$clave_seccion_enviada,'clave_modulo'=>$clave_modulo));				
 				if($situacion == "activo")
 					{
 						HtmlAdmon::AccesoMetodo(array(
@@ -32,9 +34,9 @@ class clase_contacto extends conexion
 							'BName'=>'btn_ver_mensajes',
 							'BId'=>'btn_ver_mensajes',
 							'OpcOcultas' => array(
-											'archivo' =>$this->DirArchivo,
-											'clase' =>$this->NomClase,
-											'metodo' =>'ver_mensajes') ));							
+                                                                                'archivo' =>$this->DirArchivo,
+                                                                                'clase' =>$this->NomClase,
+                                                                                'metodo' =>'ver_mensajes') ));							
 						if($nivel=="1")
 							{
 								HtmlAdmon::AccesoMetodo(array(

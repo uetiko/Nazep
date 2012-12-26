@@ -13,9 +13,12 @@ class clase_recomendar extends conexion
 	{
 		private $DirArchivo = '../librerias/modulos/recomendar/recomendar_admon.php';
 		private $NomClase = 'clase_recomendar';		
-		function clase_recomendar()
+		function __construct($etapa='test')
 			{
-				include_once('../librerias/idiomas/'.FunGral::SaberIdioma().'/recomendar.php');
+                            if($etapa=='usar')
+                                {
+                                    include_once('../librerias/idiomas/'.FunGral::SaberIdioma().'/recomendar.php');
+                                }
 			} 
 // ------------------------------ Inicio de funciones para controlar las funciones del m�dulo
 		function op_modificar_central($clave_seccion_enviada, $nivel, $clave_modulo)
