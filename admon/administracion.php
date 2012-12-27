@@ -2,12 +2,12 @@
 /*
 Sistema: Nazep
 Nombre archivo: administracion.php
-Funci�n archivo: Generar toda la interfaz de administraci�n del sistema
-Fecha creaci�n: junio 2007
-Fecha �ltima Modificaci�n: Julio 2010
-Versi�n: 0.2
+Función archivo: Generar toda la interfaz de administración del sistema
+Fecha creación: junio 2007
+Fecha última Modificación: Diciembre 2012
+Versión: 0.2
 Autor: Claudio Morales Godinez
-Correo electr�nico: claudio@nazep.com.mx
+Correo electrónico: claudio@nazep.com.mx
 */
 include("../librerias/conexion.php");
 include("../librerias/fckeditor/fckeditor.php");
@@ -15,195 +15,194 @@ include_once("../librerias/html.php");
 include_once("../librerias/html_admon.php");
 include_once("../librerias/FunGral.php");
 class administracion extends conexion
-	{
-		var $nick_user;
-		var $correo_user;
-		var $nombre;
-		var $nivel;
-		var $sesion = "no"; 
-		var $secciones;
-		var $nombre_secciones;
-		var $ubi_tema;
-		var $ancho_pixeles;	
+    {
+        var $nick_user;
+        var $correo_user;
+        var $nombre;
+        var $nivel;
+        var $sesion = "no"; 
+        var $secciones;
+        var $nombre_secciones;
+        var $ubi_tema;
+        var $ancho_pixeles;	
 				
-		function validar_usuario()
-			{
-				if(!isset($_POST["validar"]) || $_POST["validar"]=="")
-					{
-						echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-						$this->firma();
-						echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">';
-							if(@$_GET["cambiar"]=="contra")
-								{
-									echo '<head><title>::-:: '.titulo_camb_contra.' ::-::</title>';	
-									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
-									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
-									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
-									<script type="text/javascript">
-									$(document).ready(function()
-										{
-											$.frm_elem_color("#FACA70","");
-											$("#nick_usuario_contras").focus();
-										});
-									</script>';	
-									echo '</head> <body>';
-										echo '<form id="formulario_contras" name="formulario_contras" method="post" action="index.php" class="margen_cero">';
-											echo '<div id="div_centro_registro" >';
-												echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Cambiar Contrase�a de un Usuario </div> </div>';
-												echo '<div id="registro_2" class="class_registro_2">';
-													echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se enviado a su email la nueva contrase&ntilde;a</div>';
-													echo '<div id="campos_form_bloqueo">';
-														echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_contras" id="nick_usuario_contras" />
-														<input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "contra" />
-														<br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
-													echo '</div>';
-													echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
-													echo '<div id="div_mensajes" class="div_error_registro" >';
-														if($_GET["mensaje"]=="")
-															$texto_mostrar='&nbsp;';
-														elseif($_GET["mensaje"]==0)
-															$texto_mostrar='El cambio de contrase&ntilde;a fue exitoso';
-														elseif($_GET["mensaje"]==1)
-															$texto_mostrar='No existe ese usuario solicitado';
-														elseif($_GET["mensaje"]==2)
-															$texto_mostrar='No se logro actualizar los datos del usuario';
-														elseif($_GET["mensaje"]==3)
-															$texto_mostrar='No se logro mandar el correo electronico';
-														echo $texto_mostrar;
-													echo '</div>';
-												echo '</div>';
-												echo'<div id="registro_3" class="class_registro_3">';
-													echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
-												echo'</div>';
-												echo '<div id="validador_registro"> ';
-													echo '<a href="http://validator.w3.org/check?uri=referer">';
-													if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
-														{echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
-													else
-														{ echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
-													echo '</a>';
-												echo '</div>';
-											echo '</div>';
-										echo '</form>';
-									
-								}
-							elseif(@$_GET["cambiar"]=="bloqueo")
-								{
-									echo '<head><title>::-:: '.titulo_camb_bloqueo.' ::-::</title>';	
-									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
-									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
-									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
-									<script type="text/javascript">
-									$(document).ready(function()
-										{									
-											$.frm_elem_color("#FACA70","");
-											$("#nick_usuario_bloqueo").focus();
-										});
-									</script>';			
-									echo '</head> <body>';
-										echo '<form id="formulario_bloqueo" name="formulario_bloqueo" method="post" action="index.php" class="margen_cero">';
-											echo '<div id="div_centro_registro" >';
-												echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Desbloquer Cuenta de Usuario </div> </div>';
-												echo '<div id="registro_2" class="class_registro_2">';
-													echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se desbloque su cuenta, como que se genere una nueva contrase&ntilde;a que ser� enviada a su e-mail</div>';
-													echo '<div id="campos_form_bloqueo">';
-														echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_bloqueo" id="nick_usuario_bloqueo" />
-														<input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "bloqueo" />
-														<br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
-													echo '</div>';
-													echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
-													echo '<div id="div_mensajes" class="div_error_registro" >';
-														if($_GET["mensaje"]=="")
-															$texto_mostrar='&nbsp;';
-														elseif($_GET["mensaje"]==0)
-															$texto_mostrar='El desbloqueo fue exitoso';
-														elseif($_GET["mensaje"]==1)
-															$texto_mostrar='No existe ese usuario bloqueado';
-														elseif($_GET["mensaje"]==2)
-															$texto_mostrar='No se logro actualizar los datos del usuario';
-														elseif($_GET["mensaje"]==3)
-															$texto_mostrar='No se logro mandar el correo electronico';
-														echo $texto_mostrar;
-													echo '</div>';
-												echo '</div>';
-												echo'<div id="registro_3" class="class_registro_3"><div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div></div>';
-												echo '<div id="validador_registro"> ';
-													echo '<a href="http://validator.w3.org/check?uri=referer">';
-													if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
-														{echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
-													else
-														{ echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
-													echo '</a>';
-												echo '</div>';
-											echo '</div>';
-										echo '</form>';
-								}
-							else
-								{//formulario acceso
-									echo '<head><title>::-:: '.titulo_acceso_admon.' ::-::</title>';	
-									echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
-									echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-                                                                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-									<script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
-									<script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
-									<script type="text/javascript">
-									$(document).ready(function()
-										{
-											$.frm_elem_color("#FACA70","");
-											$("#nick_usuario").focus();
-										});
-									</script>';
-									echo '</head> <body>';
-										echo '<form id="formulario_acceso" name="formulario_acceso" method="post" action="index.php" class="margen_cero">';
-										   echo '<div id="div_centro_registro">';
-												echo '<div id="div_error_registro" class="div_error_registro" >';
-													$error_de_usuario = @$_GET["error_usuario"];
-													$intentos = htmlentities(@$_GET["intentos"]);
-													$bloqueo = htmlentities(@$_GET["bloqueo"]);
-													if($error_de_usuario  == "si") 
-														echo error_acceso_admon;
-													else
-														echo '&nbsp;';
-													if($intentos!=0)
-														echo inten_error_acceso_admon." ".$intentos.inten_error_acceso_admon2;
-													if($bloqueo!="")
-														{
-															$user = htmlentities($_GET["user"]);
-															echo inten_error_acceso_admon3.$user.inten_error_acceso_admon4;
-														}
-												echo '</div>';
-												echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Ingreso al Administrador </div> </div>';
-												echo '<div id="registro_2" class="class_registro_2">';
-													echo '<div id="campo_usuario">Usuario <br/><input type= "text" name="nick_usuario" id="nick_usuario" /></div>';
-													echo '<div id="campo_clave">Contrase&ntilde;a <br/><input type="password" id="pasword_usuario" name="pasword_usuario" /><br />';
-													echo '<input type="hidden" name="validar" value = "si" /><br/><input type="submit" name="Submit" value="'.txt_enviar_user.'" /></div>';
-												echo '</div>';
-												echo'<div id="registro_3" class="class_registro_3">';
-													echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
-												echo'</div>';
-												echo '<div id="div_perdio_contra" class="class_div_perdio_contra" >';
-													echo '<a href="index.php?cambiar=contra" title="'.txt_perdio_contra.'" > '.txt_perdio_contra.'</a>';
-												echo '</div>';
-												echo '<div id="div_rec_bloqueo" class="class_div_rec_bloqueo" >';
-													echo '<a href="index.php?cambiar=bloqueo" title="'.txt_bloqueo_user.'" > '.txt_bloqueo_user.'</a>';
-												echo '</div>';
-												echo '<div id="validador_registro"> ';
-													echo '<a href="http://validator.w3.org/check?uri=referer">';
-													if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
-														{echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
-													else
-														{ echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
-													echo '</a>';
-												echo '</div>';
-											echo '</div>';
-										echo '</form>';
-								}
-							
-							echo '</body>';
-						echo '</html>';
-					}
+        function validar_usuario()
+            {
+                if(!isset($_POST["validar"]) || $_POST["validar"]=="")
+                    {
+                        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+                        $this->firma();
+                        echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">';
+                            if(@$_GET["cambiar"]=="contra")
+                                {
+                                    echo '<head><title>::-:: '.titulo_camb_contra.' ::-::</title>';	
+                                    echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
+                                    echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                                    <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
+                                    <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
+                                    <script type="text/javascript">
+                                    $(document).ready(function()
+                                            {
+                                                    $.frm_elem_color("#FACA70","");
+                                                    $("#nick_usuario_contras").focus();
+                                            });
+                                    </script>';	
+                                    echo '</head> <body>';
+                                        echo '<form id="formulario_contras" name="formulario_contras" method="post" action="index.php" class="margen_cero">';
+                                                echo '<div id="div_centro_registro" >';
+                                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Cambiar Contrase�a de un Usuario </div> </div>';
+                                                        echo '<div id="registro_2" class="class_registro_2">';
+                                                                echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se enviado a su email la nueva contrase&ntilde;a</div>';
+                                                                echo '<div id="campos_form_bloqueo">';
+                                                                        echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_contras" id="nick_usuario_contras" />
+                                                                        <input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "contra" />
+                                                                        <br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
+                                                                echo '</div>';
+                                                                echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
+                                                                echo '<div id="div_mensajes" class="div_error_registro" >';
+                                                                        if($_GET["mensaje"]=="")
+                                                                                $texto_mostrar='&nbsp;';
+                                                                        elseif($_GET["mensaje"]==0)
+                                                                                $texto_mostrar='El cambio de contrase&ntilde;a fue exitoso';
+                                                                        elseif($_GET["mensaje"]==1)
+                                                                                $texto_mostrar='No existe ese usuario solicitado';
+                                                                        elseif($_GET["mensaje"]==2)
+                                                                                $texto_mostrar='No se logro actualizar los datos del usuario';
+                                                                        elseif($_GET["mensaje"]==3)
+                                                                                $texto_mostrar='No se logro mandar el correo electronico';
+                                                                        echo $texto_mostrar;
+                                                                echo '</div>';
+                                                        echo '</div>';
+                                                        echo'<div id="registro_3" class="class_registro_3">';
+                                                                echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
+                                                        echo'</div>';
+                                                        echo '<div id="validador_registro"> ';
+                                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
+                                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
+                                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
+                                                                else
+                                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
+                                                                echo '</a>';
+                                                        echo '</div>';
+                                                echo '</div>';
+                                        echo '</form>';
+                                }
+                            elseif(@$_GET["cambiar"]=="bloqueo")
+                                        {
+                                                echo '<head><title>::-:: '.titulo_camb_bloqueo.' ::-::</title>';	
+                                                echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
+                                                echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                                                <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
+                                                <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
+                                                <script type="text/javascript">
+                                                $(document).ready(function()
+                                                        {									
+                                                                $.frm_elem_color("#FACA70","");
+                                                                $("#nick_usuario_bloqueo").focus();
+                                                        });
+                                                </script>';			
+                                                echo '</head> <body>';
+                                                        echo '<form id="formulario_bloqueo" name="formulario_bloqueo" method="post" action="index.php" class="margen_cero">';
+                                                                echo '<div id="div_centro_registro" >';
+                                                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Desbloquer Cuenta de Usuario </div> </div>';
+                                                                        echo '<div id="registro_2" class="class_registro_2">';
+                                                                                echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se desbloque su cuenta, como que se genere una nueva contrase&ntilde;a que ser� enviada a su e-mail</div>';
+                                                                                echo '<div id="campos_form_bloqueo">';
+                                                                                        echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_bloqueo" id="nick_usuario_bloqueo" />
+                                                                                        <input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "bloqueo" />
+                                                                                        <br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
+                                                                                echo '</div>';
+                                                                                echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
+                                                                                echo '<div id="div_mensajes" class="div_error_registro" >';
+                                                                                        if($_GET["mensaje"]=="")
+                                                                                                $texto_mostrar='&nbsp;';
+                                                                                        elseif($_GET["mensaje"]==0)
+                                                                                                $texto_mostrar='El desbloqueo fue exitoso';
+                                                                                        elseif($_GET["mensaje"]==1)
+                                                                                                $texto_mostrar='No existe ese usuario bloqueado';
+                                                                                        elseif($_GET["mensaje"]==2)
+                                                                                                $texto_mostrar='No se logro actualizar los datos del usuario';
+                                                                                        elseif($_GET["mensaje"]==3)
+                                                                                                $texto_mostrar='No se logro mandar el correo electronico';
+                                                                                        echo $texto_mostrar;
+                                                                                echo '</div>';
+                                                                        echo '</div>';
+                                                                        echo'<div id="registro_3" class="class_registro_3"><div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div></div>';
+                                                                        echo '<div id="validador_registro"> ';
+                                                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
+                                                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
+                                                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
+                                                                                else
+                                                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
+                                                                                echo '</a>';
+                                                                        echo '</div>';
+                                                                echo '</div>';
+                                                        echo '</form>';
+                                        }
+                                else
+                                        {//formulario acceso
+                                                echo '<head><title>::-:: '.titulo_acceso_admon.' ::-::</title>';	
+                                                echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
+                                                echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                                <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
+                                                <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
+                                                <script type="text/javascript">
+                                                $(document).ready(function()
+                                                        {
+                                                                $.frm_elem_color("#FACA70","");
+                                                                $("#nick_usuario").focus();
+                                                        });
+                                                </script>';
+                                                echo '</head> <body>';
+                                                        echo '<form id="formulario_acceso" name="formulario_acceso" method="post" action="index.php" class="margen_cero">';
+                                                           echo '<div id="div_centro_registro">';
+                                                                        echo '<div id="div_error_registro" class="div_error_registro" >';
+                                                                                $error_de_usuario = @$_GET["error_usuario"];
+                                                                                $intentos = htmlentities(@$_GET["intentos"]);
+                                                                                $bloqueo = htmlentities(@$_GET["bloqueo"]);
+                                                                                if($error_de_usuario  == "si") 
+                                                                                        echo error_acceso_admon;
+                                                                                else
+                                                                                        echo '&nbsp;';
+                                                                                if($intentos!=0)
+                                                                                        echo inten_error_acceso_admon." ".$intentos.inten_error_acceso_admon2;
+                                                                                if($bloqueo!="")
+                                                                                        {
+                                                                                                $user = htmlentities($_GET["user"]);
+                                                                                                echo inten_error_acceso_admon3.$user.inten_error_acceso_admon4;
+                                                                                        }
+                                                                        echo '</div>';
+                                                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Ingreso al Administrador </div> </div>';
+                                                                        echo '<div id="registro_2" class="class_registro_2">';
+                                                                                echo '<div id="campo_usuario">Usuario <br/><input type= "text" name="nick_usuario" id="nick_usuario" /></div>';
+                                                                                echo '<div id="campo_clave">Contrase&ntilde;a <br/><input type="password" id="pasword_usuario" name="pasword_usuario" /><br />';
+                                                                                echo '<input type="hidden" name="validar" value = "si" /><br/><input type="submit" name="Submit" value="'.txt_enviar_user.'" /></div>';
+                                                                        echo '</div>';
+                                                                        echo'<div id="registro_3" class="class_registro_3">';
+                                                                                echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
+                                                                        echo'</div>';
+                                                                        echo '<div id="div_perdio_contra" class="class_div_perdio_contra" >';
+                                                                                echo '<a href="index.php?cambiar=contra" title="'.txt_perdio_contra.'" > '.txt_perdio_contra.'</a>';
+                                                                        echo '</div>';
+                                                                        echo '<div id="div_rec_bloqueo" class="class_div_rec_bloqueo" >';
+                                                                                echo '<a href="index.php?cambiar=bloqueo" title="'.txt_bloqueo_user.'" > '.txt_bloqueo_user.'</a>';
+                                                                        echo '</div>';
+                                                                        echo '<div id="validador_registro"> ';
+                                                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
+                                                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
+                                                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
+                                                                                else
+                                                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
+                                                                                echo '</a>';
+                                                                        echo '</div>';
+                                                                echo '</div>';
+                                                        echo '</form>';
+                                        }
+
+                                echo '</body>';
+                        echo '</html>';
+                }
 				elseif(isset($_POST["validar"]) && $_POST["validar"]=="si")
 					{
 						if(isset($_POST["cambiar"]) && $_POST["cambiar"]=="bloqueo")
