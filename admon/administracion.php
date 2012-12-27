@@ -25,7 +25,451 @@ class administracion extends conexion
         var $nombre_secciones;
         var $ubi_tema;
         var $ancho_pixeles;	
-				
+	private function formularioCambiarContra()
+            {
+                echo '<head><title>::-:: '.titulo_camb_contra.' ::-::</title>';	
+                    echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
+                    echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                    <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
+                    <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
+                    <script type="text/javascript">
+                    $(document).ready(function()
+                            {
+                                    $.frm_elem_color("#FACA70","");
+                                    $("#nick_usuario_contras").focus();
+                            });
+                    </script>';	
+                    echo '</head> <body>';
+                        echo '<form id="formulario_contras" name="formulario_contras" method="post" action="index.php" class="margen_cero">';
+                            echo '<div id="div_centro_registro" >';
+                                echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Cambiar Contrase&ntilde;a de un Usuario </div> </div>';
+                                echo '<div id="registro_2" class="class_registro_2">';
+                                    echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se enviado a su email la nueva contrase&ntilde;a</div>';
+                                    echo '<div id="campos_form_bloqueo">';
+                                        echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_contras" id="nick_usuario_contras" />
+                                        <input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "contra" />
+                                        <br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
+                                    echo '</div>';
+                                    echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
+                                    echo '<div id="div_mensajes" class="div_error_registro" >';
+                                        if($_GET["mensaje"]=="")
+                                                $texto_mostrar='&nbsp;';
+                                        elseif($_GET["mensaje"]==0)
+                                                $texto_mostrar='El cambio de contrase&ntilde;a fue exitoso';
+                                        elseif($_GET["mensaje"]==1)
+                                                $texto_mostrar='No existe ese usuario solicitado';
+                                        elseif($_GET["mensaje"]==2)
+                                                $texto_mostrar='No se logro actualizar los datos del usuario';
+                                        elseif($_GET["mensaje"]==3)
+                                                $texto_mostrar='No se logro mandar el correo electronico';
+                                        echo $texto_mostrar;
+                                    echo '</div>';
+                                echo '</div>';
+                                echo'<div id="registro_3" class="class_registro_3">';
+                                    echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
+                                echo'</div>';
+                                echo '<div id="validador_registro"> ';
+                                    echo '<a href="http://validator.w3.org/check?uri=referer">';
+                                    if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
+                                            {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
+                                    else
+                                            { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
+                                    echo '</a>';
+                                echo '</div>';
+                            echo '</div>';
+                        echo '</form>';
+            }
+        private function formularioCambiarBloqueo()
+            {
+                echo '<head><title>::-:: '.titulo_camb_bloqueo.' ::-::</title>';	
+                echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
+                echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
+                <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
+                <script type="text/javascript">
+                $(document).ready(function()
+                        {									
+                                $.frm_elem_color("#FACA70","");
+                                $("#nick_usuario_bloqueo").focus();
+                        });
+                </script>';			
+                echo '</head> <body>';
+                        echo '<form id="formulario_bloqueo" name="formulario_bloqueo" method="post" action="index.php" class="margen_cero">';
+                                echo '<div id="div_centro_registro" >';
+                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Desbloquer Cuenta de Usuario </div> </div>';
+                                        echo '<div id="registro_2" class="class_registro_2">';
+                                                echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se desbloque su cuenta, como que se genere una nueva contrase&ntilde;a que ser&aacute; enviada a su e-mail</div>';
+                                                echo '<div id="campos_form_bloqueo">';
+                                                        echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_bloqueo" id="nick_usuario_bloqueo" />
+                                                        <input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "bloqueo" />
+                                                        <br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
+                                                echo '</div>';
+                                                echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
+                                                echo '<div id="div_mensajes" class="div_error_registro" >';
+                                                        if($_GET["mensaje"]=="")
+                                                                $texto_mostrar='&nbsp;';
+                                                        elseif($_GET["mensaje"]==0)
+                                                                $texto_mostrar='El desbloqueo fue exitoso';
+                                                        elseif($_GET["mensaje"]==1)
+                                                                $texto_mostrar='No existe ese usuario bloqueado';
+                                                        elseif($_GET["mensaje"]==2)
+                                                                $texto_mostrar='No se logro actualizar los datos del usuario';
+                                                        elseif($_GET["mensaje"]==3)
+                                                                $texto_mostrar='No se logro mandar el correo electronico';
+                                                        echo $texto_mostrar;
+                                                echo '</div>';
+                                        echo '</div>';
+                                        echo'<div id="registro_3" class="class_registro_3"><div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div></div>';
+                                        echo '<div id="validador_registro"> ';
+                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
+                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
+                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
+                                                else
+                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
+                                                echo '</a>';
+                                        echo '</div>';
+                                echo '</div>';
+                        echo '</form>';
+            }
+        private function formularioAcceso()
+            {
+                echo '<head><title>::-:: '.titulo_acceso_admon.' ::-::</title>';	
+                echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
+                echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
+                <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
+                <script type="text/javascript">
+                $(document).ready(function()
+                        {
+                                $.frm_elem_color("#FACA70","");
+                                $("#nick_usuario").focus();
+                        });
+                </script>';
+                echo '</head> <body>';
+                        echo '<form id="formulario_acceso" name="formulario_acceso" method="post" action="index.php" class="margen_cero">';
+                           echo '<div id="div_centro_registro">';
+                                        echo '<div id="div_error_registro" class="div_error_registro" >';
+                                                $error_de_usuario = @$_GET["error_usuario"];
+                                                $intentos = htmlentities(@$_GET["intentos"]);
+                                                $bloqueo = htmlentities(@$_GET["bloqueo"]);
+                                                if($error_de_usuario  == "si") 
+                                                        echo error_acceso_admon;
+                                                else
+                                                        echo '&nbsp;';
+                                                if($intentos!=0)
+                                                        echo inten_error_acceso_admon." ".$intentos.inten_error_acceso_admon2;
+                                                if($bloqueo!="")
+                                                        {
+                                                                $user = htmlentities($_GET["user"]);
+                                                                echo inten_error_acceso_admon3.$user.inten_error_acceso_admon4;
+                                                        }
+                                        echo '</div>';
+                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Ingreso al Administrador </div> </div>';
+                                        echo '<div id="registro_2" class="class_registro_2">';
+                                                echo '<div id="campo_usuario">Usuario <br/><input type= "text" name="nick_usuario" id="nick_usuario" /></div>';
+                                                echo '<div id="campo_clave">Contrase&ntilde;a <br/><input type="password" id="pasword_usuario" name="pasword_usuario" /><br />';
+                                                echo '<input type="hidden" name="validar" value = "si" /><br/><input type="submit" name="Submit" value="'.txt_enviar_user.'" /></div>';
+                                        echo '</div>';
+                                        echo'<div id="registro_3" class="class_registro_3">';
+                                                echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
+                                        echo'</div>';
+                                        echo '<div id="div_perdio_contra" class="class_div_perdio_contra" >';
+                                                echo '<a href="index.php?cambiar=contra" title="'.txt_perdio_contra.'" > '.txt_perdio_contra.'</a>';
+                                        echo '</div>';
+                                        echo '<div id="div_rec_bloqueo" class="class_div_rec_bloqueo" >';
+                                                echo '<a href="index.php?cambiar=bloqueo" title="'.txt_bloqueo_user.'" > '.txt_bloqueo_user.'</a>';
+                                        echo '</div>';
+                                        echo '<div id="validador_registro"> ';
+                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
+                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
+                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
+                                                else
+                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
+                                                echo '</a>';
+                                        echo '</div>';
+                                echo '</div>';
+                        echo '</form>';
+            }
+        private function consultaformularioBloqueo()
+            {
+                $conexion = $this->conectarse();
+                $nick_usuario = $_POST["nick_usuario_bloqueo"];
+                $con_bloqueo = "select nick_user, nombre, email from nazep_usuarios_admon where nick_user = '$nick_usuario' and situacion='bloqueado'";
+                $res_bloqueo = mysql_query($con_bloqueo);
+                $cantidad_bloqueo = mysql_num_rows($res_bloqueo);
+                $estado_proceso='fallo';
+                $mensaje_error='0';
+                if($cantidad_bloqueo!=0)
+                    {
+                        $ren_bloqueo=mysql_fetch_array($res_bloqueo);
+                        $alias_usuario =  $ren_bloqueo["nick_user"];
+                        $nombre_usuario = $ren_bloqueo["nombre"];
+                        $email_usuario = $ren_bloqueo["email"];
+                        $str = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+                        $pass = '';
+                        for($i=0;$i<7;$i++) 
+                            {
+                                $pass .= substr($str,rand(0,55),1);
+                            }
+                        $pasword1 = md5($pass);
+                        $update_user="update nazep_usuarios_admon set pasword= '$pasword1', situacion='activo' where nick_user = '$nick_usuario' and situacion='bloqueado'";
+                        mysql_query("START TRANSACTION;");
+                        if (!@mysql_query($update_user))
+                            {	
+                                    $estado_proceso ='fallo';
+                                    $mensaje_error='2';
+                            }
+                        else
+                            {
+                                require("../librerias/phpmailer/class.phpmailer.php");
+                                $mail = new PHPMailer ();
+                                $mail->SetLanguage("es","../librerias/phpmailer/language/");
+                                $con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp,mensaje_nuevo_usuario_admon, url_sitio from nazep_configuracion";
+                                $res_con = mysql_query($con_conf);
+                                $ren_con = mysql_fetch_array($res_con);
+                                $envio_correo = $ren_con["envio_correo"];
+                                $servidor_smtp = $ren_con["servidor_smtp"];
+                                $user_smtp = $ren_con["user_smtp"];
+                                $pass_smtp	= $ren_con["pass_smtp"];                                       
+                                $url_sitio = $ren_con["url_sitio"];
+                                $con_datos_user = "select nombre, email from nazep_usuarios_admon where nick_user = 'admin'";
+                                $res_datos = mysql_query($con_datos_user);
+                                $ren_datos = mysql_fetch_array($res_datos);
+                                $nombre_ad = $ren_datos["nombre"];
+                                $email_ad = $ren_datos["email"];
+                                if($envio_correo =="smtp")
+                                    {
+                                        $mail->IsSMTP();
+                                        $mail->Host = $servidor_smtp;
+                                        $mail->SMTPAuth = true;     
+                                        $mail->Username = $user_smtp; 
+                                        $mail->Password = $pass_smtp; 
+                                        $mail->Mailer  = "smtp";
+                                    }
+                                if($servidor_smtp=="ssl://smtp.gmail.com")
+                                    {	
+                                        $mail->Port = 465;
+                                    }
+                                $mail->From = $email_ad;
+                                $mail->FromName = " ".$nombre_ad." ";
+                                $mail->AddAddress ($email_usuario, $nombre_usuario);
+                                $mail->IsHTML(true);
+                                $mail->Subject = "Desbloqueo de Usuario";
+                                $mail->Body =
+                                "<strong>Hola $nombre</strong> <br/><br/>
+                                El Usuario ha sido desbloqueado y se le ha asiganado una nueva contrase&ntilde;a <br /><br />
+                                Nick: $alias_usuario.  <br />
+                                Pasword: $pass <br /><br />
+                                Direcci&oacute;n de administraci&oacute;n: <br /><br />
+                                $url_sitio/admon/index.php  <br /><br /><br />
+                                Atentamente   <br /><br />
+                                $nombre_ad"; 
+                                if(!$mail->Send()) 
+                                    {
+                                        $men = $mail->ErrorInfo;
+                                        $paso = false;
+                                        mysql_query("ROLLBACK;");
+                                        $estado_proceso ='fallo';
+                                        $mensaje_error='3';
+                                    }
+                                else 
+                                    {
+                                        $estado_proceso ='paso';
+                                        $mensaje_error='0';
+                                    }
+                            }
+                    }
+                else
+                    {
+                        $estado_proceso ='fallo';
+                        $mensaje_error='1';
+                    }
+                header("Location:?cambiar=bloqueo&sit=$estado_proceso&mensaje=$mensaje_error");
+            }
+        private function consultaformularioCambiarContra()
+            {
+                $conexion = $this->conectarse();
+                $nick_usuario = $_POST["nick_usuario_contras"];
+                $con_bloqueo = "select nick_user, nombre, email from nazep_usuarios_admon where nick_user = '$nick_usuario' and situacion ='activo'";
+                $res_bloqueo = mysql_query($con_bloqueo);
+                $cantidad_bloqueo = mysql_num_rows($res_bloqueo);
+                $estado_proceso='fallo';
+                $mensaje_error='0';
+                if($cantidad_bloqueo!=0)
+                    {
+                        $ren_bloqueo=mysql_fetch_array($res_bloqueo);
+                        $alias_usuario =  $ren_bloqueo["nick_user"];
+                        $nombre_usuario = $ren_bloqueo["nombre"];
+                        $email_usuario = $ren_bloqueo["email"];
+                        $str = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+                        $pass = '';
+                        for($i=0;$i<7;$i++) 
+                            {
+                                $pass .= substr($str,rand(0,55),1);
+                            }
+                        $pasword1 = md5($pass);
+                        $update_user="update nazep_usuarios_admon set pasword= '$pasword1' where nick_user = '$nick_usuario' ";
+                        mysql_query("START TRANSACTION;");
+                        if (!@mysql_query($update_user))
+                            {	
+                                $estado_proceso ='fallo';
+                                $mensaje_error='2';
+                            }
+                        else
+                            {
+                                require("../librerias/phpmailer/class.phpmailer.php");
+                                $mail = new PHPMailer ();
+                                $mail->SetLanguage("es","../librerias/phpmailer/language/");
+                                $con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp, 
+                                mensaje_nuevo_usuario_admon, url_sitio from nazep_configuracion";
+                                $res_con = mysql_query($con_conf);
+                                $ren_con = mysql_fetch_array($res_con);
+                                $envio_correo = $ren_con["envio_correo"];
+                                $servidor_smtp = $ren_con["servidor_smtp"];
+                                $user_smtp = $ren_con["user_smtp"];
+                                $pass_smtp	= $ren_con["pass_smtp"];
+                                $url_sitio = $ren_con["url_sitio"];
+                                $con_datos_user = "select nombre, email from nazep_usuarios_admon where nick_user = 'admin'";
+                                $res_datos = mysql_query($con_datos_user);
+                                $ren_datos = mysql_fetch_array($res_datos);
+                                $nombre_ad = $ren_datos["nombre"];
+                                $email_ad = $ren_datos["email"];
+                                if($envio_correo =="smtp")
+                                    {
+                                        $mail->IsSMTP();
+                                        $mail->Host = $servidor_smtp;
+                                        $mail->SMTPAuth = true;     
+                                        $mail->Username = $user_smtp; 
+                                        $mail->Password = $pass_smtp; 
+                                        $mail->Mailer  = "smtp";	
+                                    }
+                                if($servidor_smtp=="ssl://smtp.gmail.com")
+                                    {	
+                                        $mail->Port = 465;
+                                    }
+                                $mail->From = $email_ad;
+                                $mail->FromName = " ".$nombre_ad." ";
+                                $mail->AddAddress ($email_usuario, $nombre_usuario);
+                                $mail->IsHTML(true);
+                                $mail->Subject = "Cambio de Contrase&ntilde;a de Usuario";
+                                $mail->Body =
+                                "<strong>Hola $nombre</strong>  <br/><br/>
+                                El Usuario se le ha asiganado una nueva contrase&ntilde;a <br /><br />
+                                Nick: $alias_usuario.  <br />
+                                Password: $pass  <br /><br />
+                                Direcci&oacute;n de administraci&oacute;n: <br /><br />
+                                $url_sitio/admon/index.php <br /><br /><br />
+                                Atentamente <br /><br />
+                                $nombre_ad"; 
+                                if(!$mail->Send()) 
+                                    {
+                                        $men = $mail->ErrorInfo;
+                                        $paso = false;
+                                        mysql_query("ROLLBACK;");
+                                        $estado_proceso ='fallo';
+                                        $mensaje_error='3';
+                                    }
+                                else 
+                                    {
+                                        $estado_proceso ='paso';
+                                        $mensaje_error='0';
+                                    }
+                            }
+                    }
+                else
+                    {
+                        $estado_proceso ='fallo';
+                        $mensaje_error='1';
+                    }
+                header("Location:?cambiar=contra&sit=$estado_proceso&mensaje=$mensaje_error");
+            }
+        private function consultaformularioAcceso()
+            {            
+                $nick_usuario = addslashes($_POST["nick_usuario"]);
+                $pasword_usuario = $_POST["pasword_usuario"];
+                $pasword_usuario = md5($pasword_usuario);
+                $con_usuario = "select u.nick_user, u.nombre, u.nivel, us.clave_seccion, u.email from nazep_usuarios_admon u, nazep_usuarios_secciones_admon us
+                where u.nick_user = '$nick_usuario' and u.pasword = '$pasword_usuario' 
+                and u.situacion = 'activo' and us.situacion = 'activo' and u.nick_user = us.nick_user";
+                $conexion = $this->conectarse();
+                $resultado = mysql_query($con_usuario);
+                $cantidad = mysql_num_rows($resultado);
+                $ip_acceso= $_SERVER['REMOTE_ADDR'];
+                $fecha_acceso = date("Y-m-d");
+                $hora_acceso = date ("H:i:s");	
+                $hora_unix = time();
+                if ($cantidad != 0)
+                    {
+                        $con = 0;
+                        while($renglon = mysql_fetch_array($resultado))
+                            {
+                                $nick_user_t = $renglon["nick_user"];
+                                $nombre_t = $renglon["nombre"];
+                                $mail_t  = $renglon["email"];
+                                $nivel_t = $renglon["nivel"];
+                                $clave_seccion_t = $renglon["clave_seccion"];
+                                $this->nick_user = $nick_user_t;
+                                $this->nombre = $nombre_t;
+                                $this->nivel = $nivel_t;
+                                $this->correo_user = $mail_t;
+                                $this->sesion = "si"; 
+                                $this->secciones[$con] = $clave_seccion_t;
+                                $con++;
+                            }
+                        $con_config = 'select resolucion_ancho from nazep_configuracion where 1 limit 1';
+                        $res_config = mysql_query($con_config);
+                        $ren_config = mysql_fetch_array($res_config);
+                        $this->ancho_pixeles = $ren_config["resolucion_ancho"];
+                        $con_insetar = "insert into nazep_registro_acceso values('','$nick_usuario','$ip_acceso','$fecha_acceso','$hora_unix ','$hora_acceso','entro','admon')";
+                        if (!@mysql_query($con_insetar))
+                            {
+                                $men = mysql_error();
+                            }
+                        else
+                            {
+                                $this->desconectarse($conexion);
+                                header("Location: index.php");
+                            }
+                        $this->desconectarse($conexion);
+                        header("Location: index.php");
+                    }	
+                else
+                    {	
+                        $con_insetar = "insert into nazep_registro_acceso values('','$nick_usuario','$ip_acceso','$fecha_acceso','$hora_unix','$hora_acceso','fallo','admon')";
+                        if (!@mysql_query($con_insetar))
+                            {
+                                $men = mysql_error();
+                                echo "Error: ".$men;
+                            }
+                        else
+                            {
+                                $hora_unix_consulta = $hora_unix-10;
+                                $con_user_fallo= "select count(clave_acceso) as cantidad_fallos from nazep_registro_acceso  where estado_intento = 'fallo' and nick_user = '$nick_usuario' and fecha_intento  = '$fecha_acceso' and hora_unix >= '$hora_unix_consulta'";
+                                $res_user_fallo = mysql_query($con_user_fallo);
+                                $ren_user_fallo = mysql_fetch_array($res_user_fallo);
+                                $cantidad_fallos = $ren_user_fallo["cantidad_fallos"];
+                                if($cantidad_fallos>=5)
+                                    {
+
+                                        $cancelar_user = "update nazep_usuarios_admon set situacion = 'bloqueado' where nick_user = '$nick_usuario'";
+                                        if (!@mysql_query($cancelar_user))
+                                                {	
+                                                        $men = mysql_error();
+                                                        echo "Error: ".$men;
+                                                }	
+                                        else
+                                                { header("Location: index.php?error_usuario=si&user=$nick_usuario&bloqueo=si"); }
+                                    }
+                                else
+                                    {
+                                        $this->desconectarse($conexion);
+                                        header("Location: index.php?error_usuario=si&intentos=$cantidad_fallos");
+
+                                    }
+                            }
+                    }
+            }
         function validar_usuario()
             {
                 if(!isset($_POST["validar"]) || $_POST["validar"]=="")
@@ -33,476 +477,37 @@ class administracion extends conexion
                         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
                         $this->firma();
                         echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">';
-                            if(@$_GET["cambiar"]=="contra")
-                                {
-                                    echo '<head><title>::-:: '.titulo_camb_contra.' ::-::</title>';	
-                                    echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
-                                    echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-                                    <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
-                                    <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
-                                    <script type="text/javascript">
-                                    $(document).ready(function()
-                                            {
-                                                    $.frm_elem_color("#FACA70","");
-                                                    $("#nick_usuario_contras").focus();
-                                            });
-                                    </script>';	
-                                    echo '</head> <body>';
-                                        echo '<form id="formulario_contras" name="formulario_contras" method="post" action="index.php" class="margen_cero">';
-                                                echo '<div id="div_centro_registro" >';
-                                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Cambiar Contrase�a de un Usuario </div> </div>';
-                                                        echo '<div id="registro_2" class="class_registro_2">';
-                                                                echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se enviado a su email la nueva contrase&ntilde;a</div>';
-                                                                echo '<div id="campos_form_bloqueo">';
-                                                                        echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_contras" id="nick_usuario_contras" />
-                                                                        <input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "contra" />
-                                                                        <br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
-                                                                echo '</div>';
-                                                                echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
-                                                                echo '<div id="div_mensajes" class="div_error_registro" >';
-                                                                        if($_GET["mensaje"]=="")
-                                                                                $texto_mostrar='&nbsp;';
-                                                                        elseif($_GET["mensaje"]==0)
-                                                                                $texto_mostrar='El cambio de contrase&ntilde;a fue exitoso';
-                                                                        elseif($_GET["mensaje"]==1)
-                                                                                $texto_mostrar='No existe ese usuario solicitado';
-                                                                        elseif($_GET["mensaje"]==2)
-                                                                                $texto_mostrar='No se logro actualizar los datos del usuario';
-                                                                        elseif($_GET["mensaje"]==3)
-                                                                                $texto_mostrar='No se logro mandar el correo electronico';
-                                                                        echo $texto_mostrar;
-                                                                echo '</div>';
-                                                        echo '</div>';
-                                                        echo'<div id="registro_3" class="class_registro_3">';
-                                                                echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
-                                                        echo'</div>';
-                                                        echo '<div id="validador_registro"> ';
-                                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
-                                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
-                                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
-                                                                else
-                                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
-                                                                echo '</a>';
-                                                        echo '</div>';
-                                                echo '</div>';
-                                        echo '</form>';
-                                }
-                            elseif(@$_GET["cambiar"]=="bloqueo")
-                                        {
-                                                echo '<head><title>::-:: '.titulo_camb_bloqueo.' ::-::</title>';	
-                                                echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
-                                                echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-                                                <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
-                                                <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
-                                                <script type="text/javascript">
-                                                $(document).ready(function()
-                                                        {									
-                                                                $.frm_elem_color("#FACA70","");
-                                                                $("#nick_usuario_bloqueo").focus();
-                                                        });
-                                                </script>';			
-                                                echo '</head> <body>';
-                                                        echo '<form id="formulario_bloqueo" name="formulario_bloqueo" method="post" action="index.php" class="margen_cero">';
-                                                                echo '<div id="div_centro_registro" >';
-                                                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Desbloquer Cuenta de Usuario </div> </div>';
-                                                                        echo '<div id="registro_2" class="class_registro_2">';
-                                                                                echo '<div id="explicacion" class="class_explicacion">Ingrese su nombre de usuario, para que se desbloque su cuenta, como que se genere una nueva contrase&ntilde;a que ser� enviada a su e-mail</div>';
-                                                                                echo '<div id="campos_form_bloqueo">';
-                                                                                        echo '<strong>Usuario:</strong> <input type= "text" name="nick_usuario_bloqueo" id="nick_usuario_bloqueo" />
-                                                                                        <input type="hidden" name="validar" value = "si" /><input type="hidden" name="cambiar" value = "bloqueo" />
-                                                                                        <br/><br/><input type="submit" name="Submit" value="Enviar Usuario" />';
-                                                                                echo '</div>';
-                                                                                echo '<div id="div_regreso" class="regreso_form"><a href="index.php" title="Regresar" >Regresar</a></div>';
-                                                                                echo '<div id="div_mensajes" class="div_error_registro" >';
-                                                                                        if($_GET["mensaje"]=="")
-                                                                                                $texto_mostrar='&nbsp;';
-                                                                                        elseif($_GET["mensaje"]==0)
-                                                                                                $texto_mostrar='El desbloqueo fue exitoso';
-                                                                                        elseif($_GET["mensaje"]==1)
-                                                                                                $texto_mostrar='No existe ese usuario bloqueado';
-                                                                                        elseif($_GET["mensaje"]==2)
-                                                                                                $texto_mostrar='No se logro actualizar los datos del usuario';
-                                                                                        elseif($_GET["mensaje"]==3)
-                                                                                                $texto_mostrar='No se logro mandar el correo electronico';
-                                                                                        echo $texto_mostrar;
-                                                                                echo '</div>';
-                                                                        echo '</div>';
-                                                                        echo'<div id="registro_3" class="class_registro_3"><div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div></div>';
-                                                                        echo '<div id="validador_registro"> ';
-                                                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
-                                                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
-                                                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
-                                                                                else
-                                                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
-                                                                                echo '</a>';
-                                                                        echo '</div>';
-                                                                echo '</div>';
-                                                        echo '</form>';
-                                        }
-                                else
-                                        {//formulario acceso
-                                                echo '<head><title>::-:: '.titulo_acceso_admon.' ::-::</title>';	
-                                                echo '<link rel="STYLESHEET" type="text/css" href="estilos.css" />';
-                                                echo '<link rel="SHORTCUT ICON" href="imagenes/favicon.ico" />
-                                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                                                <script type="text/javascript" src="../librerias/jquery/jquery-1.3.2.min.js"></script>
-                                                <script type="text/javascript" src="../librerias/jquery/jquery_nazep_admon.js"></script>
-                                                <script type="text/javascript">
-                                                $(document).ready(function()
-                                                        {
-                                                                $.frm_elem_color("#FACA70","");
-                                                                $("#nick_usuario").focus();
-                                                        });
-                                                </script>';
-                                                echo '</head> <body>';
-                                                        echo '<form id="formulario_acceso" name="formulario_acceso" method="post" action="index.php" class="margen_cero">';
-                                                           echo '<div id="div_centro_registro">';
-                                                                        echo '<div id="div_error_registro" class="div_error_registro" >';
-                                                                                $error_de_usuario = @$_GET["error_usuario"];
-                                                                                $intentos = htmlentities(@$_GET["intentos"]);
-                                                                                $bloqueo = htmlentities(@$_GET["bloqueo"]);
-                                                                                if($error_de_usuario  == "si") 
-                                                                                        echo error_acceso_admon;
-                                                                                else
-                                                                                        echo '&nbsp;';
-                                                                                if($intentos!=0)
-                                                                                        echo inten_error_acceso_admon." ".$intentos.inten_error_acceso_admon2;
-                                                                                if($bloqueo!="")
-                                                                                        {
-                                                                                                $user = htmlentities($_GET["user"]);
-                                                                                                echo inten_error_acceso_admon3.$user.inten_error_acceso_admon4;
-                                                                                        }
-                                                                        echo '</div>';
-                                                                        echo '<div id="registro_1" class="class_registro_1"><div id="registro_1_titulo" class="class_reg1_titulo" > Ingreso al Administrador </div> </div>';
-                                                                        echo '<div id="registro_2" class="class_registro_2">';
-                                                                                echo '<div id="campo_usuario">Usuario <br/><input type= "text" name="nick_usuario" id="nick_usuario" /></div>';
-                                                                                echo '<div id="campo_clave">Contrase&ntilde;a <br/><input type="password" id="pasword_usuario" name="pasword_usuario" /><br />';
-                                                                                echo '<input type="hidden" name="validar" value = "si" /><br/><input type="submit" name="Submit" value="'.txt_enviar_user.'" /></div>';
-                                                                        echo '</div>';
-                                                                        echo'<div id="registro_3" class="class_registro_3">';
-                                                                                echo'<div id="img_logo" ><img src="imagenes/logo_solo.jpg" title="Nazep" alt="Nazep"/></div>';
-                                                                        echo'</div>';
-                                                                        echo '<div id="div_perdio_contra" class="class_div_perdio_contra" >';
-                                                                                echo '<a href="index.php?cambiar=contra" title="'.txt_perdio_contra.'" > '.txt_perdio_contra.'</a>';
-                                                                        echo '</div>';
-                                                                        echo '<div id="div_rec_bloqueo" class="class_div_rec_bloqueo" >';
-                                                                                echo '<a href="index.php?cambiar=bloqueo" title="'.txt_bloqueo_user.'" > '.txt_bloqueo_user.'</a>';
-                                                                        echo '</div>';
-                                                                        echo '<div id="validador_registro"> ';
-                                                                                echo '<a href="http://validator.w3.org/check?uri=referer">';
-                                                                                if(file_exists("http://www.w3.org/Icons/valid-xhtml10"))
-                                                                                        {echo'<img class="imagenes_enlaces" src="http://www.w3.org/Icons/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"  />';}
-                                                                                else
-                                                                                        { echo'<img class="imagenes_enlaces" src="imagenes/valid-xhtml10.gif" title="Valid XHTML 1.0 Transitional" alt="Valid XHTML 1.0 Transitional"   />';}
-                                                                                echo '</a>';
-                                                                        echo '</div>';
-                                                                echo '</div>';
-                                                        echo '</form>';
-                                        }
-
-                                echo '</body>';
+                        if(isset($_GET["cambiar"]) && $_GET["cambiar"]=='contra')
+                            {
+                                $this->formularioCambiarContra();									
+                            }
+                        else if(isset($_GET["cambiar"]) && $_GET["cambiar"]=="bloqueo")
+                            {
+                                $this->formularioCambiarBloqueo();    
+                            }
+                        else
+                            {
+                                $this->formularioAcceso();
+                            }					
+                            echo '</body>';
                         echo '</html>';
-                }
-				elseif(isset($_POST["validar"]) && $_POST["validar"]=="si")
-					{
-						if(isset($_POST["cambiar"]) && $_POST["cambiar"]=="bloqueo")
-							{
-								$conexion = $this->conectarse();
-								$nick_usuario = $_POST["nick_usuario_bloqueo"];
-								$con_bloqueo = "select nick_user, nombre, email from nazep_usuarios_admon where nick_user = '$nick_usuario' and situacion='bloqueado'";
-								$res_bloqueo = mysql_query($con_bloqueo);
-								$cantidad_bloqueo = mysql_num_rows($res_bloqueo);
-								$estado_proceso='fallo';
-								$mensaje_error='0';
-								if($cantidad_bloqueo!=0)
-									{
-										$ren_bloqueo=mysql_fetch_array($res_bloqueo);
-										$alias_usuario =  $ren_bloqueo["nick_user"];
-										$nombre_usuario = $ren_bloqueo["nombre"];
-										$email_usuario = $ren_bloqueo["email"];
-										$str = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
-										$pass = '';
-										for($i=0;$i<7;$i++) 
-											{
-												$pass .= substr($str,rand(0,55),1);
-											}
-										$pasword1 = md5($pass);
-										$update_user="update nazep_usuarios_admon set pasword= '$pasword1', situacion='activo' where nick_user = '$nick_usuario' and situacion='bloqueado'";
-										mysql_query("START TRANSACTION;");
-										if (!@mysql_query($update_user))
-											{	
-												$estado_proceso ='fallo';
-												$mensaje_error='2';
-											}
-										else
-											{
-												require("../librerias/phpmailer/class.phpmailer.php");
-												$mail = new PHPMailer ();
-												$mail->SetLanguage("es","../librerias/phpmailer/language/");
-												$con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp,mensaje_nuevo_usuario_admon, url_sitio from nazep_configuracion";
-												$res_con = mysql_query($con_conf);
-												$ren_con = mysql_fetch_array($res_con);
-												$envio_correo = $ren_con["envio_correo"];
-												$servidor_smtp = $ren_con["servidor_smtp"];
-												$user_smtp = $ren_con["user_smtp"];
-												$pass_smtp	= $ren_con["pass_smtp"];
-												$mensaje_nuevo_usuario_admon = $ren_con["mensaje_nuevo_usuario_admon"];
-												$url_sitio = $ren_con["url_sitio"];
-												$con_datos_user = "select nombre, email from nazep_usuarios_admon where nick_user = 'admin'";
-												$res_datos = mysql_query($con_datos_user);
-												$ren_datos = mysql_fetch_array($res_datos);
-												$nombre_ad = $ren_datos["nombre"];
-												$email_ad = $ren_datos["email"];
-												if($envio_correo =="smtp")
-													{
-														$mail->IsSMTP();
-														$mail->Host = $servidor_smtp;
-														$mail->SMTPAuth = true;     
-														$mail->Username = $user_smtp; 
-														$mail->Password = $pass_smtp; 
-														$mail->Mailer  = "smtp";
-													}
-												if($servidor_smtp=="ssl://smtp.gmail.com")
-													{	
-														$mail->Port = 465;
-													}
-												$mail->From = $email_ad;
-												$mail->FromName = " ".$nombre_ad." ";
-												$mail->AddAddress ($email_usuario, $nombre_usuario);
-												$mail->IsHTML(true);
-												$mail->Subject = "Desbloqueo de Usuario";
-												$mail->Body =
-												"<strong>Hola $nombre</strong>
-												<br/><br/>
-												El Usuario ha sido desbloqueado y se le ha asiganado una nueva contrase�a
-												<br /><br />
-												Nick: $alias_usuario.
-												<br />
-												Pasword: $pass
-												<br /><br />
-												Direcci�n de administraci�n:
-												<br /><br />
-												$url_sitio/admon/index.php
-												<br /><br /><br />
-												Atentamente
-												<br /><br />
-												$nombre_ad"; 
-												if(!$mail->Send()) 
-													{
-														$men = $mail->ErrorInfo;
-														$paso = false;
-														mysql_query("ROLLBACK;");
-														$estado_proceso ='fallo';
-														$mensaje_error='3';
-													}
-												else 
-													{
-														$estado_proceso ='paso';
-														$mensaje_error='0';
-													}
-											}
-									}
-								else
-									{
-										$estado_proceso ='fallo';
-										$mensaje_error='1';
-									}
-								header("Location:?cambiar=bloqueo&sit=$estado_proceso&mensaje=$mensaje_error");
-							}
-						elseif(isset($_POST["cambiar"]) && $_POST["cambiar"]=="contra")
-							{
-								$conexion = $this->conectarse();
-								$nick_usuario = $_POST["nick_usuario_contras"];
-								$con_bloqueo = "select nick_user, nombre, email from nazep_usuarios_admon where nick_user = '$nick_usuario' and situacion ='activo'";
-								$res_bloqueo = mysql_query($con_bloqueo);
-								$cantidad_bloqueo = mysql_num_rows($res_bloqueo);
-								$estado_proceso='fallo';
-								$mensaje_error='0';
-								if($cantidad_bloqueo!=0)
-									{
-										$ren_bloqueo=mysql_fetch_array($res_bloqueo);
-										$alias_usuario =  $ren_bloqueo["nick_user"];
-										$nombre_usuario = $ren_bloqueo["nombre"];
-										$email_usuario = $ren_bloqueo["email"];
-										$str = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
-										$pass = '';
-										for($i=0;$i<7;$i++) 
-											{
-												$pass .= substr($str,rand(0,55),1);
-											}
-										$pasword1 = md5($pass);
-										$update_user="update nazep_usuarios_admon set pasword= '$pasword1' where nick_user = '$nick_usuario' ";
-										mysql_query("START TRANSACTION;");
-										if (!@mysql_query($update_user))
-											{	
-												$estado_proceso ='fallo';
-												$mensaje_error='2';
-											}
-										else
-											{
-												require("../librerias/phpmailer/class.phpmailer.php");
-												$mail = new PHPMailer ();
-												$mail->SetLanguage("es","../librerias/phpmailer/language/");
-												$con_conf = "select envio_correo, servidor_smtp, user_smtp, pass_smtp, 
-												mensaje_nuevo_usuario_admon, url_sitio from nazep_configuracion";
-												$res_con = mysql_query($con_conf);
-												$ren_con = mysql_fetch_array($res_con);
-												$envio_correo = $ren_con["envio_correo"];
-												$servidor_smtp = $ren_con["servidor_smtp"];
-												$user_smtp = $ren_con["user_smtp"];
-												$pass_smtp	= $ren_con["pass_smtp"];
-												$mensaje_nuevo_usuario_admon = $ren_con["mensaje_nuevo_usuario_admon"];
-												$url_sitio = $ren_con["url_sitio"];
-												$con_datos_user = "select nombre, email from nazep_usuarios_admon where nick_user = 'admin'";
-												$res_datos = mysql_query($con_datos_user);
-												$ren_datos = mysql_fetch_array($res_datos);
-												$nombre_ad = $ren_datos["nombre"];
-												$email_ad = $ren_datos["email"];
-												if($envio_correo =="smtp")
-													{
-														$mail->IsSMTP();
-														$mail->Host = $servidor_smtp;
-														$mail->SMTPAuth = true;     
-														$mail->Username = $user_smtp; 
-														$mail->Password = $pass_smtp; 
-														$mail->Mailer  = "smtp";	
-													}
-												if($servidor_smtp=="ssl://smtp.gmail.com")
-													{	
-														$mail->Port = 465;
-													}
-												$mail->From = $email_ad;
-												$mail->FromName = " ".$nombre_ad." ";
-												$mail->AddAddress ($email_usuario, $nombre_usuario);
-												$mail->IsHTML(true);
-												$mail->Subject = "Cambio de Contrase�a de Usuario";
-												$mail->Body =
-												"<strong>Hola $nombre</strong>
-												<br/><br/>
-												El Usuario se le ha asiganado una nueva contrase�a
-												<br /><br />
-												Nick: $alias_usuario.
-												<br />
-												Pasword: $pass
-												<br /><br />
-												Direcci�n de administraci�n:
-												<br /><br />
-												$url_sitio/admon/index.php
-												<br /><br /><br />
-												Atentamente
-												<br /><br />
-												$nombre_ad"; 
-												if(!$mail->Send()) 
-													{
-														$men = $mail->ErrorInfo;
-														$paso = false;
-														mysql_query("ROLLBACK;");
-														$estado_proceso ='fallo';
-														$mensaje_error='3';
-													}
-												else 
-													{
-														$estado_proceso ='paso';
-														$mensaje_error='0';
-													}
-											}
-									}
-								else
-									{
-										$estado_proceso ='fallo';
-										$mensaje_error='1';
-									}
-								header("Location:?cambiar=contra&sit=$estado_proceso&mensaje=$mensaje_error");
-							}
-						else
-							{
-								$nick_usuario = addslashes($_POST["nick_usuario"]);
-								$pasword_usuario = $_POST["pasword_usuario"];
-								$pasword_usuario = md5($pasword_usuario);
-								$con_usuario = "select u.nick_user, u.nombre, u.nivel, us.clave_seccion, u.email from nazep_usuarios_admon u, nazep_usuarios_secciones_admon us
-								where u.nick_user = '$nick_usuario' and u.pasword = '$pasword_usuario' 
-								and u.situacion = 'activo' and us.situacion = 'activo' and u.nick_user = us.nick_user";
-								$conexion = $this->conectarse();
-								$resultado = mysql_query($con_usuario);
-								$cantidad = mysql_num_rows($resultado);
-								$ip_acceso= $_SERVER['REMOTE_ADDR'];
-								$fecha_acceso = date("Y-m-d");
-								$hora_acceso = date ("H:i:s");	
-								$hora_unix = time();
-								if ($cantidad != 0)
-									{
-										$con = 0;
-										while($renglon = mysql_fetch_array($resultado))
-											{
-												$nick_user_t = $renglon["nick_user"];
-												$nombre_t = $renglon["nombre"];
-												$mail_t  = $renglon["email"];
-												$nivel_t = $renglon["nivel"];
-												$clave_seccion_t = $renglon["clave_seccion"];
-												$this->nick_user = $nick_user_t;
-												$this->nombre = $nombre_t;
-												$this->nivel = $nivel_t;
-												$this->correo_user = $mail_t;
-												$this->sesion = "si"; 
-												$this->secciones[$con] = $clave_seccion_t;
-												$con++;
-											}
-										$con_config = 'select resolucion_ancho from nazep_configuracion where 1 limit 1';
-										$res_config = mysql_query($con_config);
-										$ren_config = mysql_fetch_array($res_config);
-										$this->ancho_pixeles = $ren_config["resolucion_ancho"];
-										$con_insetar = "insert into nazep_registro_acceso values('','$nick_usuario','$ip_acceso','$fecha_acceso','$hora_unix ','$hora_acceso','entro','admon')";
-										if (!@mysql_query($con_insetar))
-											{
-												$men = mysql_error();
-												echo "Error: ".$men;
-											}
-										else
-											{
-												$this->desconectarse($conexion);
-												header("Location: index.php");
-											}
-										$this->desconectarse($conexion);
-										header("Location: index.php");
-									}	
-								else
-									{	
-										$con_insetar = "insert into nazep_registro_acceso values('','$nick_usuario','$ip_acceso','$fecha_acceso','$hora_unix','$hora_acceso','fallo','admon')";
-										if (!@mysql_query($con_insetar))
-											{
-												$men = mysql_error();
-												echo "Error: ".$men;
-											}
-										else
-											{
-												$hora_unix_consulta = $hora_unix-10;
-												$con_user_fallo= "select count(clave_acceso) as cantidad_fallos from nazep_registro_acceso  where estado_intento = 'fallo' and nick_user = '$nick_usuario' and fecha_intento  = '$fecha_acceso' and hora_unix >= '$hora_unix_consulta'";
-												$res_user_fallo = mysql_query($con_user_fallo);
-												$ren_user_fallo = mysql_fetch_array($res_user_fallo);
-												$cantidad_fallos = $ren_user_fallo["cantidad_fallos"];
-												if($cantidad_fallos>=5)
-													{
-														
-														$cancelar_user = "update nazep_usuarios_admon set situacion = 'bloqueado' where nick_user = '$nick_usuario'";
-														if (!@mysql_query($cancelar_user))
-															{	
-																$men = mysql_error();
-																echo "Error: ".$men;
-															}	
-														else
-															{ header("Location: index.php?error_usuario=si&user=$nick_usuario&bloqueo=si"); }
-													}
-												else
-													{
-														$this->desconectarse($conexion);
-														header("Location: index.php?error_usuario=si&intentos=$cantidad_fallos");
-														
-													}
-											}
-									}
-							}
-					}
-			}
+                    }
+                elseif(isset($_POST["validar"]) && $_POST["validar"]=="si")
+                    {
+                        if(isset($_POST["cambiar"]) && $_POST["cambiar"]=="bloqueo")
+                            {
+                                $this->consultaformularioBloqueo();
+                            }
+                        elseif(isset($_POST["cambiar"]) && $_POST["cambiar"]=="contra")
+                            {
+                                $this->consultaformularioCambiarContra();
+                            }
+                        else
+                            {
+                                $this->consultaformularioAcceso();
+                            }
+                    }
+            }
 //**********************************************
 		function firma()
 			{
@@ -2709,8 +2714,7 @@ class administracion extends conexion
 					{
 						$this->acceso_denegado();
 					}				
-			}	
-					
+			}						
 		function cargar_modulos_modificacion()
 			{	
 				$archivo = (isset($_POST["archivo"])) ?$_POST["archivo"]:'';
